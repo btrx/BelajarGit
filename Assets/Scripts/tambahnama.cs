@@ -5,7 +5,7 @@ public class tambahnama : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Debug.Log("Nama saya adalah Fatih");
+        Debug.Log("Nama saya  arhaqifadilgaffari");
     }
 
     // Update is called once per frame
