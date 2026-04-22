@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,31 +9,79 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Start()
     {
-        currentState = GameState.Playing;
+        SetState (GameState.MainMenu);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            if (currentState == GameState.Playing)
+                SetState (GameState.Paused);
+            else if (currentState == GameState.Paused)
+                SetState (GameState.Playing);
         }
     }
 
-    public void PauseGame()
+    public void SetState(GameState newState)
     {
-        Time.timeScale = 0f;
-        currentState = GameState.Paused;
+        currentState = newState;
+        Debug.Log("State: " + currentState);
+
+        switch (newState)
+        {
+            case GameState.MainMenu:
+                Time.timeScale = 0f;
+                break;
+            case GameState.Playing:
+                Time.timeScale = 1f;
+                break;
+            case GameState.Paused:
+                Time.timeScale = 0f;
+                break;
+            case GameState.GameOver:
+                Time.timeScale = 0f;
+                break;
+        }
+    }
+
+   public void StartGame()
+    {
+        Time.timeScale = 1f;
+        SetState (GameState.Playing);
     }
 
     public void GameOver()
     {
-        Debug.Log("Game Over");
-        currentState = GameState.GameOver;
+        SetState (GameState.GameOver);
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void BackToMenu()
+    {
+        SetState (GameState.MainMenu);
+    }
+    
+    public void Resume()
+    {
+        SetState (GameState.Playing);
     }
 }
