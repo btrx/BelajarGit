@@ -64,24 +64,4 @@ public class GameManager : MonoBehaviour
         SetState (GameState.Playing);
     }
 
-    public void GameOver()
-    {
-        SetState (GameState.GameOver);
-    }
-
-    public void Restart()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    public void BackToMenu()
-    {
-        SetState (GameState.MainMenu);
-    }
-    
-    public void Resume()
-    {
-        SetState (GameState.Playing);
-    }
-}
+  
