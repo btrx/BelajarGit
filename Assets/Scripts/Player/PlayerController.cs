@@ -3,19 +3,31 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float currentHP = 100;
-    public float speed = 5f;
+    public float currentHP;
+    public float speed;
+    public PlayerData data;
     private PlayerInput playerInput;
     private Vector2 moveInput;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+        currentHP = data.maxHP;
+        speed = data.moveSpeed;
     }
     
     
     void Update()
-    {
+    {   
+        if(GameManager.Instance == null) return;
+
+        if (GameManager.Instance.currentState != GameState.Playing)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            TakeDamage(10f);
+        }
         if (playerInput == null) return;
         
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
@@ -24,12 +36,13 @@ public class PlayerController : MonoBehaviour
 
         transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
     }
+    
 
     void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            TakeDamage(0.1f);
+            TakeDamage(10f);
         }
     }
 
