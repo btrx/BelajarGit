@@ -3141,7 +3141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6080a0859a571264b9d155ff9b9f6005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHP: 100
+  playerData: {fileID: 11400000, guid: 97c994f9cc490ad4091e287a96314cf4, type: 2}
+  currentHP: 10
   speed: 5
 --- !u!114 &1775706134
 MonoBehaviour:
