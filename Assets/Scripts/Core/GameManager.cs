@@ -42,6 +42,7 @@ public void UpdateState(GameState newState)
 
         }
         OnStateChanged?.Invoke(newState);
+
     }
     void Update()
     {
@@ -75,7 +76,8 @@ public void UpdateState(GameState newState)
         Debug.Log("Game Paused...");
         currentState = GameState.Paused;
     }
-public void Resume()
+
+    public void Resume()
     {
         Time.timeScale = 1f;
         Debug.Log("Game Resumed...");
@@ -96,7 +98,7 @@ public void Resume()
         currentState = GameState.GameOver;
     }
        public void StartGame() => UpdateState(GameState.Playing);
-        public void OnPause() => UpdateState(GameState.Paused);
-        public void ResumeGame() => UpdateState(GameState.Playing);
-        public void Over() => UpdateState(GameState.GameOver);
+       public void OnPause() => UpdateState(GameState.Paused);
+       public void ResumeGame() => UpdateState(GameState.Playing);
+       public void Over() => UpdateState(GameState.GameOver);
 }
