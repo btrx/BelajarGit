@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("Game");
+        GameManager.Instance.StartGame();
     }
 
     public void QuitGame()
