@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -45,15 +46,18 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-           if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            PauseGame();
-        }
-        else if (Input.GetKeyDown(KeyCode.R))
+        if (currentState == GameState.Paused && Input.GetKeyDown(KeyCode.Escape))
         {
             Resume();
         }
-    
+        else if (Input.GetKeyDown(KeyCode.Escape) && currentState != GameState.Paused)
+        {
+            PauseGame();
+        }
+        else if (currentState == GameState.GameOver && Input.GetKeyDown(KeyCode.Space))
+        {
+            RestartGame();
+        }
     }
 
     private void OnMainMenu()
@@ -78,6 +82,13 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Resumed");
         currentState = GameState.Playing;
     }
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("Game Restarted");
+        OnPlaying();
+    }
 
     public void GameOver()
     {
@@ -88,6 +99,5 @@ public class GameManager : MonoBehaviour
        public void StartGame() => UpdateState(GameState.Playing);
         public void OnPause() => UpdateState(GameState.Paused);
         public void ResumeGame() => UpdateState(GameState.Playing);
-        public void Restartgame() => UpdateState(GameState.MainMenu);
-
+        public void Over() => UpdateState(GameState.GameOver);
 }
