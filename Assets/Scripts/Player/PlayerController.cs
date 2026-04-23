@@ -3,13 +3,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerData playerData;
+    [SerializeField] PlayerData playerData;
 
     private PlayerInput playerInput;
     private Vector2 moveInput;
 
-    public float currentHP;
-    public float speed;
+    private float currentHP;
+    private float speed;
 
     void Start()
     {

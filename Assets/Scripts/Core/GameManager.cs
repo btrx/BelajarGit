@@ -11,17 +11,23 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
-    {
-        currentState = GameState.Playing;
-    }
-
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (currentState == GameState.Paused && Input.GetKeyDown(KeyCode.Escape))
+        {
+            ResumeGame();
+
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
         }
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        currentState = GameState.Playing;
     }
 
     public void PauseGame()
@@ -34,5 +40,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
+
+        UIManager.Instance.Restart();
     }
 }
