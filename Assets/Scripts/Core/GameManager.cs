@@ -29,10 +29,10 @@ public class GameManager : MonoBehaviour
         switch (newState)
         {
             case GameState.MainMenu:
-                OnMainMenu();
+                Menu();
                 break;
              case GameState.Playing:
-                OnPlaying();
+                Play();
                 break;
             case GameState.Paused:
                 PauseGame();
@@ -49,45 +49,44 @@ public class GameManager : MonoBehaviour
         if (currentState == GameState.Paused && Input.GetKeyDown(KeyCode.Escape))
         {
             Resume();
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) && currentState != GameState.Paused)
+        } 
+        else if (currentState != GameState.Paused && Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
         }
         else if (currentState == GameState.GameOver && Input.GetKeyDown(KeyCode.Space))
         {
-            RestartGame();
+            Restart();
         }
     }
 
-    private void OnMainMenu()
+    private void Menu()
     {
         Time.timeScale = 1f;
-        Debug.Log("Kembali ke menu");
+        Debug.Log("Ada di menu");
     }
-    private void OnPlaying()
+    private void Play()
     {
         Time.timeScale = 1f;
-        Debug.Log("Game Started");
+        Debug.Log("memulai gem");
     }
     public void PauseGame()
     {
         Time.timeScale = 0f;
-        Debug.Log("Game Paused");
+        Debug.Log("gem berhenti");
         currentState = GameState.Paused;
+    }
+     public void Restart()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("Game Diulang");
     }
     public void Resume()
     {
         Time.timeScale = 1f;
-        Debug.Log("Game Resumed");
+        Debug.Log("Gem di lanjutkan");
         currentState = GameState.Playing;
-    }
-    public void RestartGame()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Debug.Log("Game Restarted");
-        OnPlaying();
     }
 
     public void GameOver()
@@ -96,8 +95,5 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
     }
-       public void StartGame() => UpdateState(GameState.Playing);
-        public void OnPause() => UpdateState(GameState.Paused);
-        public void ResumeGame() => UpdateState(GameState.Playing);
-        public void Over() => UpdateState(GameState.GameOver);
+       
 }
