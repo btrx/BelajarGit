@@ -43,7 +43,9 @@ public class PlayerController : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            GameManager.Instance.GameOver();
+            currentHP = 0;
+            Debug.Log("Player Died");
+            GameManager.Instance.UpdateState(GameState.GameOver);
         }
     }
 }
