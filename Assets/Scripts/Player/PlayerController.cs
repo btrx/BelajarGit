@@ -3,24 +3,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerData data;
-
+   [SerializeField] private PlayerData playerData;
     private float currentHP;
+    private float speed;
     private PlayerInput playerInput;
     private Vector2 moveInput;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
-        currentHP = data.maxHP;
-        
+        currentHP = playerData.maxHP;
+        speed = playerData.moveSpeed;
     }
     
     
     void Update()
     {
-        if (data == null) return;
-
         var moveAction = playerInput.actions["Move"];
         if (moveAction == null) return;
         
@@ -28,7 +26,7 @@ public class PlayerController : MonoBehaviour
         float h = moveInput.x;
         float v = moveInput.y;
 
-        transform.Translate(new Vector3(h, v, 0) * data.moveSpeed * Time.deltaTime);
+        transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
     }
 
     void OnCollisionStay2D(Collision2D collision)
@@ -46,7 +44,9 @@ public class PlayerController : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            GameManager.Instance.GameOver();
+            currentHP = 0;
+            Debug.Log("Player is dead.");
+                GameManager.Instance.GameOver();
         }
     }
 }
