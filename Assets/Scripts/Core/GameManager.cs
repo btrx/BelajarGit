@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        currentState = GameState.Playing;
+        UpdateState(GameState.MainMenu);
     }
 
     public void UpdateState(GameState newState)
@@ -45,15 +46,19 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            PauseGame();
-        }
-        else if (Input.GetKeyDown(KeyCode.R))
+        if (currentState == GameState.Paused && Input.GetKeyDown(KeyCode.Escape))
         {
             Resume();
         }
-    }
+        else if (Input.GetKeyDown(KeyCode.Escape) && currentState != GameState.Paused)
+        {
+            PauseGame();
+        }
+        else if (currentState == GameState.GameOver && Input.GetKeyDown(KeyCode.R)){
+            Restart();
+        }
+        }
+
 
     private void HandleMainMenu(){
         Time.timeScale = 0f;
@@ -85,6 +90,14 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
+    }
+
+    public void Restart(){
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("Restar Game");
+        HandlePlaying();
+
     }
     
     public void StartGame() => UpdateState(GameState.Playing);
