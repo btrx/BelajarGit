@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver(){
     UpdateState(GameState.GameOver);}
-
+//test
     public void StartGame() => UpdateState(GameState.Playing);
     public void PauseGame() => UpdateState(GameState.Paused);
     public void ResumeGame() => UpdateState(GameState.Playing);
