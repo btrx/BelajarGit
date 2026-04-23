@@ -47,12 +47,24 @@ public class GameManager : MonoBehaviour
 
 
     void Update()
+{
+    if (Input.GetKeyDown(KeyCode.Escape))
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
+        if (currentState == GameState.Playing)
             PauseGame();
-        }
+        else if (currentState == GameState.Paused)
+            ResumeGame();
     }
+
+    if (currentState == GameState.GameOver)
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+            StartGame();
+
+        if (Input.GetKeyDown(KeyCode.M))
+            UpdateState(GameState.MainMenu);
+    }
+}
 
     private void MainMenu()
     {
