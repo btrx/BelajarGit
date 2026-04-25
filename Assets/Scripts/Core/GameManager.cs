@@ -27,6 +27,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void StartGame()
+    {
+        currentState = GameState.Playing;
+        Time.timeScale = 1f;
+    }
+
     public void PauseGame()
     {
         Time.timeScale = 0f;
@@ -43,5 +49,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
+        Time.timeScale = 0f;
     }
 }
