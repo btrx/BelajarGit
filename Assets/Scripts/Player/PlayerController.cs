@@ -1,16 +1,25 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[System.Serializable]
+public class PlayerData
+{
+    public float maxHP;
+    public float speed;
+}
 public class PlayerController : MonoBehaviour
 {
-    public float currentHP = 100;
-    public float speed = 5f;
+    [SerializeField] private PlayerData data;
+    private float maxHP;
+    private float speed;
     private PlayerInput playerInput;
     private Vector2 moveInput;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+        currentHP = maxHP = data.maxHP;
+        speed = data.speed;
     }
     
     
@@ -21,7 +30,7 @@ public class PlayerController : MonoBehaviour
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
         float h = moveInput.x;
         float v = moveInput.y;
-
+        
         transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
     }
 
