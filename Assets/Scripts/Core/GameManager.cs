@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameState currentState;
+    public GameObject gameOverPanel;
 
     void Awake()
     {
@@ -52,6 +53,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
+
+        gameOverPanel.SetActive(true);
     }
 
     public void RestartGame()
