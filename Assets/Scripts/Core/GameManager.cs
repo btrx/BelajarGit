@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        currentState = GameState.Playing;
+        currentState = GameState.MainMenu;
+        Time.timeScale = 0f;
     }
 
     void Update()
