@@ -3,8 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    void Awake()
+    {
+        Debug.Log("Main Menu");
+    }
     public void StartGame()
     {
+        
         SceneManager.LoadScene("Game");
     }
 

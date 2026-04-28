@@ -11,10 +11,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
         playerInput = GetComponent<PlayerInput>();
-        Debug.Log("Health :" + data.maxHP);
-        Debug.Log("Speed :" + data.moveSpeed);
         currentHP = data.maxHP;
     }
     
@@ -34,7 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            TakeDamage(0.1f);
+            TakeDamage(1f);
         }
     }
 
@@ -43,8 +40,9 @@ public class PlayerController : MonoBehaviour
         currentHP -= dmg;
         Debug.Log("Player HP: " + currentHP);
 
-        if (data.maxHP <= 0)
+        if (currentHP <= 0)
         {
+            Debug.Log("Game Over");
             GameManager.Instance.GameOver();
         }
     }
