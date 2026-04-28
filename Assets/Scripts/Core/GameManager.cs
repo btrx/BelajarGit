@@ -51,4 +51,18 @@ public class GameManager : MonoBehaviour
         currentState = GameState.GameOver;
         Time.timeScale = 0f;
     }
+
+    public void RestartGame()
+    {
+        Debug.Log("Restart game");
+        currentState = GameState.Playing;
+        Time.timeScale = 1f;
+    }
+
+    public void BackToMenu()
+    {
+        Debug.Log("Back to menu");
+        currentState = GameState.MainMenu;
+        Time.timeScale = 0f;
+    }
 }
