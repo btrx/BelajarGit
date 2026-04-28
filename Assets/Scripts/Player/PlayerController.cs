@@ -3,16 +3,26 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float currentHP = 100;
-    public float speed = 5f;
+    [SerializeField] private PlayerData playerData;
+    private float currentHP;
+    private float speed;
     private PlayerInput playerInput;
     private Vector2 moveInput;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+
+        if (playerData != null)
+        {
+            currentHP = playerData.maxHP;
+            speed = playerData.moveSpeed;
+        }
+        else
+        {
+            Debug.LogError("PlayerData does not exist, please assign it first!");
+        }
     }
-    
     
     void Update()
     {
@@ -29,7 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            TakeDamage(0.1f);
+            TakeDamage(1f);
         }
     }
 
