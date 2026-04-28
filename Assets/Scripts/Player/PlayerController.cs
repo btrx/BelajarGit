@@ -3,14 +3,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float currentHP = 100;
-    public float speed = 5f;
+    public PlayerData playerData;
+    public float currentHP;
+    public float speed;
     private PlayerInput playerInput;
     private Vector2 moveInput;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+        currentHP = playerData.maxHP;
+        speed = playerData.moveSpeed;
     }
     
     
