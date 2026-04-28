@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
             if (currentState == GameState.Playing)
             {
                 UpdateState(GameState.Pause);
-                Debug.Log("state pause ");
+                Debug.Log("state pause");
             }
             else if (currentState == GameState.Pause)
             {
