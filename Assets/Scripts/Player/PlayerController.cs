@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private PlayerData playerData;
     public float currentHP;
     public float speed;
     private PlayerInput playerInput;
@@ -12,8 +11,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
-        currentHP = playerData.maxHP;
-        speed = playerData.moveSpeed;
     }
     
     
