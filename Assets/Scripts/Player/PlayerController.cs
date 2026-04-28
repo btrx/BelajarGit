@@ -1,28 +1,35 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; // WAJIB ADA ini supaya PlayerInput tidak error
 
 public class PlayerController : MonoBehaviour
 {
-    public float currentHP = 100;
-    public float speed = 5f;
+    // Slot untuk memasukkan file MyPlayerData dari Unity
+    public PlayerData data; 
+
+    private float currentHP;
     private PlayerInput playerInput;
     private Vector2 moveInput;
 
     void Start()
     {
+        // Mengambil HP dari Scriptable Object
+        if (data != null) 
+        {
+            currentHP = data.maxHP;
+        }
+
         playerInput = GetComponent<PlayerInput>();
     }
-    
-    
+
     void Update()
     {
-        if (playerInput == null) return;
+        // Cek apakah input dan data sudah terpasang
+        if (playerInput == null || data == null) return;
         
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
-        float h = moveInput.x;
-        float v = moveInput.y;
-
-        transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
+        
+        // Gerakkan player menggunakan speed dari Scriptable Object
+        transform.Translate(new Vector3(moveInput.x, moveInput.y, 0) * data.moveSpeed * Time.deltaTime);
     }
 
     void OnCollisionStay2D(Collision2D collision)
@@ -40,7 +47,10 @@ public class PlayerController : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            GameManager.Instance.GameOver();
+            Debug.Log("Game Over!");
+            if (GameManager.Instance != null) {
+                GameManager.Instance.GameOver();
+            }
         }
     }
 }
