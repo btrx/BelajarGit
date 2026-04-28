@@ -5,7 +5,8 @@ public class UIManager : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("Game");
+        GameManager.Instance.currentState = GameState.Playing;
+        Time.timeScale = 1f;
     }
 
     public void QuitGame()
@@ -15,6 +16,12 @@ public class UIManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("Game");
+        GameManager.Instance.currentState = GameState.Playing;
+        Time.timeScale = 1f;
+    }
+
+    public void ResumeGame()
+    {
+        GameManager.Instance.ResumeGame();
     }
 }
