@@ -56,5 +56,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         currentState = GameState.GameOver;
         Debug.Log("Game State: " + currentState);
+        SceneManager.LoadScene("GameOver");
     }
 }
