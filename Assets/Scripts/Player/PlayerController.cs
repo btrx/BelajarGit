@@ -1,9 +1,8 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // WAJIB ADA ini supaya PlayerInput tidak error
+using UnityEngine.InputSystem; 
 
 public class PlayerController : MonoBehaviour
 {
-    // Slot untuk memasukkan file MyPlayerData dari Unity
     public PlayerData data; 
 
     private float currentHP;
@@ -12,28 +11,28 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        // Mengambil HP dari Scriptable Object
         if (data != null) 
         {
             currentHP = data.maxHP;
         }
-
         playerInput = GetComponent<PlayerInput>();
     }
 
     void Update()
     {
-        // Cek apakah input dan data sudah terpasang
+        // Cek apakah game sedang berhenti
+        if (Time.timeScale == 0f) return; 
+
         if (playerInput == null || data == null) return;
         
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
         
-        // Gerakkan player menggunakan speed dari Scriptable Object
         transform.Translate(new Vector3(moveInput.x, moveInput.y, 0) * data.moveSpeed * Time.deltaTime);
     }
 
     void OnCollisionStay2D(Collision2D collision)
     {
+        // Pastikan tag "Wall" sudah dibuat di Unity
         if (collision.gameObject.CompareTag("Wall"))
         {
             TakeDamage(0.1f);
@@ -47,9 +46,14 @@ public class PlayerController : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            Debug.Log("Game Over!");
-            if (GameManager.Instance != null) {
+            // Panggil fungsi GameOver di GameManager
+            if (GameManager.Instance != null) 
+            {
                 GameManager.Instance.GameOver();
+            }
+            else 
+            {
+                Debug.LogWarning("GameManager belum ada di Scene!");
             }
         }
     }
