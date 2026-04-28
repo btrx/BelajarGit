@@ -13,26 +13,42 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        currentState = GameState.Playing;
+        currentState = GameState.MainMenu;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (currentState == GameState.Playing)
+        {
             PauseGame();
+        }
+        else if (currentState == GameState.Paused)
+        {
+            StartGame();
+        }
         }
     }
 
     public void PauseGame()
     {
+        Debug.Log("Game Paused");
         Time.timeScale = 0f;
         currentState = GameState.Paused;
+    }
+
+    public void StartGame()
+    {
+        Debug.Log("Game Started");
+        currentState = GameState.Playing;
+        Time.timeScale = 1f;
     }
 
     public void GameOver()
     {
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
+        Time.timeScale = 0f;
     }
 }
