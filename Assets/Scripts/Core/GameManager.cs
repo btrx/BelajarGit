@@ -14,13 +14,21 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currentState = GameState.Playing;
+        Time.timeScale = 1f;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            if (currentState == GameState.Playing)
+            {
+                PauseGame();
+            }
+            else if (currentState == GameState.Paused)
+            {
+                ResumeGame();
+            }
         }
     }
 
@@ -34,5 +42,12 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        currentState = GameState.Playing;
     }
 }
