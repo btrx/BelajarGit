@@ -35,11 +35,14 @@ public class PlayerController : MonoBehaviour
 
     void TakeDamage(float dmg)
     {
+        if (currentHP <= 0) return;
+        
         currentHP -= dmg;
         Debug.Log("Player HP: " + currentHP);
 
         if (currentHP <= 0)
         {
+            currentHP = 0;
             GameManager.Instance.GameOver();
         }
     }

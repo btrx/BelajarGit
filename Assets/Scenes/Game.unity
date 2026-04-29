@@ -4451,7 +4451,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6080a0859a571264b9d155ff9b9f6005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: fa575863088f8d945b9eb2e850d657d6, type: 2}
   currentHP: 100
   speed: 5
 --- !u!114 &1775706134
