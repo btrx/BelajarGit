@@ -10,11 +10,17 @@ public class UIManager : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void Restart()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Game");
+    }
+    public void BacktoMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
     }
 }
