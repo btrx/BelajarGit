@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement; // ✅ tambahan
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject PausePanel;
-    public static GameManager Instance;
-
-    public GameState currentState;
     public GameObject gameOverPanel;
+
+    public static GameManager Instance;
+    public GameState currentState;
 
     void Awake()
     {
@@ -19,17 +19,19 @@ public class GameManager : MonoBehaviour
     {
         SetState(GameState.Playing);
 
-        // pastikan pause panel mati saat awal
+        // matikan panel di awal
         if (PausePanel != null)
             PausePanel.SetActive(false);
+
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
     }
 
     void Update()
     {
+        // ESC = Pause / Resume
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            Debug.Log("ESC kepencet");
-
             if (currentState == GameState.Playing)
             {
                 SetState(GameState.Pause);
@@ -38,6 +40,12 @@ public class GameManager : MonoBehaviour
             {
                 SetState(GameState.Playing);
             }
+        }
+
+        // G = TEST Game Over
+        if (Keyboard.current != null && Keyboard.current.gKey.wasPressedThisFrame)
+        {
+            SetState(GameState.GameOver);
         }
     }
 
@@ -56,6 +64,9 @@ public class GameManager : MonoBehaviour
 
                 if (PausePanel != null)
                     PausePanel.SetActive(false);
+
+                if (gameOverPanel != null)
+                    gameOverPanel.SetActive(false);
                 break;
 
             case GameState.Pause:
@@ -74,7 +85,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ✅ TAMBAHAN TOMBOL
+    // ================= BUTTON =================
+
     public void OnResumeButton()
     {
         SetState(GameState.Playing);
@@ -84,5 +96,11 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
