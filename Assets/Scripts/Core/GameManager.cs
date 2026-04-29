@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     {
         SetState(GameState.Playing);
 
-        // matikan panel di awal
         if (PausePanel != null)
             PausePanel.SetActive(false);
 
@@ -29,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // ESC = Pause / Resume
+        
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (currentState == GameState.Playing)
@@ -42,7 +41,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // G = TEST Game Over
+        
         if (Keyboard.current != null && Keyboard.current.gKey.wasPressedThisFrame)
         {
             SetState(GameState.GameOver);
@@ -85,7 +84,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ================= BUTTON =================
 
     public void OnResumeButton()
     {
