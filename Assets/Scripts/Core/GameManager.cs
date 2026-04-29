@@ -74,7 +74,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
         Time.timeScale = 0f;
-/////////////////////////////////////////////
 
         if (gameOverPanel != null)
             gameOverPanel.SetActive(true);
