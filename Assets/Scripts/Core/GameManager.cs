@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
             {
                 PauseGame();
             }
-            else if (currentState == GameState.Paused)
+            else if (currentState == GameState.Pause)
             {
                 ResumeGame();
             }
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
      public void PauseGame()
     {
         Time.timeScale = 0f;
-        currentState = GameState.Paused;
+        currentState = GameState.Pause;
         pauseMenu.SetActive(true);
         gameOverMenu.SetActive(false);
         Debug.Log("Game Paused");
