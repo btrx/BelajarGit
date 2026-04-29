@@ -8,9 +8,8 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
-    public void QuitGame()
-    {
-        SceneManager.LoadScene("MainMenu");
+    public void QuitGame(){
+        Application.Quit();
     }
 
     public void Restart()
