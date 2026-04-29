@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        SceneManager.LoadScene("Restart");   
         Time.timeScale = 0f;
         currentState = GameState.GameOver;
 
