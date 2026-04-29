@@ -13,12 +13,21 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        currentState = GameState.Playing;
+        MainMenu();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (currentState == GameState.MainMenu)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Playing();
+                UIManager.Instance.StartPlaying();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && currentState == GameState.Playing)
         {
             PauseGame();
         }
@@ -34,5 +43,17 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 0f;
+        currentState = GameState.MainMenu;
+    }
+
+    public void Playing()
+    {
+        Time.timeScale = 1f;
+        currentState = GameState.Playing;
     }
 }
