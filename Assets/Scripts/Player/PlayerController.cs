@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
     }
 
-    void OnCollisionStay2D(Collision2D collision)
+  void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
