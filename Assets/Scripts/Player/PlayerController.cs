@@ -3,10 +3,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float currentHP = 100;
-    public float speed = 5f;
     private PlayerInput playerInput;
     private Vector2 moveInput;
+
+    [SerializeField] private PlayerData playerData;
 
     void Start()
     {
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
         float h = moveInput.x;
         float v = moveInput.y;
 
-        transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
+        transform.Translate(new Vector3(h, v, 0) * playerData.moveSpeed * Time.deltaTime);
     }
 
     void OnCollisionStay2D(Collision2D collision)
@@ -35,10 +35,10 @@ public class PlayerController : MonoBehaviour
 
     void TakeDamage(float dmg)
     {
-        currentHP -= dmg;
-        Debug.Log("Player HP: " + currentHP);
+        playerData.maxHP -= dmg;
+        Debug.Log("Player HP: " + playerData.maxHP);
 
-        if (currentHP <= 0)
+        if (playerData.maxHP <= 0)
         {
             GameManager.Instance.GameOver();
         }
