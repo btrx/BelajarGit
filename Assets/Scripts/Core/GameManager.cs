@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    public GameObject restartButton;
     public GameState currentState;
 
     void Awake()
@@ -55,8 +56,10 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        Time.timeScale = 0f;
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
+        SceneManager.LoadScene("MainMenu");
     }
      public void RestartGame()
     {
@@ -64,13 +67,12 @@ public class GameManager : MonoBehaviour
         currentState = GameState.Playing;
         SceneManager.LoadScene("Game");
     }
-
-    public void BackToMenu()
-    {
-        Time.timeScale = 1f;
-        currentState = GameState.MainMenu;
-        SceneManager.LoadScene("MainMenu");
-    }
-
    
+   void BackToStart()
+{
+    Time.timeScale = 1f;
+    SceneManager.LoadScene("StartGame");
+}
+
+
 }
