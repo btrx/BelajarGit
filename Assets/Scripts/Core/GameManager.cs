@@ -18,19 +18,39 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (currentState == GameState.MainMenu)
+        if (currentState == GameState.MainMenu && Input.GetKeyDown(KeyCode.Space))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            Playing();
+            UIManager.Instance.StartPlaying();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (currentState == GameState.Playing)
+            {
+                PauseGame();
+                UIManager.Instance.PausedGame();
+            }
+            else if (currentState == GameState.Paused)
             {
                 Playing();
                 UIManager.Instance.StartPlaying();
+            }else if (currentState == GameState.MainMenu)
+            {
+                UIManager.Instance.QuitGame();
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && currentState == GameState.Playing)
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            PauseGame();
+            if (currentState == GameState.GameOver || currentState == GameState.Paused)
+            {
+            UIManager.Instance.Restart();  
+            MainMenu();              
+            }
         }
+
+
     }
 
     public void PauseGame()
@@ -49,6 +69,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         currentState = GameState.MainMenu;
+        UIManager.Instance.StartGame();
     }
 
     public void Playing()

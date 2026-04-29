@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     public GameObject mainMenuUI;
+    public GameObject pauseMenuUI;
 
     void Awake()
     {
@@ -14,13 +15,19 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Game");
-        GameManager.Instance.MainMenu();
+        mainMenuUI.SetActive(true);
+        pauseMenuUI.SetActive(false);
+    }
+
+    public void PausedGame()
+    {
+        pauseMenuUI.SetActive(true);
     }
 
     public void StartPlaying()
     {
         mainMenuUI.SetActive(false);
+        pauseMenuUI.SetActive(false);
     }
 
     public void QuitGame()

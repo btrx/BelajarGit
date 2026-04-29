@@ -5,12 +5,14 @@ public class PlayerController : MonoBehaviour
 {
     private PlayerInput playerInput;
     private Vector2 moveInput;
+    private float currentHP;
 
     [SerializeField] private PlayerData playerData;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+        currentHP = playerData.maxHP;
     }
     
     
@@ -35,10 +37,10 @@ public class PlayerController : MonoBehaviour
 
     void TakeDamage(float dmg)
     {
-        playerData.maxHP -= dmg;
-        Debug.Log("Player HP: " + playerData.maxHP);
+        currentHP -= dmg;
+        Debug.Log("Player HP: " + currentHP);
 
-        if (playerData.maxHP <= 0)
+        if (currentHP <= 0)
         {
             GameManager.Instance.GameOver();
         }
