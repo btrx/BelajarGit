@@ -10,8 +10,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        // pauseCanvas.SetActive(false);
-        // overCanvas.SetActive(false);
+
     }
 
     void Start()
