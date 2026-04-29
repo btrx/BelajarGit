@@ -5,23 +5,12 @@ public class UIManager : MonoBehaviour
 {
     public void StartGame()
     {
-        GameManager.Instance.currentState = GameState.Playing;
-        Time.timeScale = 1f;
+        Debug.Log("Start Game Klik");
+        SceneManager.LoadScene("Game");
     }
 
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    public void Restart()
-    {
-        GameManager.Instance.currentState = GameState.Playing;
-        Time.timeScale = 1f;
-    }
-
-    public void ResumeGame()
-    {
-        GameManager.Instance.ResumeGame();
     }
 }
