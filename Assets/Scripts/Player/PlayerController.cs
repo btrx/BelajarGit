@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            GameManager.Instance.GameOver();
+            GameManager.Instance.SetState(GameState.GameOver);
         }
     }
 }

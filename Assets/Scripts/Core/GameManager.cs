@@ -1,12 +1,12 @@
-gitusing UnityEngine;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     public GameState currentState;
-
-    public GameObject gameOverPanel; 
+    public GameObject gameOverPanel;
 
     void Awake()
     {
@@ -15,35 +15,52 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        currentState = GameState.Playing;
-        Time.timeScale = 1f; 
+        SetState(GameState.Playing);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            PauseGame();
+            Debug.Log("ESC kepencet");
+
+            if (currentState == GameState.Playing)
+            {
+                SetState(GameState.Pause);
+            }
+            else if (currentState == GameState.Pause)
+            {
+                SetState(GameState.Playing);
+            }
         }
     }
 
-    public void PauseGame()
+    public void SetState(GameState newState)
     {
-        Time.timeScale = 0f;
-        currentState = GameState.Paused;
-    }
+        currentState = newState;
 
-    public void GameOver()
-    {
-        Debug.Log("Game Over");
-
-        currentState = GameState.GameOver;
-
-        Time.timeScale = 0f; 
-
-        if (gameOverPanel != null)
+        switch (currentState)
         {
-            gameOverPanel.SetActive(true); 
+            case GameState.MainMenu:
+                Time.timeScale = 0f;
+                break;
+
+            case GameState.Playing:
+                Time.timeScale = 1f;
+                break;
+
+            case GameState.Pause:
+                Time.timeScale = 0f;
+                break;
+
+            case GameState.GameOver:
+                Time.timeScale = 0f;
+
+                if (gameOverPanel != null)
+                {
+                    gameOverPanel.SetActive(true);
+                }
+                break;
         }
     }
 }
