@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject pauseMenu;
+    public GameObject gameOverMenu;
+
     public static GameManager Instance;
 
     public GameState currentState;
