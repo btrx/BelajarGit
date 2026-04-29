@@ -3,7 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float currentHP;
+    [SerializeField] private PlayerData data;
+    private float currentHP;
     private float speed;
     private PlayerInput playerInput;
     private Vector2 moveInput;
