@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject mainMenuUI;
     public GameObject pauseMenuUI;
+    public GameObject gameOverUI;
 
     void Awake()
     {
@@ -17,6 +18,7 @@ public class UIManager : MonoBehaviour
     {
         mainMenuUI.SetActive(true);
         pauseMenuUI.SetActive(false);
+        gameOverUI.SetActive(false);
     }
 
     public void PausedGame()
@@ -28,11 +30,17 @@ public class UIManager : MonoBehaviour
     {
         mainMenuUI.SetActive(false);
         pauseMenuUI.SetActive(false);
+        gameOverUI.SetActive(false);
     }
 
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void GameOver()
+    {
+        gameOverUI.SetActive(true);
     }
 
     public void Restart()
