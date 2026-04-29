@@ -45,12 +45,9 @@ public class GameManager : MonoBehaviour
         {
             if (currentState == GameState.GameOver || currentState == GameState.Paused)
             {
-            UIManager.Instance.Restart();  
-            MainMenu();              
+            UIManager.Instance.Restart();           
             }
         }
-
-
     }
 
     public void PauseGame()
