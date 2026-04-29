@@ -20,20 +20,20 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // ESC untuk pause / resume
+    
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
         }
 
-        // TEST GAME OVER (hapus kalau sudah tidak perlu)
+     
         if (Input.GetKeyDown(KeyCode.T))
         {
             GameOver();
         }
     }
 
-    // ================= PAUSE =================
+   
     public void TogglePause()
     {
         isPaused = !isPaused;
@@ -61,10 +61,10 @@ public class GameManager : MonoBehaviour
             pauseUI.SetActive(false);
     }
 
-    // ================= GAME OVER =================
+
     public void GameOver()
     {
-        Debug.Log("GAME OVER CALLED");
+        Debug.Log("GAME OVER");
 
         Time.timeScale = 0f;
 
@@ -79,11 +79,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ================= BUTTON GAME OVER =================
+ 
     public void BackToMainMenu()
     {
         Debug.Log("Back to Main Menu Klik");
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu"); // ✔ PASTI INI YANG BENAR
+        SceneManager.LoadScene("MainMenu"); 
     }
 }

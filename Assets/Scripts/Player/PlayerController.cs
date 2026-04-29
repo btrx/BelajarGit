@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log("Player HP: " + currentHP);
 
-        // 🔥 FIX PENTING: GAME OVER TRIGGER
+       
         if (currentHP <= 0)
         {
             Debug.Log("HP HABIS → GAME OVER");
