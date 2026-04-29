@@ -20,13 +20,19 @@ public class GameManager : MonoBehaviour
     }
 
     void Start()
-    {
+{
+    
+    string sceneName = SceneManager.GetActiveScene().name;
+
+    if (sceneName == "Game")
+        currentState = GameState.Playing;
+    else
         currentState = GameState.MainMenu;
-    }
+}
 
     void Update()
     {
-        // tombol P untuk pause / resume
+        
         if (Input.GetKeyDown(KeyCode.P))
         {
             if (currentState == GameState.Playing)
@@ -51,7 +57,6 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         currentState = GameState.Paused;
-
         Debug.Log("=== GAME PAUSED ===");
     }
 
@@ -64,13 +69,12 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver()
-    {
-        SceneManager.LoadScene("Restart");   
-        Time.timeScale = 0f;
-        currentState = GameState.GameOver;
-
-        Debug.Log("=== GAME OVER ===");
-    }
+{
+    Time.timeScale = 0f;              
+    currentState = GameState.GameOver;
+    SceneManager.LoadScene("Restart"); 
+    Debug.Log("=== GAME OVER ===");
+}
 
     public void RestartGame()
     {
