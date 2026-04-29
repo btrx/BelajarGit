@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Penghubung Ke Data")]
-    [SerializeField] private PlayerData Data;
+    [SerializeField] private PlayerData playerData;
 
     private float currentHP;
 
@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+        currentHP = playerData.maxHP;
     }
     
     
@@ -25,14 +26,14 @@ public class PlayerController : MonoBehaviour
         float h = moveInput.x;
         float v = moveInput.y;
 
-        transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
+        transform.Translate(new Vector3(h, v, 0) * playerData.speed * Time.deltaTime);
     }
 
     void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            TakeDamage(0.1f);
+            TakeDamage(playerData.damageTaken);
         }
     }
 
