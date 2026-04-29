@@ -16,5 +16,7 @@ public class UIManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene("Game");
+        Time.timeScale = 1f;
+
     }
 }
