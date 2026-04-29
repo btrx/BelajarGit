@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -6,14 +7,25 @@ public class GameManager : MonoBehaviour
 
     public GameState currentState;
 
+    public GameObject gameOverPanel;
+
+    public GameObject pausePanel;
+
     void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
     }
 
     void Start()
     {
-        currentState = GameState.MainMenu;
+        currentState = GameState.Playing;
+        Time.timeScale = 1f;
     }
 
     void Update()
@@ -26,7 +38,7 @@ public class GameManager : MonoBehaviour
         }
         else if (currentState == GameState.Paused)
         {
-            StartGame();
+            ResumeGame();
         }
         }
     }
@@ -36,6 +48,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Paused");
         Time.timeScale = 0f;
         currentState = GameState.Paused;
+
+        if (pausePanel != null) pausePanel.SetActive(true);
     }
 
     public void StartGame()
@@ -43,6 +57,16 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Started");
         currentState = GameState.Playing;
         Time.timeScale = 1f;
+        SceneManager.LoadScene("Game");
+    }
+
+    public void ResumeGame()
+    {
+        Debug.Log("Resume Game");
+        currentState = GameState.Playing;
+        Time.timeScale = 1f;
+
+        if (pausePanel != null) pausePanel.SetActive(false);
     }
 
     public void GameOver()
@@ -50,6 +74,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
         Time.timeScale = 0f;
+
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(true);
     }
 
     public void RestartGame()
@@ -57,6 +84,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("Restart game");
         currentState = GameState.Playing;
         Time.timeScale = 1f;
+
+        SceneManager.LoadScene("Game");
     }
 
     public void BackToMenu()
@@ -64,5 +93,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Back to menu");
         currentState = GameState.MainMenu;
         Time.timeScale = 0f;
+
+        SceneManager.LoadScene("MainMenu");
     }
 }

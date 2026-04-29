@@ -3,20 +3,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerData playerData;
-    
-    public float currentHP;
-    public float speed;
-
+    public float currentHP = 100;
+    public float speed = 5f;
     private PlayerInput playerInput;
     private Vector2 moveInput;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
-
-        currentHP = playerData.maxHP;
-        speed = playerData.moveSpeed;
     }
     
     
@@ -35,7 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            TakeDamage(0.1f);
+            TakeDamage(1f);
         }
     }
 
