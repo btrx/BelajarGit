@@ -3,8 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
     public GameObject pauseMenu;
-    public GameObject gameOverMenu;
+
+    public GameObject gameOver;
 
     public static GameManager Instance;
 
@@ -35,12 +37,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-     public void PauseGame()
+    public void PauseGame()
     {
         Time.timeScale = 0f;
         currentState = GameState.Paused;
         pauseMenu.SetActive(true);
-        gameOverMenu.SetActive(false);
+        gameOver.SetActive(false);
         Debug.Log("Game Paused");
     }
 
@@ -49,7 +51,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         currentState = GameState.Playing;
         pauseMenu.SetActive(false);
-        gameOverMenu.SetActive(false);
+        gameOver.SetActive(false);
         Debug.Log("Game Resumed");
     }
     public void GameOver()
@@ -57,7 +59,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
-        gameOverMenu.SetActive(true);
+        gameOver.SetActive(true);
         pauseMenu.SetActive(false); 
         }
 
