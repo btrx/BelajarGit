@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public GameState currentState;
+    public GameObject restartButton;
 
     void Awake()
     {
@@ -13,6 +15,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
+        ResumeGame();
     }
 
     void Update()
@@ -27,7 +30,7 @@ public class GameManager : MonoBehaviour
             {
                 ResumeGame();
             }
-            PauseGame();
+            
         }
     }
 
@@ -35,6 +38,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         currentState = GameState.Playing;
+        // SceneManager.LoadScene("Game"):
     }
     public void PauseGame()
     {
@@ -57,12 +61,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
-       
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void RestartGame()
     {
         Time.timeScale = 1f;
         currentState = GameState.Playing;
+        SceneManager.LoadScene("MainMenu");
     }
 }
