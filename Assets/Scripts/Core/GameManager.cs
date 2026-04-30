@@ -54,8 +54,18 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
+        Time.timeScale = 0f;
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
+        gameOverMenu.SetActive(true);
+        pauseMenu.SetActive(false); 
+        }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Game");
+        Time.timeScale = 1f;
+        Debug.Log("Game Restarted");
     }
 
     public void MainMenu()
