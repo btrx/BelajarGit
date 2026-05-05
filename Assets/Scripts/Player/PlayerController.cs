@@ -9,26 +9,34 @@ public class PlayerController : MonoBehaviour
     private float speed;
     private PlayerInput playerInput;
     private Vector2 moveInput;
+    private float attackInput;
+    private float previousAttackInput;
     public PlayerData playerData;
-    private
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         currentHP = playerData.maxHP;
         speed = playerData.moveSpeed;
+
     }
     
     
     void Update()
     {
         if (playerInput == null) return;
-        
+
+        attackInput = playerInput.actions["Attack"].ReadValue<float>();
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
         float h = moveInput.x;
         float v = moveInput.y;
 
         transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
+        if (attackInput > 0 && previousAttackInput == 0)
+        {
+            Shoot();
+        }
+        previousAttackInput = attackInput;
     }
 
     void OnCollisionStay2D(Collision2D collision)
@@ -48,5 +56,11 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.GameOver();
         }
+    }
+
+    void Shoot()
+    {
+        Debug.Log("Player shoots!");
+        // Implement shooting logic here (e.g., instantiate a bullet prefab)
     }
 }
