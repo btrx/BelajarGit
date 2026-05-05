@@ -1,9 +1,10 @@
 using UnityEngine;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerData data; 
+    // Slot ini harus diisi di Inspector Unity!
+    public PlayerData data;
 
     private float currentHP;
     private PlayerInput playerInput;
@@ -11,49 +12,50 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        playerInput = GetComponent<PlayerInput>();
+        
+        // Memastikan data tidak kosong
         if (data != null) 
         {
             currentHP = data.maxHP;
         }
-        playerInput = GetComponent<PlayerInput>();
+        else 
+        {
+            Debug.LogError("OI FIN! Tarik file PlayerData ke slot 'Data' di Inspector Player!");
+        }
     }
 
     void Update()
     {
-        // Cek apakah game sedang berhenti
-        if (Time.timeScale == 0f) return; 
-
+        // Supaya gak error kalau PlayerInput atau Data kosong
         if (playerInput == null || data == null) return;
-        
+
+        // Membaca input
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
-        
-        transform.Translate(new Vector3(moveInput.x, moveInput.y, 0) * data.moveSpeed * Time.deltaTime);
+
+        // Menggerakkan karakter
+        transform.Translate(new Vector3(moveInput.x, moveInput.y, 0) 
+            * data.moveSpeed * Time.deltaTime);
     }
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        // Pastikan tag "Wall" sudah dibuat di Unity
         if (collision.gameObject.CompareTag("Wall"))
         {
-            TakeDamage(0.1f);
+            TakeDamage(10f * Time.deltaTime);
         }
     }
 
     void TakeDamage(float dmg)
     {
         currentHP -= dmg;
-        Debug.Log("Player HP: " + currentHP);
-
         if (currentHP <= 0)
         {
-            // Panggil fungsi GameOver di GameManager
+            currentHP = 0;
+            // Pastikan GameManager sudah di-setup dengan benar
             if (GameManager.Instance != null) 
             {
                 GameManager.Instance.GameOver();
-            }
-            else 
-            {
-                Debug.LogWarning("GameManager belum ada di Scene!");
             }
         }
     }

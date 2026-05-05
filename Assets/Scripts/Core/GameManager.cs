@@ -1,27 +1,40 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // Singleton biar bisa dipanggil script lain
     public static GameManager Instance;
-    public GameState currentState;
+
+    public GameObject gameOverPanel;
 
     void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        // Inisialisasi Singleton
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Fungsi ini yang tadi merah di PlayerController
     public void GameOver()
     {
-        currentState = GameState.GameOver;
-        Time.timeScale = 0f; // Berhentikan game
-        Debug.Log("Game Over Cuy!");
+        Debug.Log("Game Over!");
+        Time.timeScale = 0f; // Stop waktu
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+        }
     }
 
-    public void ResumeGame()
+    public void RestartGame()
     {
-        currentState = GameState.Playing;
-        Time.timeScale = 1f;
+        Debug.Log("Restarting...");
+        Time.timeScale = 1f; // Balikin waktu ke normal
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
