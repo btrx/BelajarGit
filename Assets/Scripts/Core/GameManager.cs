@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,26 +14,84 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        currentState = GameState.Playing;
+        SetState(GameState.MainMenu);
     }
 
     void Update()
     {
+        // Pause dan Resume
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            if (currentState == GameState.Playing)
+            {
+                PauseGame();
+            }
+            else if (currentState == GameState.Paused)
+            {
+                ResumeGame();
+            }
         }
+    }
+
+    public void SetState(GameState newState)
+    {
+        currentState = newState;
+
+        switch (currentState)
+        {
+            case GameState.MainMenu:
+                Time.timeScale = 1f;
+                break;
+
+            case GameState.Playing:
+                Time.timeScale = 1f;
+                break;
+
+            case GameState.Paused:
+                Time.timeScale = 0f;
+                break;
+
+            case GameState.GameOver:
+                Time.timeScale = 0f;
+                break;
+        }
+
+        Debug.Log("Game State: " + currentState);
+    }
+
+    public void StartGame()
+    {
+        SetState(GameState.Playing);
     }
 
     public void PauseGame()
     {
-        Time.timeScale = 0f;
-        currentState = GameState.Paused;
+        SetState(GameState.Paused);
+    }
+
+    public void ResumeGame()
+    {
+        SetState(GameState.Playing);
     }
 
     public void GameOver()
     {
-        Debug.Log("Game Over");
-        currentState = GameState.GameOver;
+        SetState(GameState.GameOver);
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().buildIndex
+        );
+    }
+
+    public void BackToMenu()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene("MainMenu");
     }
 }
