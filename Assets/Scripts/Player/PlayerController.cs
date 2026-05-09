@@ -3,32 +3,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerData playerData;
-
-    public float currentHP;
-    public float speed;
-
+    public float currentHP = 100;
+    public float speed = 5f;
     private PlayerInput playerInput;
     private Vector2 moveInput;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
-
-        currentHP = playerData.maxHP;
-        speed = playerData.moveSpeed;
     }
-
+    
+    
     void Update()
     {
-        // Stop player saat pause atau game over
-        if (GameManager.Instance.currentState != GameState.Playing)
-            return;
-
         if (playerInput == null) return;
-
+        
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
-
         float h = moveInput.x;
         float v = moveInput.y;
 
@@ -46,7 +36,6 @@ public class PlayerController : MonoBehaviour
     void TakeDamage(float dmg)
     {
         currentHP -= dmg;
-
         Debug.Log("Player HP: " + currentHP);
 
         if (currentHP <= 0)

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,84 +13,26 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        SetState(GameState.MainMenu);
+        currentState = GameState.Playing;
     }
 
     void Update()
     {
-        // Pause dan Resume
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (currentState == GameState.Playing)
-            {
-                PauseGame();
-            }
-            else if (currentState == GameState.Paused)
-            {
-                ResumeGame();
-            }
+            PauseGame();
         }
-    }
-
-    public void SetState(GameState newState)
-    {
-        currentState = newState;
-
-        switch (currentState)
-        {
-            case GameState.MainMenu:
-                Time.timeScale = 1f;
-                break;
-
-            case GameState.Playing:
-                Time.timeScale = 1f;
-                break;
-
-            case GameState.Paused:
-                Time.timeScale = 0f;
-                break;
-
-            case GameState.GameOver:
-                Time.timeScale = 0f;
-                break;
-        }
-
-        Debug.Log("Game State: " + currentState);
-    }
-
-    public void StartGame()
-    {
-        SetState(GameState.Playing);
     }
 
     public void PauseGame()
     {
-        SetState(GameState.Paused);
-    }
-
-    public void ResumeGame()
-    {
-        SetState(GameState.Playing);
+        Time.timeScale = 0f;
+        currentState = GameState.Paused;
     }
 
     public void GameOver()
     {
-        SetState(GameState.GameOver);
-    }
-
-    public void RestartGame()
-    {
-        Time.timeScale = 1f;
-
-        SceneManager.LoadScene(
-            SceneManager.GetActiveScene().buildIndex
-        );
-    }
-
-    public void BackToMenu()
-    {
-        Time.timeScale = 1f;
-
-        SceneManager.LoadScene("MainMenu");
+        Debug.Log("Game Over");
+        currentState = GameState.GameOver;
     }
 }
