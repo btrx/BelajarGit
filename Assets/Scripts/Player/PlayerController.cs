@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 
     private float currentHP;
     private float speed;
+    private bool isDead = false;
 
     private PlayerInput playerInput;
     private Vector2 moveInput;
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
+        if (isDead) return;
         if (collision.gameObject.CompareTag("Wall") && playerData != null)
         {
             TakeDamage(playerData.wallDamage);
@@ -49,13 +51,23 @@ public class PlayerController : MonoBehaviour
 
     void TakeDamage(float dmg)
     {
+        if (isDead) return;
+
         currentHP -= dmg;
 
         Debug.Log("Player HP: " + currentHP);
 
         if (currentHP <= 0)
         {
-            GameManager.Instance.GameOver();
+            isDead = true;
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.GameOver();
+            }
+            else
+            {
+                Debug.LogError("GameManager instance not found!");
+            }
         }
     }
 }
