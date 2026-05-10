@@ -22,23 +22,26 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (playerInput == null || data == null) return;
+        // Pastikan game tidak lagi dipause dan data tersedia
+        if (playerInput == null || data == null || Time.timeScale == 0) return;
         
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
         
+        // Logika Gerak: X untuk kanan/kiri, Y untuk atas/bawah
         Vector3 moveDirection = new Vector3(moveInput.x, moveInput.y, 0);
         transform.Translate(moveDirection * data.moveSpeed * Time.deltaTime);
     }
 
     void OnCollisionStay2D(Collision2D collision)
     {
+        // Pastikan object penghalang punya Tag "Wall"
         if (collision.gameObject.CompareTag("Wall"))
         {
             TakeDamage(0.1f);
         }
     }
 
-    void TakeDamage(float dmg)
+    public void TakeDamage(float dmg)
     {
         currentHP -= dmg;
         Debug.Log("Player HP: " + currentHP);
