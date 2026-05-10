@@ -3,26 +3,31 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerData playerData;
-    private float currentHP;
+    [Header("Player Settings")]
+    public PlayerData data; 
+    
     private PlayerInput playerInput;
     private Vector2 moveInput;
+    private float currentHP;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
-        currentHP = playerData.maxHP;
+        
+        if (data != null) 
+        {
+            currentHP = data.maxHP;
+        }
     }
 
     void Update()
     {
-        if (playerInput == null) return;
-
+        if (playerInput == null || data == null) return;
+        
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
-        float h = moveInput.x;
-        float v = moveInput.y;
-
-        transform.Translate(new Vector3(h, v, 0) * playerData.moveSpeed * Time.deltaTime);
+        
+        Vector3 moveDirection = new Vector3(moveInput.x, moveInput.y, 0);
+        transform.Translate(moveDirection * data.moveSpeed * Time.deltaTime);
     }
 
     void OnCollisionStay2D(Collision2D collision)
@@ -40,7 +45,10 @@ public class PlayerController : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            GameManager.Instance.GameOver();
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.GameOver();
+            }
         }
     }
 }
