@@ -3,18 +3,24 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject pausePanel; 
+    public GameObject gameOverPanel;
+
     public void StartGame()
     {
+        Time.timeScale = 1f;
+
         SceneManager.LoadScene("Game");
     }
 
-    public void QuitGame()
+    public void PauseGame()
     {
-        Application.Quit();
+        GameManager.Instance.currentState = GameState.Paused;
+
+        Time.timeScale = 0f;
+
+        pausePanel.SetActive(true);
     }
 
-    public void Restart()
-    {
-        SceneManager.LoadScene("Game");
-    }
+    
 }
