@@ -5,3 +5,4 @@ public enum GameState
     Paused,
     GameOver
 }
+// Ini kok sudah benar pak?
