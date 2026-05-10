@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // Pause dan Resume
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (currentState == GameState.Playing)
