@@ -42,8 +42,8 @@ public class PlayerController : MonoBehaviour
     void TakeDamage(float dmg)
     {
         currentHP -= dmg;
-
-        Debug.Log("Player HP: " + currentHP);
+        
+        Debug.Log("Player HP: " + currentHP.ToString("F0"));
 
         if (currentHP <= 0)
         {
