@@ -14,24 +14,25 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // biar play dari main menu
-        ChangeState(GameState.MainMenu);
+        ChangeState(GameState.Playing);
     }
 
-    void Update()
+   void Update()
+{
+    if (Input.GetKeyDown(KeyCode.Escape))
     {
-        // Logika Pause menggunakan Escape
-        if (Input.GetKeyDown(KeyCode.Escape))
+        Debug.Log("Tombol ESC ditekan!"); 
+        
+        if (currentState == GameState.Playing)
         {
-            if (currentState == GameState.Playing)
-            {
-                PauseGame();
-            }
-            else if (currentState == GameState.Paused)
-            {
-                ResumeGame();
-            }
+            PauseGame();
+        }
+        else if (currentState == GameState.Paused)
+        {
+            ResumeGame();
         }
     }
+}
 
     // Fungsi tambahan biar gonta ganti lah pokoknya
     public void ChangeState(GameState newState)
@@ -58,6 +59,15 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         ChangeState(GameState.Paused);
+      if (UIManager.Instance != null) 
+    {
+        UIManager.Instance.ShowPausePanel();
+    }
+    else 
+    {
+        // Alternatif kalau Instance-nya belum kamu set
+        FindObjectOfType<UIManager>().ShowPausePanel();
+    }
     }
 
     // Fungsi tambahan agar player bisa main lagi setelah pause
@@ -70,6 +80,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Game Over");
         ChangeState(GameState.GameOver);
+        FindObjectOfType<UIManager>().ShowGameOverPanel();
     }
 }
 
