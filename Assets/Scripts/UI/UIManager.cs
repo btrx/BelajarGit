@@ -12,7 +12,6 @@ public class UIManager : MonoBehaviour
 
         SceneManager.LoadScene("Game");
     }
-
     public void PauseGame()
     {
         GameManager.Instance.currentState = GameState.Paused;
@@ -20,6 +19,15 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0f;
 
         pausePanel.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        GameManager.Instance.currentState = GameState.Playing;
+
+        Time.timeScale = 1f;
+
+        pausePanel.SetActive(false);
     }
 
     
