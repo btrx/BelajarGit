@@ -29,4 +29,34 @@ public class UIManager : MonoBehaviour
 
         pausePanel.SetActive(false);
     }
+     public void ShowGameOver()
+    {
+        gameOverPanel.SetActive(true);
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene("Game");
+    }
+
+    public void QuitGame()
+    {
+        if (Application.isEditor)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+        else
+        {
+            Application.Quit();
+        }
+    }
+    public void BackToMenu()
+    {
+    Time.timeScale = 1f;
+
+    SceneManager.LoadScene("MainMenu");
+    }
+    
 }

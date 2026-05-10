@@ -33,5 +33,14 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    
+    public void GameOver()
+    {
+        currentState = GameState.GameOver;
+
+        Time.timeScale = 0f;
+
+        uiManager.ShowGameOver();
+
+        Debug.Log("Game Over");
+    }
 }

@@ -32,6 +32,25 @@ public class PlayerController : MonoBehaviour
 
         transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
     }
+    
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            TakeDamage(1f);
+        }
+    }
 
+    void TakeDamage(float dmg)
+    {
+        currentHP -= dmg;
+
+        Debug.Log("Player HP: " + currentHP);
+
+        if (currentHP <= 0)
+        {
+            GameManager.Instance.GameOver();
+        }
+    }
 }
     
