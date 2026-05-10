@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -6,52 +7,68 @@ public class GameManager : MonoBehaviour
 
     public GameState currentState;
 
+    [Header("UI Panel")]
+    [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject gameOverPanel;
+
     void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Start()
     {
-        // biar play dari main menu
         ChangeState(GameState.Playing);
+
+        pausePanel.SetActive(false);
+        gameOverPanel.SetActive(false);
     }
 
-   void Update()
-{
-    if (Input.GetKeyDown(KeyCode.Escape))
+    void Update()
     {
-        Debug.Log("Tombol ESC ditekan!"); 
-        
-        if (currentState == GameState.Playing)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
-        }
-        else if (currentState == GameState.Paused)
-        {
-            ResumeGame();
+            if (currentState == GameState.Playing)
+            {
+                PauseGame();
+            }
+            else if (currentState == GameState.Paused)
+            {
+                ResumeGame();
+            }
         }
     }
-}
 
-    // Fungsi tambahan biar gonta ganti lah pokoknya
     public void ChangeState(GameState newState)
     {
         currentState = newState;
-        
+
         switch (newState)
         {
-            case GameState.MainMenu:
-                Time.timeScale = 1f;
-                break;
             case GameState.Playing:
                 Time.timeScale = 1f;
+
+                pausePanel.SetActive(false);
+                gameOverPanel.SetActive(false);
                 break;
+
             case GameState.Paused:
                 Time.timeScale = 0f;
+
+                pausePanel.SetActive(true);
                 break;
+
             case GameState.GameOver:
-                Time.timeScale = 0f; //  Waktu berhenti saat kalah
+                Time.timeScale = 0f;
+
+                gameOverPanel.SetActive(true);
                 break;
         }
     }
@@ -59,18 +76,8 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         ChangeState(GameState.Paused);
-      if (UIManager.Instance != null) 
-    {
-        UIManager.Instance.ShowPausePanel();
-    }
-    else 
-    {
-        // Alternatif kalau Instance-nya belum kamu set
-        FindObjectOfType<UIManager>().ShowPausePanel();
-    }
     }
 
-    // Fungsi tambahan agar player bisa main lagi setelah pause
     public void ResumeGame()
     {
         ChangeState(GameState.Playing);
@@ -78,10 +85,22 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("Game Over");
         ChangeState(GameState.GameOver);
-        FindObjectOfType<UIManager>().ShowGameOverPanel();
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().buildIndex
+        );
+    }
+
+    public void BackToMenu()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene("MainMenu");
     }
 }
-
-// udahan ah, besok ajah 
