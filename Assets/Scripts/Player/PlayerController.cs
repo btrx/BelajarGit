@@ -18,21 +18,5 @@ public class PlayerController : MonoBehaviour
         currentHP = playerData.maxHP;
         speed = playerData.moveSpeed;
     }
-
-    void Update()
-    {
-        if (GameManager.Instance.currentState != GameState.Playing)
-            return;
-
-        if (playerInput == null) return;
-
-        moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
-
-        float h = moveInput.x;
-        float v = moveInput.y;
-
-        transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
-    }
-
-    
 }
+    
