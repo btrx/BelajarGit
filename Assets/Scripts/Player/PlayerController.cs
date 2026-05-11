@@ -3,21 +3,34 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float currentHP = 100;
-    public float speed = 5f;
+    [Header("Data")]
+    public PlayerData playerData;  // ? Drag PlayerData_Instance ke sini
+
+    private float currentHP;
+    private float speed;
     private PlayerInput playerInput;
     private Vector2 moveInput;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+
+        // Ambil data dari Scriptable Object
+        if (playerData != null)
+        {
+            currentHP = playerData.maxHP;
+            speed = playerData.moveSpeed;
+        }
+        else
+        {
+            Debug.LogError("PlayerData tidak terhubung! Drag PlayerData_Instance ke slot Player Data.");
+        }
     }
-    
-    
+
     void Update()
     {
         if (playerInput == null) return;
-        
+
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
         float h = moveInput.x;
         float v = moveInput.y;
