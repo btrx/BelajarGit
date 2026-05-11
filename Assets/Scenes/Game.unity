@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &109699520
 RectTransform:
   m_ObjectHideFlags: 0
@@ -391,8 +391,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9695cedccef1e47b6b4415235fc3a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pausePanel: {fileID: 356577584}
-  gameOverPanel: {fileID: 833094266}
 --- !u!4 &345355879
 Transform:
   m_ObjectHideFlags: 0
@@ -425,7 +423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &356577585
 RectTransform:
   m_ObjectHideFlags: 0
@@ -503,7 +501,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &391463140
 RectTransform:
   m_ObjectHideFlags: 0
@@ -570,7 +568,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 345355878}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: GoToMainMenu
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -636,7 +634,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &407122647
 RectTransform:
   m_ObjectHideFlags: 0
@@ -703,7 +701,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 345355878}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: Resume
+        m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3780,7 +3778,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &833094267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4311,7 +4309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1351742647
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4378,7 +4376,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 345355878}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: GoToMainMenu
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4874,8 +4872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6080a0859a571264b9d155ff9b9f6005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 6de1c3ab82d4e354f9b664e6baa43734, type: 2}
-  currentHP: 100
+  playerData: {fileID: 0}
 --- !u!114 &1775706134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4903,7 +4900,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!61 &1775706135
@@ -5147,10 +5144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  mainMenuPanel: {fileID: 962479952}
-  pausePanel: {fileID: 356577584}
-  gameOverPanel: {fileID: 833094266}
-  gameplayPanel: {fileID: 1100996320}
+  uiManager: {fileID: 0}
 --- !u!4 &2081751347
 Transform:
   m_ObjectHideFlags: 0

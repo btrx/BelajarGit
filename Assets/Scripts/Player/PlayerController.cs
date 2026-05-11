@@ -1,61 +1,61 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
- 
+
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Data (Scriptable Object)")]
-    [SerializeField] private PlayerData data;
- 
-    // Runtime state — tidak ada hardcode nilai
-    private float currentHP;
-    private float speed;
- 
+    [Header("Player Data")]
+    public PlayerData playerData;
+
     private PlayerInput playerInput;
     private Vector2 moveInput;
- 
+    private float currentHP;
+    private float speed;
+
     private void Start()
     {
         playerInput = GetComponent<PlayerInput>();
- 
-        if (data != null)
+
+        if (playerData == null)
         {
-            currentHP = data.maxHP;
-            speed = data.moveSpeed;
+            Debug.LogError("PlayerData belum di-assign di Inspector.");
+            currentHP = 100f;
+            speed = 5f;
         }
         else
         {
-            Debug.LogError("PlayerData ScriptableObject belum di-assign di Inspector!");
-        }
-    }
- 
-    private void Update()
-    {
-        // Hanya bergerak saat state Playing
-        if (GameManager.Instance == null) return;
-        if (GameManager.Instance.currentState != GameState.Playing) return;
-        if (playerInput == null) return;
- 
-        moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
-        transform.Translate(new Vector3(moveInput.x, moveInput.y, 0f) * speed * Time.deltaTime);
-    }
- 
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            TakeDamage(data.wallDamagePerSecond * Time.fixedDeltaTime);
+            currentHP = playerData.maxHP;
+            speed = playerData.moveSpeed;
         }
     }
 
-    private void TakeDamage(float dmg)
+    private void Update()
     {
-        currentHP -= dmg;
+        if (playerInput == null) return;
+
+        moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
+        Vector3 movement = new Vector3(moveInput.x, moveInput.y, 0f) * speed * Time.deltaTime;
+        transform.Translate(movement, Space.World);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (playerData == null) return;
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            ApplyDamage(playerData.wallDamagePerSecond * Time.fixedDeltaTime);
+        }
+    }
+
+    private void ApplyDamage(float damage)
+    {
+        currentHP -= damage;
         Debug.Log("Player HP: " + currentHP);
 
         if (currentHP <= 0f)
         {
             currentHP = 0f;
-            GameManager.Instance.ChangeState(GameState.GameOver);
+            GameManager.Instance?.GameOver();
         }
     }
-}
+} 

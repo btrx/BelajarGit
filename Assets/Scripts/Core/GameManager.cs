@@ -1,92 +1,73 @@
 ﻿using UnityEngine;
-using System;
- 
+
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
- 
-    [Header("Game State")]
+    public static GameManager Instance;
     public GameState currentState;
- 
-    [Header("UI Panel")]
-    public GameObject mainMenuPanel;
-    public GameObject pausePanel;
-    public GameObject gameOverPanel;
-    public GameObject gameplayPanel;
- 
-    // Event agar script lain bisa subscribe perubahan state
-    public static event Action<GameState> OnStateChanged;
- 
+    public UIManager uiManager;
+
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
- 
+
     private void Start()
     {
-        ChangeState(GameState.MainMenu);
+        currentState = GameState.Playing;
+        Time.timeScale = 1f;
     }
- 
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (currentState == GameState.Playing)
+            {
+                PauseGame();
+            }
+            else if (currentState == GameState.Pause)
+            {
+                ResumeGame();
+            }
+        }
+    }
+
     public void ChangeState(GameState newState)
     {
         currentState = newState;
- 
-        // Sembunyikan semua panel dulu
-        mainMenuPanel.SetActive(false);
-        pausePanel.SetActive(false);
-        gameOverPanel.SetActive(false);
-        gameplayPanel.SetActive(false);
- 
-        switch (currentState)
+    }
+
+    public void PauseGame()
+    {
+        currentState = GameState.Pause;
+        Time.timeScale = 0f;
+        if (uiManager != null)
         {
-            case GameState.MainMenu:
-                MainMenuState();
-                break;
-            case GameState.Playing:
-                PlayingState();
-                break;
-            case GameState.Pause:
-                PauseState();
-                break;
-            case GameState.GameOver:
-                GameOverState();
-                break;
+            uiManager.Pause();
         }
- 
-        // Broadcast event ke subscriber (UIManager, dll)
-        OnStateChanged?.Invoke(currentState);
     }
- 
-    private void MainMenuState()
+
+    public void ResumeGame()
     {
-        mainMenuPanel.SetActive(true);
+        currentState = GameState.Playing;
         Time.timeScale = 1f;
+        if (uiManager != null)
+        {
+            uiManager.Resume();
+        }
     }
- 
-    private void PlayingState()
+
+    public void GameOver()
     {
-        gameplayPanel.SetActive(true);
-        Time.timeScale = 1f;
-    }
- 
-    private void PauseState()
-    {
-        gameplayPanel.SetActive(true);
-        pausePanel.SetActive(true);
+        currentState = GameState.GameOver;
         Time.timeScale = 0f;
+        Debug.Log("Game Over");
     }
- 
-    private void GameOverState()
-    {
-        gameplayPanel.SetActive(true);
-        gameOverPanel.SetActive(true);
-        Time.timeScale = 0f;
-    }
-}
+} 
