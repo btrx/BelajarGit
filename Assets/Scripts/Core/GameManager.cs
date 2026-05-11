@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     public GameState currentState;
 
     [Header("UI References")]
-    public GameObject pausePanel; // ← Drag PausePanel ke sini nanti
+    public GameObject pausePanel;
+    public GameObject gameOverPanel; // ← tambahkan ini
 
     void Awake()
     {
@@ -40,11 +41,14 @@ public class GameManager : MonoBehaviour
         currentState = newState;
         Debug.Log("Game State: " + currentState);
 
+        // Matikan semua panel dulu
+        if (pausePanel != null) pausePanel.SetActive(false);
+        if (gameOverPanel != null) gameOverPanel.SetActive(false);
+
         switch (currentState)
         {
             case GameState.Playing:
                 Time.timeScale = 1f;
-                if (pausePanel != null) pausePanel.SetActive(false);
                 break;
             case GameState.Pause:
                 Time.timeScale = 0f;
@@ -52,6 +56,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.GameOver:
                 Time.timeScale = 0f;
+                if (gameOverPanel != null) gameOverPanel.SetActive(true);
                 break;
             case GameState.MainMenu:
                 Time.timeScale = 1f;
@@ -75,7 +80,6 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        Debug.Log("ResumeGame dipanggil!"); // ← cek apakah tombol bekerja
         if (currentState == GameState.Pause)
         {
             SetState(GameState.Playing);
@@ -85,6 +89,12 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         SetState(GameState.GameOver);
+    }
+
+    public void RestartGame()
+    {
+        SetState(GameState.Playing);
+        SceneManager.LoadScene("Game"); // reload scene gameplay
     }
 
     public void BackToMainMenu()
