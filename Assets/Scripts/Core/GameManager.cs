@@ -4,35 +4,89 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [Header("Game State")]
     public GameState currentState;
 
-    void Awake()
-    {
-        Instance = this;
-    }
+    [Header("UI Panel")]
+    public GameObject mainMenuPanel;
+    public GameObject pausePanel;
+    public GameObject gameOverPanel;
+    public GameObject gameplayPanel;
 
-    void Start()
+    private void Awake()
     {
-        currentState = GameState.Playing;
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        // Singleton
+        if (Instance == null)
         {
-            PauseGame();
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
-    public void PauseGame()
+    private void Start()
     {
-        Time.timeScale = 0f;
-        currentState = GameState.Paused;
+        ChangeState(GameState.MainMenu);
     }
 
-    public void GameOver()
+    public void ChangeState(GameState newState)
     {
-        Debug.Log("Game Over");
-        currentState = GameState.GameOver;
+        currentState = newState;
+
+        // Reset semua panel
+        mainMenuPanel.SetActive(false);
+        pausePanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+        gameplayPanel.SetActive(false);
+
+        switch (currentState)
+        {
+            case GameState.MainMenu:
+                MainMenuState();
+                break;
+
+            case GameState.Playing:
+                PlayingState();
+                break;
+
+            case GameState.Pause:
+                PauseState();
+                break;
+
+            case GameState.GameOver:
+                GameOverState();
+                break;
+        }
+    }
+
+    void MainMenuState()
+    {
+        mainMenuPanel.SetActive(true);
+
+        Time.timeScale = 1;
+    }
+
+    void PlayingState()
+    {
+        gameplayPanel.SetActive(true);
+
+        Time.timeScale = 1;
+    }
+
+    void PauseState()
+    {
+        gameplayPanel.SetActive(true);
+        pausePanel.SetActive(true);
+
+        Time.timeScale = 0;
+    }
+
+    void GameOverState()
+    {
+        gameOverPanel.SetActive(true);
+
+        Time.timeScale = 0;
     }
 }
