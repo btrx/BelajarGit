@@ -5,16 +5,11 @@ public class UIManager : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("aaaas");
     }
 
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    public void Restart()
-    {
-        SceneManager.LoadScene("Game");
     }
 }

@@ -1,71 +1,79 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public GameState currentState;
+    public GameObject gameOverPanel;
+    public GameObject pausePanel;
 
-    public GameObject pauseMenuUI;
+    private bool isPaused = false;
 
     void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            DestroyImmediate(gameObject);
+            return;
+        }
     }
 
     void Start()
     {
-        currentState = GameState.Playing;
-        if (pauseMenuUI != null) pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        if (gameOverPanel != null) gameOverPanel.SetActive(false);
+        if (pausePanel != null) pausePanel.SetActive(false);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (currentState == GameState.Paused)
-            {
-                ResumeGame();
-            }
-            else if (currentState == GameState.Playing)
-            {
-                PauseGame();
-            }
+            if (gameOverPanel != null && gameOverPanel.activeSelf) return;
+            TogglePause();
         }
     }
 
-    public void PauseGame()
+    public void TogglePause()
     {
-        Time.timeScale = 0f; 
-        currentState = GameState.Paused;
-
-        if (pauseMenuUI != null)
+        isPaused = !isPaused;
+        if (pausePanel != null)
         {
-            pauseMenuUI.SetActive(true); 
+            pausePanel.SetActive(isPaused);
+            Time.timeScale = isPaused ? 0f : 1f;
         }
     }
 
     public void ResumeGame()
     {
-        Time.timeScale = 1f; 
-        currentState = GameState.Playing;
-
-        if (pauseMenuUI != null)
-        {
-            pauseMenuUI.SetActive(false); 
-        }
-    }
-
-    public void GameOver()
-    {
-        Debug.Log("Game Over");
-        currentState = GameState.GameOver;
+        isPaused = false;
+        if (pausePanel != null) pausePanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     public void RestartGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void BalikKeMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
+    }
+
+    public void GameOver()
+    {
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
 }
