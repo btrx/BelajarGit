@@ -5,12 +5,6 @@ public class UIManager : MonoBehaviour
 {
     public void StartGame()
     {
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.StartGame();
-            return;
-        }
-
         SceneManager.LoadScene("Game");
     }
 
@@ -46,6 +40,6 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("MainMenu");
     }
 }

@@ -3,26 +3,59 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    private static GameManager instance;
+    public UnityEngine.UI.Button resumeButton;
+
+    public static GameManager Instance
+    
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindFirstObjectByType<GameManager>();
+            }
+
+            return instance;
+        }
+    }
 
     public GameState currentState;
 
     public GameState CurrentState => currentState;
 
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += HandleSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
+    }
+
     void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        Instance = this;
+        instance = this;
     }
 
     void Start()
     {
-        SetState(GameState.MainMenu);
+        SyncStateWithActiveScene(SceneManager.GetActiveScene().name);
+        GameObject resumeButtonObj = GameObject.FindWithTag("Resume");
+        if (resumeButtonObj != null)
+        {
+            resumeButton = resumeButtonObj.GetComponent<UnityEngine.UI.Button>();
+            resumeButton.gameObject.SetActive(false); 
+        }
+        
+        SyncStateWithActiveScene(SceneManager.GetActiveScene().name);
     }
 
     void Update()
@@ -44,6 +77,9 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0f;
         currentState = GameState.Paused;
+        
+        if (resumeButton != null)
+            resumeButton.gameObject.SetActive(true); // Tampilkan saat pause
     }
 
     public void ResumeGame()
@@ -52,29 +88,56 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1f;
         currentState = GameState.Playing;
+        
+        if (resumeButton != null)
+            resumeButton.gameObject.SetActive(false); // Sembunyikan saat resume
     }
 
     public void GameOver()
     {
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
         currentState = GameState.GameOver;
+        SceneManager.LoadScene("GameOver");
     }
 
     public void RestartGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("Game");
     }
 
     public void ReturnToMainMenu()
     {
         Time.timeScale = 1f;
         SetState(GameState.MainMenu);
+        SceneManager.LoadScene("MainMenu");
     }
 
     void SetState(GameState newState)
     {
         currentState = newState;
         Time.timeScale = newState == GameState.Paused || newState == GameState.GameOver ? 0f : 1f;
+    }
+
+    void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SyncStateWithActiveScene(scene.name);
+    }
+
+    void SyncStateWithActiveScene(string sceneName)
+    {
+        if (sceneName == "Game")
+        {
+            SetState(GameState.Playing);
+            return;
+        }
+
+        if (sceneName == "GameOver")
+        {
+            SetState(GameState.GameOver);
+            return;
+        }
+
+        SetState(GameState.MainMenu);
     }
 }

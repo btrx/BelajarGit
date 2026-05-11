@@ -25,6 +25,15 @@ public class PlayerController : MonoBehaviour
 
         currentHP = playerData.maxHP;
         speed = playerData.moveSpeed;
+            
+        var managers = FindObjectsByType<GameManager>(FindObjectsSortMode.None);
+        Debug.Log("Jumlah GameManager: " + managers.Length);
+
+        foreach (var manager in managers)
+        {
+            Debug.Log("GameManager instance: " + manager.name + " | scene: " + manager.gameObject.scene.name);
+        }
+    
     }
 
     void Update()
