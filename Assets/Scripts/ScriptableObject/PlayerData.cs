@@ -8,4 +8,7 @@ public class PlayerData : ScriptableObject
  
     [Header("Movement")]
     public float moveSpeed = 5f;
+
+    [Header("Combat")]
+public float wallDamagePerSecond = 5f;   // ganti angka ini sesuai selera
 }

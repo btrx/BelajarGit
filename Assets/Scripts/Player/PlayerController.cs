@@ -39,19 +39,19 @@ public class PlayerController : MonoBehaviour
         transform.Translate(new Vector3(moveInput.x, moveInput.y, 0f) * speed * Time.deltaTime);
     }
  
-    private void OnCollisionStay2D(Collision2D collision)
+    void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            TakeDamage(0.1f);
+            TakeDamage(data.wallDamagePerSecond * Time.fixedDeltaTime);
         }
     }
- 
+
     private void TakeDamage(float dmg)
     {
         currentHP -= dmg;
         Debug.Log("Player HP: " + currentHP);
- 
+
         if (currentHP <= 0f)
         {
             currentHP = 0f;
