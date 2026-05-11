@@ -9,21 +9,21 @@ public class PlayerController : MonoBehaviour
     private float speed;
     private PlayerInput playerInput;
     private Vector2 moveInput;
+
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
-
-         if (data != null)
+        
+        if (data != null)
         {
             currentHP = data.maxHP;
             speed = data.moveSpeed;
         }
     }
     
-    
     void Update()
     {
-          if (GameManager.Instance == null || GameManager.Instance.currentState != GameState.Playing) return;
+    if (GameManager.Instance == null || GameManager.Instance.currentState != GameState.Playing) return;
     
     if (playerInput == null) return;
     
@@ -44,9 +44,9 @@ public class PlayerController : MonoBehaviour
         currentHP -= dmg;
         Debug.Log("Player HP: " + currentHP);
 
-        if (currentHP <= 0)
-        {
-            GameManager.Instance.GameOver();
-        }
+    if (currentHP <= 0)
+    {
+        GameManager.Instance.GameOver(); 
+    }
     }
 }
