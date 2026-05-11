@@ -6,21 +6,38 @@ public class GameManager : MonoBehaviour
 
     public GameState currentState;
 
-    void Awake()
+    private void Awake()
     {
-        Instance = this;
+        // Singleton
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    void Start()
+    private void Start()
     {
         currentState = GameState.Playing;
+        Time.timeScale = 1f;
     }
 
-    void Update()
+    private void Update()
     {
+        // Tombol ESC untuk pause dan resume
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            if (currentState == GameState.Playing)
+            {
+                PauseGame();
+            }
+            else if (currentState == GameState.Paused)
+            {
+                ResumeGame();
+            }
         }
     }
 
@@ -28,11 +45,23 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         currentState = GameState.Paused;
+
+        Debug.Log("Game Paused");
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        currentState = GameState.Playing;
+
+        Debug.Log("Game Resumed");
     }
 
     public void GameOver()
     {
-        Debug.Log("Game Over");
+        Time.timeScale = 0f;
         currentState = GameState.GameOver;
+
+        Debug.Log("Game Over");
     }
 }
