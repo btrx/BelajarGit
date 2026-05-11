@@ -13,14 +13,18 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
         currentState = GameState.Playing;
+        if(pausePanel != null) pausePanel.SetActive(false);
+        if(gameOverPanel != null) gameOverPanel.SetActive(false);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            if (currentState == GameState.Playing) PauseGame();
+            else if (currentState == GameState.Paused) ResumeGame();
         }
     }
 
