@@ -81,7 +81,6 @@ public class PlayerController : MonoBehaviour
             // Atur posisi dan rotasi peluru
             bulletObj.transform.position = spawnPos;
             bulletObj.transform.rotation = Quaternion.identity;
-            
             // Aktifkan peluru
             bulletObj.SetActive(true);
 

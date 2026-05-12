@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -6,12 +7,24 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
     private Vector3 direction;
 
+
+    void OnEnable()
+    {
+        // Setiap kali peluru aktif, mulai hitung mundur 5 detik
+        StartCoroutine(DeactivateRoutine());
+    }
+
+    IEnumerator DeactivateRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        // Kembalikan peluru ke kolam dengan menonaktifkannya
+        gameObject.SetActive(false); 
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Debug.Log($"Bullet spawned with speed: {speed}, direction: {direction}");
-        // Destroy bullet after 5 seconds if it hasn't been destroyed already
-        Destroy(gameObject, 5f);
     }
 
     void Update()
@@ -38,6 +51,6 @@ public class Bullet : MonoBehaviour
     {
         // Destroy bullet on collision
         Debug.Log("Bullet hit: " + collision.gameObject.name);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
