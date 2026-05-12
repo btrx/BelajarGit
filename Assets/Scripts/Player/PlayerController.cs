@@ -73,22 +73,30 @@ public class PlayerController : MonoBehaviour
         
         Debug.Log($"Spawn Pos: {spawnPos}, Mouse World Pos: {mouseWorldPos}, Direction: {shootDirection}");
 
-        // Instantiate bullet
-        GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
-        
-        // Set bullet direction
-        Bullet bullet = bulletObj.GetComponent<Bullet>();
-        if (bullet != null)
-        {
-            bullet.SetDirection(shootDirection);
-            Debug.Log($"Bullet direction set to: {shootDirection}");
-        }
-        else
-        {
-            Debug.LogError("Bullet component not found on prefab!");
-        }
+        // Panggil objek dari Pool
+        GameObject bulletObj = PooledObjects.Instance.GetPooledObject();
 
-        Debug.Log("Bullet spawned!");
+        if (bulletObj != null)
+        {
+            // Atur posisi dan rotasi peluru
+            bulletObj.transform.position = spawnPos;
+            bulletObj.transform.rotation = Quaternion.identity;
+            
+            // Aktifkan peluru
+            bulletObj.SetActive(true);
+
+            // Set arah peluru (Logika aslimu tetap dipertahankan)
+            Bullet bullet = bulletObj.GetComponent<Bullet>();
+            if (bullet != null)
+            {
+                bullet.SetDirection(shootDirection);
+                Debug.Log($"Bullet direction set to: {shootDirection}");
+            }
+            else
+            {
+                Debug.LogError("Bullet component not found on prefab!");
+            }
+        }
     }
 
     void OnCollisionStay2D(Collision2D collision)
