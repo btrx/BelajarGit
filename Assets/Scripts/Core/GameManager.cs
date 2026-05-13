@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 
 
     private void HandleMainMenu(){
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
         Debug.Log("Main Menu");
         currentState = GameState.MainMenu;
     }
