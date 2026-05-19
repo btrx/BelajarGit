@@ -5,4 +5,5 @@ public class PlayerData : ScriptableObject
 {
     public float maxHP;
     public float moveSpeed;
+    public float damagePerSecond;
 }
