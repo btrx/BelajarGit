@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 
     public GameState currentState;
 
+    public GameObject pauseCanvas;
+
     void Awake()
     {
         //singleton 
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         currentState = GameState.Paused;
         Debug.Log("Game State: " + currentState);
+        pauseCanvas.SetActive(true);
     }
 
     public void PlayingGame()
@@ -49,6 +52,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         currentState = GameState.Playing;
         Debug.Log("Game State: " + currentState);
+        pauseCanvas.SetActive(false);
     }
 
     public void GameOver()
