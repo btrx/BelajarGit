@@ -1,20 +1,60 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    public void StartGame()
+    [SerializeField] GameObject mainMenuUI;
+    [SerializeField] GameObject pauseUI;
+    [SerializeField] GameObject gameOverUI;
+
+    void Start()
     {
-        SceneManager.LoadScene("Game");
+        ShowMainMenu();
     }
 
-    public void QuitGame()
+    public void StartGame()
     {
-        Application.Quit();
+        if (GameManager.Instance != null)
+            GameManager.Instance.StartGame();
+    }
+
+    public void ShowMainMenu()
+    {
+        mainMenuUI.SetActive(true);
+        pauseUI.SetActive(false);
+        gameOverUI.SetActive(false);
+    }
+
+    public void ShowPause()
+    {
+        mainMenuUI.SetActive(false);
+        pauseUI.SetActive(true);
+        gameOverUI.SetActive(false);
+    }
+
+    public void Resume()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.ResumeGame();
+
+        ShowMainMenu();
+    }
+
+    public void ShowGameOver()
+    {
+        mainMenuUI.SetActive(false);
+        pauseUI.SetActive(false);
+        gameOverUI.SetActive(true);
     }
 
     public void Restart()
     {
-        SceneManager.LoadScene("Game");
+        if (GameManager.Instance != null)
+            GameManager.Instance.StartGame();
+    }
+
+    public void Menu()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.BackToMenu();
     }
 }
