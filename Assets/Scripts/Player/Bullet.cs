@@ -16,7 +16,14 @@ public class Bullet : MonoBehaviour
 
     void OnEnable()
     {
-       Destroy(gameObject, 5f);
+       // Setiap kali peluru aktif, mulai hitung mundur ... detik  
+        StartCoroutine(DeactivateRoutine());
+    }
+    IEnumerator DeactivateRoutine()
+    {
+        yield return new WaitForSeconds(2f);
+        // Kembalikan peluru ke kolam dengan menonaktifkannya
+        gameObject.SetActive(false);
     }
 
 
