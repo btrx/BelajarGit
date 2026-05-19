@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 323cce0023d4686468a71ada8ee7c21f
+guid: 8ef4928810c755445a3b4941fd48712e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4772874756597132047
-    second: show_0
+      213: 1355696885570324427
+    second: bullet6_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: show_0
+      name: bullet6_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 3
-        width: 422
-        height: 426
+        x: 0
+        y: 9
+        width: 20
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f0ba668ad48ac3240800000000000000
-      internalID: 4772874756597132047
+      spriteID: bc7c587722760d210800000000000000
+      internalID: 1355696885570324427
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      show_0: 4772874756597132047
+      bullet6_0: 1355696885570324427
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
