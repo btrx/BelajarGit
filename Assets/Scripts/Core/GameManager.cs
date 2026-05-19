@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
             case GameState.GameOver:
                 Time.timeScale = 0f;
                 Debug.Log("Game Over!");
+                SceneManager.LoadScene("GameOver"); 
                 break;
         }
     }

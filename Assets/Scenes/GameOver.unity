@@ -259,8 +259,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.8792453, g: 0.86006194, b: 0.3832182, a: 1}
-    m_PressedColor: {r: 0.7509433, g: 0.72210854, b: 0.038255543, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.91721696, b: 0.33773577, a: 1}
+    m_PressedColor: {r: 0.86415094, g: 0.77221394, b: 0.14185114, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -282,7 +282,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1918575026}
-        m_TargetAssemblyTypeName: PauseMenuController, Assembly-CSharp
+        m_TargetAssemblyTypeName: GameOverMenuController, Assembly-CSharp
         m_MethodName: ClickMainMenu
         m_Mode: 1
         m_Arguments:
@@ -649,8 +649,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.14941098, g: 0.5698112, b: 0.09353502, a: 1}
-    m_PressedColor: {r: 0.19176377, g: 0.8113208, b: 0.10868638, a: 1}
+    m_HighlightedColor: {r: 0.35286164, g: 0.86415094, b: 0.2592452, a: 1}
+    m_PressedColor: {r: 0.13286732, g: 0.690566, b: 0.029967882, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -672,8 +672,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1918575026}
-        m_TargetAssemblyTypeName: PauseMenuController, Assembly-CSharp
-        m_MethodName: ClickResume
+        m_TargetAssemblyTypeName: GameOverMenuController, Assembly-CSharp
+        m_MethodName: ClickRestart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -915,7 +915,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PAUSE GAME
+  m_text: GAME OVER
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1052,7 +1052,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Resume
+  m_text: Restart
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1247,9 +1247,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1918575021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b278da10535175848a9f621360c2e578, type: 3}
+  m_Script: {fileID: 11500000, guid: 843365fa7eff38949bf30c0416759509, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PauseMenuController
+  m_EditorClassIdentifier: Assembly-CSharp::GameOverMenuController
 --- !u!1 &1930017802
 GameObject:
   m_ObjectHideFlags: 0

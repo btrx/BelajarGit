@@ -117,6 +117,11 @@ public class PlayerController : MonoBehaviour
         {
             Time.timeScale = 0f;
             Debug.Log("Player is dead!");
+
+            if (GameManager.Instance != null)
+            {
+               GameManager.Instance.UpdateState(GameState.GameOver);
+            }
         }
     }
 }
