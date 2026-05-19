@@ -5,67 +5,79 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public GameState currentState;
+
+    [Header("UI")]
     public GameObject pauseUI;
     public GameObject gameOverUI;
 
-    private bool isPaused = false;
-
     void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
+        Instance = this;
+    }
+
+    void Start()
+    {
+        currentState = GameState.Playing;
+        Time.timeScale = 1f;
+
+        if (pauseUI != null)
+            pauseUI.SetActive(false);
+
+        if (gameOverUI != null)
+            gameOverUI.SetActive(false);
     }
 
     void Update()
     {
-    
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
         }
 
-     
         if (Input.GetKeyDown(KeyCode.T))
         {
             GameOver();
         }
     }
 
-   
+    // ================= PAUSE =================
     public void TogglePause()
     {
-        isPaused = !isPaused;
+        if (currentState == GameState.Playing)
+        {
+            PauseGame();
+        }
+        else if (currentState == GameState.Paused)
+        {
+            ResumeGame();
+        }
+    }
 
-        if (isPaused)
-        {
-            Time.timeScale = 0f;
-            if (pauseUI != null)
-                pauseUI.SetActive(true);
-        }
-        else
-        {
-            Time.timeScale = 1f;
-            if (pauseUI != null)
-                pauseUI.SetActive(false);
-        }
+    public void PauseGame()
+    {
+        currentState = GameState.Paused;
+        Time.timeScale = 0f;
+
+        if (pauseUI != null)
+            pauseUI.SetActive(true);
     }
 
     public void ResumeGame()
     {
-        isPaused = false;
+        currentState = GameState.Playing;
         Time.timeScale = 1f;
 
         if (pauseUI != null)
             pauseUI.SetActive(false);
     }
 
-
+    // ================= GAME OVER =================
     public void GameOver()
     {
         Debug.Log("GAME OVER");
 
+        currentState = GameState.GameOver;
         Time.timeScale = 0f;
 
         if (gameOverUI != null)
@@ -73,17 +85,16 @@ public class GameManager : MonoBehaviour
             gameOverUI.SetActive(true);
             gameOverUI.transform.SetAsLastSibling();
         }
-        else
-        {
-            Debug.LogError("gameOverUI belum di-assign di Inspector!");
-        }
     }
 
- 
+    // ================= BUTTON =================
     public void BackToMainMenu()
     {
-        Debug.Log("Back to Main Menu Klik");
+        Debug.Log("Back to Main Menu");
+
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu"); 
+        currentState = GameState.Playing;
+
+        SceneManager.LoadScene("MainMenu");
     }
 }
