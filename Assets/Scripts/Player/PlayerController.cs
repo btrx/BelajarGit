@@ -91,13 +91,13 @@ public class PlayerController : MonoBehaviour
         // Set bullet direction
       
        }
-    
+    }
 
     void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            TakeDamage(0.1f);
+            TakeDamage(1f);
         }
     }
 
@@ -112,4 +112,4 @@ public class PlayerController : MonoBehaviour
         }
     }
     }
-}
+
