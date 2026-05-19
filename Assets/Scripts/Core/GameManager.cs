@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Over");
         Time.timeScale = 1f;
         currentState = GameState.GameOver;
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Restart");
     }
     
 }
