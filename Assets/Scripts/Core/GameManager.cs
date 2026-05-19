@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,7 +21,14 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            if (currentState == GameState.Playing)
+            {
+                PauseGame();
+            }
+            else if (currentState == GameState.Paused)
+            {
+                ResumeGame();
+            }
         }
     }
 
@@ -30,9 +38,17 @@ public class GameManager : MonoBehaviour
         currentState = GameState.Paused;
     }
 
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        currentState = GameState.Playing;
+    }
+
     public void GameOver()
     {
         Debug.Log("Game Over");
+        SceneManager.LoadScene("GameOver");
+        Time.timeScale = 0f;
         currentState = GameState.GameOver;
     }
 }
