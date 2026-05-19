@@ -6,33 +6,54 @@ public class GameManager : MonoBehaviour
 
     public GameState currentState;
 
-    void Awake()
+    private void Awake()
     {
-        Instance = this;
-    }
-
-    void Start()
-    {
-        currentState = GameState.Playing;
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && currentState == GameState.Playing)
         {
             PauseGame();
         }
+        else if (Input.GetKeyDown(KeyCode.Escape) && currentState == GameState.Paused)
+        {
+            PlayingGame();
+        }
+    }
+    public void PlayingGame()
+    {
+        Time.timeScale = 1f;
+        currentState = GameState.Playing;
+
+        Debug.Log("State: Playing");
     }
 
     public void PauseGame()
     {
         Time.timeScale = 0f;
         currentState = GameState.Paused;
+
+        Debug.Log("State: Paused");
     }
 
     public void GameOver()
     {
-        Debug.Log("Game Over");
+        Time.timeScale = 0f;
         currentState = GameState.GameOver;
+
+        Debug.Log("State: Game Over");
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1f;
+        currentState = GameState.MainMenu;
+
+        Debug.Log("State: Main Menu");
     }
 }
