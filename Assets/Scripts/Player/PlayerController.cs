@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private float attackInput;
     // variabe untuk menyimpan input serangan sebelumnya agar bisa mendeteksi perubahan dari tidak menekan ke menekan
     private float previousAttackInput;
-
+    public GameState currentState;
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
         // Ini untuk ngecek apakah tombol serang baru saja ditekan
         if (previousAttackInput == 0 && attackInput > 0)
         {
+            if  ( Time.timeScale > 0)
             Shoot();
         }
         
