@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public GameObject PausePanel;
 
     public GameState currentState;
 
@@ -20,7 +22,16 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            if (currentState == GameState.Playing)
+            {
+                PauseGame();
+                PausePanel.SetActive(true);
+            }
+            else if  (currentState == GameState.Paused)
+            {
+                PausePanel.SetActive(false);
+                ResumeGame();
+            }
         }
     }
 
@@ -30,9 +41,17 @@ public class GameManager : MonoBehaviour
         currentState = GameState.Paused;
     }
 
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        currentState = GameState.Playing;
+    }
+
     public void GameOver()
     {
         Debug.Log("Game Over");
+        SceneManager.LoadScene("GameOver");
+        Time.timeScale = 0f;
         currentState = GameState.GameOver;
     }
 }
