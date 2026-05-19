@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     {
         if (playerInput == null) return;
 
+        if (GameManager.Instance.currentState == GameState.Paused) return;
+
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
         //baca input serangan
         attackInput = playerInput.actions["Attack"].ReadValue<float>();
