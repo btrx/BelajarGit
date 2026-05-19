@@ -3295,51 +3295,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 878647045}
   m_CullTransparentMesh: 1
---- !u!1 &1100191234
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1100191236}
-  - component: {fileID: 1100191235}
-  m_Layer: 0
-  m_Name: PooledObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1100191235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1100191234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 640f746c069e63240946a78b2e45b8dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
-  objectPool: {fileID: 4657290808891052960, guid: f82e99b30e4841445b91ac47f1002669, type: 3}
---- !u!4 &1100191236
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1100191234}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.82548, y: 0.59796, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1161255973
 GameObject:
   m_ObjectHideFlags: 0
@@ -3591,8 +3546,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 7cfdd5aaea116a84098f480db53a9ea8, type: 2}
-  bulletPrefab: {fileID: 4657290808891052960, guid: f82e99b30e4841445b91ac47f1002669, type: 3}
-  bulletSpawnPoint: {fileID: 1775706138}
 --- !u!114 &1775706134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3696,11 +3649,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!4 &1775706138 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3301942165447617713, guid: 892f16356eabc704db9583a9fd636a1e, type: 3}
-  m_PrefabInstance: {fileID: 1775706129}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2075806048
 GameObject:
   m_ObjectHideFlags: 0
@@ -3758,4 +3706,3 @@ SceneRoots:
   - {fileID: 2075806050}
   - {fileID: 1220620051}
   - {fileID: 365886179}
-  - {fileID: 1100191236}
