@@ -14,7 +14,12 @@ public class UIManager : MonoBehaviour
     }
 
     public void Restart()
-    {
+    {   
         SceneManager.LoadScene("Game");
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

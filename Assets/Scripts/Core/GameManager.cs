@@ -1,10 +1,14 @@
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     public GameState currentState;
+    public GameObject pauseCanvas;
 
     void Awake()
     {
@@ -20,7 +24,14 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            if (currentState == GameState.Playing)
+            {
+                PauseGame();
+            }
+            else if (currentState == GameState.Paused)
+            {
+                ResumeGame();
+            }
         }
     }
 
@@ -28,11 +39,21 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         currentState = GameState.Paused;
+        pauseCanvas.SetActive(true);
+
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        currentState = GameState.Playing;
+        pauseCanvas.SetActive(false);
     }
 
     public void GameOver()
     {
         Debug.Log("Game Over");
+        SceneManager.LoadScene("GameOver");
         currentState = GameState.GameOver;
     }
 }
