@@ -1,0 +1,199 @@
+[33mcommit 87ac4d524bccc228d07884fa0cad626043ed7504[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32muts-fix[m[33m, [m[1;31morigin/uts-fix[m[33m)[m
+Author: adistarakapramudya10-ops <adistarakapramudya10@gmail.com>
+Date:   Tue May 19 09:48:56 2026 +0700
+
+    test
+
+[33mcommit a3403a544f35d08ae56fd945a38c257f49f1a2dd[m
+Author: adistarakapramudya10-ops <adistarakapramudya10@gmail.com>
+Date:   Wed Apr 29 23:32:10 2026 +0700
+
+    fix: final improvement game manager
+
+[33mcommit cce9ad59136ef897198b1a1cd5e13e016bab83d2[m
+Author: adistarakapramudya10-ops <adistarakapramudya10@gmail.com>
+Date:   Wed Apr 29 23:19:33 2026 +0700
+
+    fix: pause UI and main menu button now works correctly
+
+[33mcommit ee7d35429deb024686ef86bc1c786c77997614ee[m
+Author: adistarakapramudya10-ops <adistarakapramudya10@gmail.com>
+Date:   Wed Apr 29 22:49:16 2026 +0700
+
+    fix: correct pause UI and button placement
+
+[33mcommit 68a44651172d90c0072f90b8eb354507b6a53127[m
+Author: adistarakapramudya10-ops <adistarakapramudya10@gmail.com>
+Date:   Wed Apr 29 22:24:24 2026 +0700
+
+    fix: add pause system with ESC
+
+[33mcommit 3fa5044a742c54edc679d7ded6d906437b47bff1[m
+Author: adistarakapramudya10-ops <adistarakapramudya10@gmail.com>
+Date:   Wed Apr 29 21:38:15 2026 +0700
+
+    fix: connect player to scriptable object
+
+[33mcommit 8bb36a656a72387976e6fe2ed9a1969739521f8f[m
+Author: adistarakapramudya10-ops <adistarakapramudya10@gmail.com>
+Date:   Wed Apr 29 21:10:59 2026 +0700
+
+    fix: connect player to scriptable object
+
+[33mcommit 28cb743c15d787bf18f51c1e728288d8dc20f0b9[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: kusumadoni77 <kusumadoni77@gmail.com>
+Date:   Tue Apr 28 08:27:54 2026 +0700
+
+    Add testing content to ujicoba.txt
+
+[33mcommit 9559130100cf5dfa98dd1de7474dbcbf76ae89ac[m
+Author: kusumadoni77 <kusumadoni77@gmail.com>
+Date:   Wed Apr 22 13:05:45 2026 +0700
+
+    Update README title for clarity
+
+[33mcommit 3c5cdddcb26d0ad6ece320a8f55a93d376646b6a[m
+Merge: 31a2bda 2fbd757
+Author: kusumadoni77 <kusumadoni77@gmail.com>
+Date:   Wed Apr 22 08:21:26 2026 +0700
+
+    Merge pull request #101 from donidump/main
+    
+    Add Finnish Task
+
+[33mcommit 2fbd7579afd06d1e5babc0a63e32f186742cc171[m
+Author: btrx <kusumadoni77@gmail.com>
+Date:   Wed Apr 22 08:10:05 2026 +0700
+
+    final test
+
+[33mcommit 26fda4cf4473b5f1d96e535673584af665ef3640[m
+Author: btrx <kusumadoni77@gmail.com>
+Date:   Wed Apr 22 07:51:00 2026 +0700
+
+    update add gameplay
+
+[33mcommit 31a2bda0ac59cd7d57f1bced8b9d282459f1f3d0[m
+Merge: 2eeeddd b69fbcd
+Author: kusumadoni77 <kusumadoni77@gmail.com>
+Date:   Mon Apr 20 07:05:57 2026 +0700
+
+    Merge pull request #100 from donidump/main
+    
+    Remove Junk
+
+[33mcommit b69fbcdbf83995b18c5280dcc8dea5f79cbea352[m
+Author: donidump <kusumadoni78@gmail.com>
+Date:   Mon Apr 20 07:03:52 2026 +0700
+
+    remove unnecessary
+
+[33mcommit 89bfca5c9f995ce21e4ee556c03c73abcf45fff6[m
+Author: donidump <kusumadoni78@gmail.com>
+Date:   Mon Apr 20 06:56:27 2026 +0700
+
+    add test:
+
+[33mcommit 2eeedddf2478127c69cf1540c8414d7a663e15b5[m
+Author: kusumadoni77 <kusumadoni77@gmail.com>
+Date:   Sat Mar 14 10:34:19 2026 +0700
+
+    Create update.txt
+
+[33mcommit 98ef3528ac2ec0488f177477bb668e4fdc62b92d[m
+Merge: de81c11 d80f87c
+Author: kusumadoni77 <kusumadoni77@gmail.com>
+Date:   Fri Mar 13 08:26:07 2026 +0700
+
+    Merge pull request #40 from donidump/feature/AddNameScript
+    
+    menambahkan script nama Doni
+
+[33mcommit de81c113a75464ba2b72a28ec11705344f3b25cc[m
+Author: btrx <kusumadoni77@gmail.com>
+Date:   Fri Mar 13 07:13:50 2026 +0700
+
+    add kegiatan
+
+[33mcommit 6b2f3a60026d8121d460b13e2094f45a83862ea7[m
+Author: kusumadoni77 <kusumadoni77@gmail.com>
+Date:   Fri Mar 13 06:54:09 2026 +0700
+
+    Add Git usage guidelines and daily workflow instructions
+
+[33mcommit cb45b4128f2c7ffee3fca4ddf83617c6c628bbbf[m
+Author: btrx <kusumadoni77@gmail.com>
+Date:   Fri Mar 13 06:36:58 2026 +0700
+
+    revoke tambah nama
+
+[33mcommit ff8c2f3cef2b9bfad2328e567c88ef360eb183eb[m
+Author: btrx <kusumadoni77@gmail.com>
+Date:   Fri Mar 13 06:35:13 2026 +0700
+
+    Revert "Menambahkan script untuk print nama"
+    
+    This reverts commit d59658817ddfb97c8974da718bf1305902b3846f.
+
+[33mcommit d80f87c78ef48755e754c1e7a273ef68a86e87fd[m
+Author: donidump <kusumadoni78@gmail.com>
+Date:   Thu Mar 12 10:41:07 2026 +0700
+
+    menambahkan script nama Doni
+
+[33mcommit 437a4aef67aab31265e3a8e19787a98d81675f78[m
+Merge: ab03232 5aa12fe
+Author: kusumadoni77 <kusumadoni77@gmail.com>
+Date:   Tue Mar 10 10:53:00 2026 +0700
+
+    Merge pull request #5 from Al-Fatih123/feature/menambahkannama
+    
+    tambah script buat nama Fatih
+
+[33mcommit 5aa12fe112e2c803c88bf2b17221394d58555ad6[m
+Author: Al-Fatih123 <04alfatihdiarhanif@gmail.com>
+Date:   Tue Mar 10 10:44:10 2026 +0700
+
+    tambah script buat nama revisi
+
+[33mcommit ab03232ba64159c5af96e8931693b2d2991803e8[m
+Merge: 7c2e362 d596588
+Author: kusumadoni77 <kusumadoni77@gmail.com>
+Date:   Tue Mar 10 10:34:28 2026 +0700
+
+    Merge pull request #3 from donidump/feature/MenambahkanNama
+    
+    Menambahkan script untuk print nama
+
+[33mcommit 9033930e3c43308dfab825246dc234bc047cae22[m
+Author: Al-Fatih123 <04alfatihdiarhanif@gmail.com>
+Date:   Tue Mar 10 10:31:04 2026 +0700
+
+    tambah script buat nama
+
+[33mcommit d59658817ddfb97c8974da718bf1305902b3846f[m
+Author: donidump <kusumadoni78@gmail.com>
+Date:   Tue Mar 10 10:30:50 2026 +0700
+
+    Menambahkan script untuk print nama
+
+[33mcommit 7c2e36294d9dde112863ff720d52f10195731c21[m
+Merge: 4f79469 0f26eb2
+Author: kusumadoni77 <kusumadoni77@gmail.com>
+Date:   Tue Mar 10 06:51:19 2026 +0700
+
+    Merge pull request #1 from donidump/main
+    
+    add Script folder
+
+[33mcommit 0f26eb255686c045a73c1313ed37cd69afa01786[m
+Author: donidump <kusumadoni78@gmail.com>
+Date:   Tue Mar 10 06:49:12 2026 +0700
+
+    add Script
+
+[33mcommit 4f7946927dddb2467955911de046b3088742cf4d[m
+Author: btrx <kusumadoni77@gmail.com>
+Date:   Tue Mar 10 06:31:16 2026 +0700
+
+    init
