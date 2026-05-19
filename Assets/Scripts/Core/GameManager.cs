@@ -42,10 +42,20 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Playing:
                 Time.timeScale = 1f;
+                if (SceneManager.GetSceneByName("Pause").isLoaded)
+                {
+                    SceneManager.UnloadSceneAsync("Pause");
+                }
                 break;
+
             case GameState.Pause:
                 Time.timeScale = 0f;
+                if (!SceneManager.GetSceneByName("Pause").isLoaded)
+                {
+                    SceneManager.LoadScene("Pause", LoadSceneMode.Additive);
+                }
                 break;
+
             case GameState.GameOver:
                 Time.timeScale = 0f;
                 Debug.Log("Game Over!");
@@ -60,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        Time.timeScale = 1f; 
         SceneManager.LoadScene("MainMenu");
     }
 }
