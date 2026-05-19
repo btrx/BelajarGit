@@ -225,7 +225,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3047,6 +3047,67 @@ Transform:
   - {fileID: 655542420}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1686422952
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -4778533847777457772, guid: 6d054b1785ca4e944a179a7e8f1030af, type: 3}
+      propertyPath: objectToPool
+      value: 
+      objectReference: {fileID: 7010807844164866948, guid: 8ec651593eda1f3459ab3b90c0251928, type: 3}
+    - target: {fileID: 3854296268733776674, guid: 6d054b1785ca4e944a179a7e8f1030af, type: 3}
+      propertyPath: m_Name
+      value: objekpoll
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205654246301680689, guid: 6d054b1785ca4e944a179a7e8f1030af, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.45461
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205654246301680689, guid: 6d054b1785ca4e944a179a7e8f1030af, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.37977
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205654246301680689, guid: 6d054b1785ca4e944a179a7e8f1030af, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205654246301680689, guid: 6d054b1785ca4e944a179a7e8f1030af, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205654246301680689, guid: 6d054b1785ca4e944a179a7e8f1030af, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205654246301680689, guid: 6d054b1785ca4e944a179a7e8f1030af, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205654246301680689, guid: 6d054b1785ca4e944a179a7e8f1030af, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205654246301680689, guid: 6d054b1785ca4e944a179a7e8f1030af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205654246301680689, guid: 6d054b1785ca4e944a179a7e8f1030af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205654246301680689, guid: 6d054b1785ca4e944a179a7e8f1030af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6d054b1785ca4e944a179a7e8f1030af, type: 3}
 --- !u!1001 &1775706129
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3152,7 +3213,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6080a0859a571264b9d155ff9b9f6005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: c73af3a07d3fd964884004d995d5453c, type: 2}
+  currentHP: 100
+  speed: 5
+  bulletPrefab: {fileID: 7010807844164866948, guid: 8ec651593eda1f3459ab3b90c0251928, type: 3}
+  bulletSpawnPoint: {fileID: 1775706141}
 --- !u!114 &1775706134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3269,6 +3333,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   currentState: 0
+--- !u!4 &1775706141 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3301942165447617713, guid: 892f16356eabc704db9583a9fd636a1e, type: 3}
+  m_PrefabInstance: {fileID: 1775706129}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3277,3 +3346,4 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1775706129}
   - {fileID: 1161255975}
+  - {fileID: 1686422952}
