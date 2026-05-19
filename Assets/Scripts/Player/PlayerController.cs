@@ -74,7 +74,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"Spawn Pos: {spawnPos}, Mouse World Pos: {mouseWorldPos}, Direction: {shootDirection}");
 
         // Instantiate bullet
-        //GameObject bulletObj = PooledObjects.Instance.GetPooledObject();  // Gunakan pooling untuk mendapatkan objek peluru (diganti)
         GameObject bulletObj = PooledObject.Instance.GetPooledObject();
 
         if (bulletObj != null)
