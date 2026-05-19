@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -11,7 +12,7 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         Debug.Log($"Bullet spawned with speed: {speed}, direction: {direction}");
         // Destroy bullet after 5 seconds if it hasn't been destroyed already
-        Destroy(gameObject, 5f);
+        // Destroy(gameObject, 5f);
     }
 
     void Update()
@@ -36,8 +37,23 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        // Destroy bullet on collision
         Debug.Log("Bullet hit: " + collision.gameObject.name);
-        Destroy(gameObject);
+         gameObject.SetActive(false); // NONAKTIFKAN OBJEK
+
+        // Destroy bullet on collision
+        // Debug.Log("Bullet hit: " + collision.gameObject.name);
+        // Destroy(gameObject);
+    }
+
+    void OnEnable()
+    {
+        StartCoroutine(DeactiveRoutine());
+    }
+
+    IEnumerator DeactiveRoutine()
+    {
+       yield return new WaitForSeconds(5f);
+    // Kembalikan peluru ke kolam dengan menonaktifkannya
+        gameObject.SetActive(false); 
     }
 }
