@@ -40,37 +40,32 @@ public class PlayerController : MonoBehaviour
     }
     void Shoot()
     {
+        Debug.Log("Player is shooting!");
+        
+        // Cek apakah BulletPool tersedia (newly added)
         if (BulletPool.Instance == null)
         {
-            Debug.LogWarning("BulletPool instance not found!");
+            Debug.LogError("BulletPool not found in scene!");
             return;
         }
-        Debug.Log("Player is shooting!");
 
-        // Determine spawn position
         Vector3 spawnPos = bulletSpawnPoint != null ? bulletSpawnPoint.position : transform.position;
 
-        // Get mouse position in world space for 2D
+       
         Vector3 mouseScreenPos = Input.mousePosition;
         mouseScreenPos.z = Mathf.Abs(Camera.main.transform.position.z);
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         mouseWorldPos.z = 0; // Ensure Z is 0 for 2D
         
-        // Calculate direc  tion from player to mouse
+        
         Vector3 shootDirection = (mouseWorldPos - spawnPos).normalized;
         
         Debug.Log($"Spawn Pos: {spawnPos}, Mouse World Pos: {mouseWorldPos}, Direction: {shootDirection}");
 
-        // Instantiate bullet
-        GameObject bulletObj = PooledObjects.Instance.GetPooledObject();
+      
+        GameObject bulletObj = BulletPool.Instance.GetBullet(spawnPos);
         
-        bulletObj.transform.position = spawnPos;
-        bulletObj.transform.rotation = Quaternion.identity;
-        
-        // Aktifkan peluru
-        bulletObj.SetActive(true);
-
-        // Set arah peluru (Logika aslimu tetap dipertahankan)
+       
         Bullet bullet = bulletObj.GetComponent<Bullet>();
         if (bullet != null)
         {
@@ -82,7 +77,8 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("Bullet component not found on prefab!");
         }
 
-       Debug.Log($"Bullet spawned! Pool has {BulletPool.Instance.GetAvailableBulletsCount()} bullets available");
+        // Tampilkan berapa banyak peluru yang masih tersedia di pool (newly added)
+        Debug.Log($"Bullet spawned! Pool has {BulletPool.Instance.GetAvailableBulletsCount()} bullets available");
     }
 
     void OnCollisionStay2D(Collision2D collision)
