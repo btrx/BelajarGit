@@ -1,1 +1,0 @@
-Debug.Log("Nama saya Albay");
