@@ -3143,6 +3143,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHP: 100
   speed: 5
+  bulletPrefab: {fileID: 8293522139252965506, guid: a72c9863c5cec644eb64bf91b7571978, type: 3}
+  bulletSpawnPoint: {fileID: 1775706138}
 --- !u!114 &1775706134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3246,6 +3248,56 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!4 &1775706138 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3301942165447617713, guid: 892f16356eabc704db9583a9fd636a1e, type: 3}
+  m_PrefabInstance: {fileID: 1775706129}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1819024785
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1819024787}
+  - component: {fileID: 1819024786}
+  m_Layer: 0
+  m_Name: ObjectPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1819024786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819024785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa38fda93b4cf7f48bc81a6b084460c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToPool: {fileID: 8293522139252965506, guid: a72c9863c5cec644eb64bf91b7571978, type: 3}
+--- !u!4 &1819024787
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819024785}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 42.717995, y: 70.574776, z: -10.314158}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3254,3 +3306,4 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1775706129}
   - {fileID: 1161255975}
+  - {fileID: 1819024787}
