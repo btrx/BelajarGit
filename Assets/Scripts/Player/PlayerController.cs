@@ -3,32 +3,26 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-
-    [SerializeField] private PlayerData playerData;
-
-    private float currentHP;
-    //public float speed = 5f;
-    
+    public float currentHP = 100;
+    public float speed = 5f;
     private PlayerInput playerInput;
     private Vector2 moveInput;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
-        currentHP = playerData.maxHP;
     }
     
     
     void Update()
     {
-
         if (playerInput == null) return;
         
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
         float h = moveInput.x;
         float v = moveInput.y;
 
-        transform.Translate(new Vector3(h, v, 0) * playerData.moveSpeed * Time.deltaTime);
+        transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
     }
 
     void OnCollisionStay2D(Collision2D collision)

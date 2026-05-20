@@ -66,5 +66,5 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "BelajarGit2.slnx"
+    "dotnet.defaultSolution": "BelajarGit.sln"
 }
