@@ -29,10 +29,10 @@ public class GameManager : MonoBehaviour
         switch (newState)
         {
             case GameState.MainMenu:
-                Menu();
+                OnMainMenu();
                 break;
              case GameState.Playing:
-                Play();
+                OnPlaying();
                 break;
             case GameState.Paused:
                 PauseGame();
@@ -56,37 +56,38 @@ public class GameManager : MonoBehaviour
         }
         else if (currentState == GameState.GameOver && Input.GetKeyDown(KeyCode.Space))
         {
-            Restart();
+            RestartGame();
         }
     }
 
-    private void Menu()
+    private void OnMainMenu()
     {
         Time.timeScale = 1f;
-        Debug.Log("Ada di menu");
+        Debug.Log("Kembali ke menu");
     }
-    private void Play()
+    private void OnPlaying()
     {
         Time.timeScale = 1f;
-        Debug.Log("memulai gem");
+        Debug.Log("Game Started");
     }
     public void PauseGame()
     {
         Time.timeScale = 0f;
-        Debug.Log("gem berhenti");
+        Debug.Log("Game Paused");
         currentState = GameState.Paused;
-    }
-     public void Restart()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Debug.Log("Game Diulang");
     }
     public void Resume()
     {
         Time.timeScale = 1f;
-        Debug.Log("Gem di lanjutkan");
+        Debug.Log("Game Resumed");
         currentState = GameState.Playing;
+    }
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("Game Restarted");
+        StartGame();
     }
 
     public void GameOver()
@@ -95,5 +96,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Over");
         currentState = GameState.GameOver;
     }
-       
+       public void StartGame() => UpdateState(GameState.Playing);
+        public void OnPause() => UpdateState(GameState.Paused);
+        public void ResumeGame() => UpdateState(GameState.Playing);
+        public void Over() => UpdateState(GameState.GameOver);
 }
