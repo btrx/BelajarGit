@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
         currentState = GameState.Playing;
     }
 
@@ -20,7 +21,26 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            if (currentState == GameState.Playing)
+            {
+                PauseGame();
+            }
+            else if (currentState == GameState.Paused)
+            {
+                ResumeGame();
+            }
+        }
+
+        if (currentState == GameState.GameOver && Input.GetKeyDown(KeyCode.R))
+        {
+            Time.timeScale = 1f;
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+        }
+
+        if (currentState == GameState.GameOver && Input.GetKeyDown(KeyCode.M))
+        {
+            Time.timeScale = 1f;
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
         }
     }
 
@@ -28,6 +48,12 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         currentState = GameState.Paused;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        currentState = GameState.Playing;
     }
 
     public void GameOver()
