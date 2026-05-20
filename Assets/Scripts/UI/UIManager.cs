@@ -3,9 +3,34 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+
+    public GameObject mainMenuUI;
+    public GameObject pauseMenuUI;
+    public GameObject gameOverUI;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
     public void StartGame()
     {
-        SceneManager.LoadScene("Game");
+        mainMenuUI.SetActive(true);
+        pauseMenuUI.SetActive(false);
+        gameOverUI.SetActive(false);
+    }
+
+    public void PausedGame()
+    {
+        pauseMenuUI.SetActive(true);
+    }
+
+    public void StartPlaying()
+    {
+        mainMenuUI.SetActive(false);
+        pauseMenuUI.SetActive(false);
+        gameOverUI.SetActive(false);
     }
 
     public void QuitGame()
@@ -13,8 +38,15 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void GameOver()
+    {
+        gameOverUI.SetActive(true);
+    }
+
     public void Restart()
     {
         SceneManager.LoadScene("Game");
     }
+
+
 }
