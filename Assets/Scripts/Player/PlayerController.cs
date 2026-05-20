@@ -87,6 +87,8 @@ public class PlayerController : MonoBehaviour
         // // Ambil peluru dari pool daripada membuat yang baru (newly added)
         // GameObject bulletObj = BulletPool.Instance.GetBullet(spawnPos);
 
+    
+
         // Panggil objek dari Pool
         GameObject bulletObj = PooledObjects.Instance.GetPooledObject();
       
