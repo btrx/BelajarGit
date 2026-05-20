@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour
         {
         // Destroy bullet on collision
         Debug.Log("Bullet hit: " + collision.gameObject.name);
-        Destroy(gameObject);
+        gameObject.SetActive(false); // Deactivate bullet instead of destroying
         }
 
     }
