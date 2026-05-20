@@ -28,6 +28,10 @@ public class UIManager : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Game");
+        GameManager.Instance.currentState = GameState.Playing;
+
+        SceneManager.UnloadSceneAsync("Game");
+        SceneManager.LoadScene("Game", LoadSceneMode.Additive);
+       
     }
 }

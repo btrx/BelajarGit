@@ -14,9 +14,10 @@ public class PooledObjects: MonoBehaviour
     void Awake() 
     {
         if (Instance == null) {
-            Instance = this;
+           Instance = this;
         }
     }
+
 
     public GameObject GetPooledObject()
     {

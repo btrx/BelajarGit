@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class PlayerController : MonoBehaviour
         transform.Translate(new Vector3(h, v, 0) * playerData.moveSpeed * Time.deltaTime);
 
         // Ini untuk ngecek apakah tombol serang baru saja ditekan
-        if (previousAttackInput == 0 && attackInput > 0)
+        if (previousAttackInput == 0 && attackInput > 0 && !EventSystem.current.IsPointerOverGameObject())
         {
             Shoot();
         }
@@ -88,6 +89,7 @@ public class PlayerController : MonoBehaviour
 
         // Panggil objek dari Pool
         GameObject bulletObj = PooledObjects.Instance.GetPooledObject();
+      
 
         if (bulletObj != null)
         {

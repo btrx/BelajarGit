@@ -23,9 +23,13 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (currentState == GameState.Playing)
-            PauseGame();
+            {
+                PauseGame();
+            }
             else if (currentState == GameState.Paused)
-            StartGame();
+            {
+                StartGame();
+            }
         }
     }
 
