@@ -22,12 +22,12 @@ public class PlayerController : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         currentHP = playerData.maxHP;
     }
-    
-    
+
+
     void Update()
     {
         if (playerInput == null) return;
-        
+
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
         // Baca input serangan
         attackInput = playerInput.actions["Attack"].ReadValue<float>();
@@ -36,13 +36,13 @@ public class PlayerController : MonoBehaviour
         float v = moveInput.y;
 
         transform.Translate(new Vector3(h, v, 0) * playerData.moveSpeed * Time.deltaTime);
-        
+
         // Ini untuk ngecek apakah tombol serang baru saja ditekan
         if (previousAttackInput == 0 && attackInput > 0)
         {
             Shoot();
         }
-        
+
         previousAttackInput = attackInput;
 
         // if (attackInput > 0)
@@ -50,11 +50,11 @@ public class PlayerController : MonoBehaviour
         //     Shoot();
         // }
     }
-    
+
     void Shoot()
     {
         Debug.Log("Player is shooting!");
-        
+
         if (bulletPrefab == null)
         {
             Debug.LogWarning("Bullet prefab not assigned!");
@@ -69,28 +69,34 @@ public class PlayerController : MonoBehaviour
         mouseScreenPos.z = Mathf.Abs(Camera.main.transform.position.z);
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         mouseWorldPos.z = 0; // Ensure Z is 0 for 2D
-        
+
         // Calculate direction from player to mouse
         Vector3 shootDirection = (mouseWorldPos - spawnPos).normalized;
-        
+
         Debug.Log($"Spawn Pos: {spawnPos}, Mouse World Pos: {mouseWorldPos}, Direction: {shootDirection}");
 
         // Instantiate bullet
-        GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
-        
-        // Set bullet direction
-        Bullet bullet = bulletObj.GetComponent<Bullet>();
-        if (bullet != null)
-        {
-            bullet.SetDirection(shootDirection);
-            Debug.Log($"Bullet direction set to: {shootDirection}");
-        }
-        else
-        {
-            Debug.LogError("Bullet component not found on prefab!");
-        }
+        // GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
 
-        Debug.Log("Bullet spawned!");
+        GameObject bulletObj = PooledObjects.Instance.GetPooledObject();
+
+        if (bulletObj != null)
+        {
+            bulletObj.transform.position = spawnPos;
+            bulletObj.transform.rotation = Quaternion.identity;
+            bulletObj.SetActive(true);
+
+            Bullet bullet = bulletObj.GetComponent<Bullet>();
+            if (bullet != null)
+            {
+                bullet.SetDirection(shootDirection);
+                Debug.Log($"Bullet direction set to: {shootDirection}");
+            }
+            else
+            {
+                Debug.LogError("Bullet component not found on prefab!");
+            }
+        }
     }
 
     void OnCollisionStay2D(Collision2D collision)

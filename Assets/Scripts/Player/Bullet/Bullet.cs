@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -44,4 +45,16 @@ public class Bullet : MonoBehaviour
         }
 
     }
+
+  void OnEnable()
+  {
+        // Setiap kali peluru aktif, mulai hitung mundur 5 detik
+        StartCoroutine(DeactivateRoutine());
+  }
+
+  IEnumerator DeactivateRoutine()
+  {
+        yield return new WaitForSeconds(5f);
+        gameObject.SetActive(false); // Deactivate bullet setelah 5 detik
+  }
 }
