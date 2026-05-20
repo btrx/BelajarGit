@@ -24,18 +24,32 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
     
-    public void TogglePause()
+public void TogglePause()
+{
+    // Pengaman 1: Cek apakah GameManager ada di Scene
+    if (GameManager.Instance == null)
     {
-            
-        if (GameManager.Instance.currentState == GameState.Playing)
-        {
-            GameManager.Instance.PauseGame();
-            buttonText.text = "Resume";
-        }
-        else if (GameManager.Instance.currentState == GameState.Paused)
-        {
-            GameManager.Instance.ResumeGame();
-            buttonText.text = "Pause";
-        }
+        Debug.LogError("Error: GameManager tidak ditemukan di Scene! Pastikan sudah ada GameObject dengan script GameManager.");
+        return; 
     }
+
+    // Pengaman 2: Cek apakah variabel buttonText sudah diisi di Inspector
+    if (buttonText == null)
+    {
+        Debug.LogError("Error: Variabel 'buttonText' masih kosong di Inspector UIManager! Tolong di-drag dulu komponen Text-nya.");
+        return; 
+    }
+
+    // --- KODE ASLI KAMU (Sekarang Aman dari NullReference) ---
+    if (GameManager.Instance.currentState == GameState.Playing)
+    {
+        GameManager.Instance.PauseGame();
+        buttonText.text = "Resume";
+    }
+    else if (GameManager.Instance.currentState == GameState.Paused)
+    {
+        GameManager.Instance.ResumeGame();
+        buttonText.text = "Pause";
+    }
+}
 }

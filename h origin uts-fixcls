@@ -1,0 +1,147 @@
+[33mcommit 30373b405b02610d467350af071c3c2436196d75[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32muts-fix[m[33m)[m
+Author: telordardar <haidarfaizputrasulistyo@gmail.com>
+Date:   Fri Apr 24 09:26:35 2026 +0700
+
+    fix: complete game flow and UI
+
+Assets/Scripts/Core/GameManager.cs
+Assets/Scripts/Core/GameState.cs
+
+[33mcommit 4de1ab6f4302b3cc477122316caa405a863cb73e[m
+Author: telordardar <haidarfaizputrasulistyo@gmail.com>
+Date:   Fri Apr 24 09:26:00 2026 +0700
+
+    fix: implement pause and resume state
+
+Assets/Scripts/UI/UIManager.cs
+
+[33mcommit 31f4536f0478bbaff4413927bdf665242b893660[m
+Author: telordardar <haidarfaizputrasulistyo@gmail.com>
+Date:   Fri Apr 24 09:24:27 2026 +0700
+
+    fix: connect player to scriptable object
+
+Assets/Scripts/Player/PlayerController.cs
+Assets/Scripts/ScriptableObject/PlayerData.cs
+
+[33mcommit 437a4aef67aab31265e3a8e19787a98d81675f78[m
+Merge: ab03232 5aa12fe
+Author: kusumadoni77 <kusumadoni77@gmail.com>
+Date:   Tue Mar 10 10:53:00 2026 +0700
+
+    Merge pull request #5 from Al-Fatih123/feature/menambahkannama
+    
+    tambah script buat nama Fatih
+
+[33mcommit 5aa12fe112e2c803c88bf2b17221394d58555ad6[m
+Author: Al-Fatih123 <04alfatihdiarhanif@gmail.com>
+Date:   Tue Mar 10 10:44:10 2026 +0700
+
+    tambah script buat nama revisi
+
+Assets/Scripts/tambahnama.cs
+
+[33mcommit ab03232ba64159c5af96e8931693b2d2991803e8[m
+Merge: 7c2e362 d596588
+Author: kusumadoni77 <kusumadoni77@gmail.com>
+Date:   Tue Mar 10 10:34:28 2026 +0700
+
+    Merge pull request #3 from donidump/feature/MenambahkanNama
+    
+    Menambahkan script untuk print nama
+
+[33mcommit 9033930e3c43308dfab825246dc234bc047cae22[m
+Author: Al-Fatih123 <04alfatihdiarhanif@gmail.com>
+Date:   Tue Mar 10 10:31:04 2026 +0700
+
+    tambah script buat nama
+
+.vscode/settings.json
+Assets/Scripts/tambahnama.cs
+Assets/Scripts/tambahnama.cs.meta
+Packages/packages-lock.json
+ProjectSettings/ProjectVersion.txt
+
+[33mcommit d59658817ddfb97c8974da718bf1305902b3846f[m
+Author: donidump <kusumadoni78@gmail.com>
+Date:   Tue Mar 10 10:30:50 2026 +0700
+
+    Menambahkan script untuk print nama
+
+Assets/Scripts/TambahNamaDoni.cs
+Assets/Scripts/TambahNamaDoni.cs.meta
+ProjectSettings/ShaderGraphSettings.asset
+
+[33mcommit 7c2e36294d9dde112863ff720d52f10195731c21[m
+Merge: 4f79469 0f26eb2
+Author: kusumadoni77 <kusumadoni77@gmail.com>
+Date:   Tue Mar 10 06:51:19 2026 +0700
+
+    Merge pull request #1 from donidump/main
+    
+    add Script folder
+
+[33mcommit 0f26eb255686c045a73c1313ed37cd69afa01786[m
+Author: donidump <kusumadoni78@gmail.com>
+Date:   Tue Mar 10 06:49:12 2026 +0700
+
+    add Script
+
+Assets/Scripts.meta
+
+[33mcommit 4f7946927dddb2467955911de046b3088742cf4d[m
+Author: btrx <kusumadoni77@gmail.com>
+Date:   Tue Mar 10 06:31:16 2026 +0700
+
+    init
+
+.gitignore
+.vscode/extensions.json
+.vscode/launch.json
+.vscode/settings.json
+Assets/DefaultVolumeProfile.asset
+Assets/DefaultVolumeProfile.asset.meta
+Assets/InputSystem_Actions.inputactions
+Assets/InputSystem_Actions.inputactions.meta
+Assets/Scenes.meta
+Assets/Scenes/SampleScene.unity
+Assets/Scenes/SampleScene.unity.meta
+Assets/Settings.meta
+Assets/Settings/Lit2DSceneTemplate.scenetemplate
+Assets/Settings/Lit2DSceneTemplate.scenetemplate.meta
+Assets/Settings/Renderer2D.asset
+Assets/Settings/Renderer2D.asset.meta
+Assets/Settings/Scenes.meta
+Assets/Settings/Scenes/URP2DSceneTemplate.unity
+Assets/Settings/Scenes/URP2DSceneTemplate.unity.meta
+Assets/Settings/UniversalRP.asset
+Assets/Settings/UniversalRP.asset.meta
+Assets/UniversalRenderPipelineGlobalSettings.asset
+Assets/UniversalRenderPipelineGlobalSettings.asset.meta
+Packages/manifest.json
+Packages/packages-lock.json
+ProjectSettings/AudioManager.asset
+ProjectSettings/ClusterInputManager.asset
+ProjectSettings/DynamicsManager.asset
+ProjectSettings/EditorBuildSettings.asset
+ProjectSettings/EditorSettings.asset
+ProjectSettings/GraphicsSettings.asset
+ProjectSettings/InputManager.asset
+ProjectSettings/MemorySettings.asset
+ProjectSettings/MultiplayerManager.asset
+ProjectSettings/NavMeshAreas.asset
+ProjectSettings/NetworkManager.asset
+ProjectSettings/PackageManagerSettings.asset
+ProjectSettings/Physics2DSettings.asset
+ProjectSettings/PresetManager.asset
+ProjectSettings/ProjectSettings.asset
+ProjectSettings/ProjectVersion.txt
+ProjectSettings/QualitySettings.asset
+ProjectSettings/ShaderGraphSettings.asset
+ProjectSettings/TagManager.asset
+ProjectSettings/TimeManager.asset
+ProjectSettings/URPProjectSettings.asset
+ProjectSettings/UnityConnectSettings.asset
+ProjectSettings/VFXManager.asset
+ProjectSettings/VersionControlSettings.asset
+ProjectSettings/XRSettings.asset
