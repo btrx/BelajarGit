@@ -69,27 +69,27 @@ public class PlayerController : MonoBehaviour
         // Instantiate bullet
         GameObject bulletObj = PooledObjects.Instance.GetPooledObject();
 
-if (bulletObj != null)
-{
-    // Atur posisi dan rotasi peluru
-    bulletObj.transform.position = spawnPos;
-    bulletObj.transform.rotation = Quaternion.identity;
-    
-    // Aktifkan peluru
-    bulletObj.SetActive(true);
+        if (bulletObj != null)
+        {
+        // Atur posisi dan rotasi peluru
+        bulletObj.transform.position = spawnPos;
+        bulletObj.transform.rotation = Quaternion.identity;
+        
+        // Aktifkan peluru
+        bulletObj.SetActive(true);
 
-    // Set arah peluru (Logika aslimu tetap dipertahankan)
-    Bullet bullet1 = bulletObj.GetComponent<Bullet>();
-    if (bullet1 != null)
-    {
-        bullet1.SetDirection(shootDirection);
-        Debug.Log($"Bullet direction set to: {shootDirection}");
-    }
-    else
-    {
-        Debug.LogError("Bullet component not found on prefab!");
-    }
-}
+        // Set arah peluru (Logika aslimu tetap dipertahankan)
+        Bullet bullet1 = bulletObj.GetComponent<Bullet>();
+        if (bullet1 != null)
+        {
+            bullet1.SetDirection(shootDirection);
+            Debug.Log($"Bullet direction set to: {shootDirection}");
+        }
+        else
+        {
+            Debug.LogError("Bullet component not found on prefab!");
+        }
+        }
 
         
         // Set bullet direction

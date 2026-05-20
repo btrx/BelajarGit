@@ -11,24 +11,29 @@ public class Bullet : MonoBehaviour
     private float elapsedTime = 0f;
     private Vector3 direction;
 
+    void OnEnable()
+    {   
+    // Setiap kali peluru aktif, mulai hitung mundur 5 detik
+    StartCoroutine(DeactivateRoutine());
+    }
+
+    IEnumerator DeactivateRoutine()
+    {
+    yield return new WaitForSeconds(5f);
+    // Kembalikan peluru ke kolam dengan menonaktifkannya
+    gameObject.SetActive(false); 
+    }
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Debug.Log($"Bullet spawned with speed: {speed}, direction: {direction}");
-        void OnEnable()
-{
-    // Setiap kali peluru aktif, mulai hitung mundur 5 detik
-    StartCoroutine(DeactivateRoutine());
-}
-
-IEnumerator DeactivateRoutine()
-{
-    yield return new WaitForSeconds(5f);
-    // Kembalikan peluru ke kolam dengan menonaktifkannya
-    gameObject.SetActive(false); 
-}
+        
+    
+    
 
     }
+    
 
     void Update()
     {

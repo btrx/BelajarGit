@@ -69,33 +69,25 @@ public class BulletPool : MonoBehaviour
 
     public GameObject GetBullet(Vector3 position)
     {
-        // Deklarasikan variabel untuk menampung peluru
         GameObject bullet;
 
-        // Jika ada peluru yang tersedia di antrian
         if (availableBullets.Count > 0)
         {
-            // Ambil peluru dari antrian
             bullet = availableBullets.Dequeue();
         }
         else
         {
-            // Jika pool kosong, buat peluru baru
             bullet = Instantiate(bulletPrefab);
             Bullet bulletScript = bullet.GetComponent<Bullet>();
             if (bulletScript != null)
             {
-                // Beri tahu peluru siapa poolnya
                 bulletScript.SetPool(this);
             }
-            // Tambahkan ke daftar semua peluru
             allBullets.Add(bullet);
             Debug.Log("Bullet pool exhausted, creating new bullet");
         }
 
-        // Atur posisi peluru ke lokasi yang diminta
         bullet.transform.position = position;
-        // Aktifkan peluru (tampilkan di layar)
         bullet.SetActive(true);
         return bullet;
     }
