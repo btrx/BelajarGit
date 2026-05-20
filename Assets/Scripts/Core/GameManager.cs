@@ -1,104 +1,111 @@
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
-using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-    public GameState currentState { get; private set; }
-    private UnityEvent<GameState> OnStateChanged;
+    private static GameManager instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GameManager>();
+                if (instance == null)
+                {
+                    GameObject go = new GameObject("GameManager");
+                    instance = go.AddComponent<GameManager>();
+                    DontDestroyOnLoad(go);
+                    Debug.Log("GameManager auto-created because no instance was found in scene.");
+                }
+            }
+            return instance;
+        }
+    }
 
+    public GameState currentState;
 
     void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("GameManager Awake: instance set");
+        }
+        else if (instance != this)
+        {
+            Debug.Log("GameManager Awake: duplicate instance destroyed");
+            Destroy(gameObject);
+            return;
+        }
     }
 
     void Start()
     {
-        UpdateState(GameState.MainMenu);
-    }
-public void UpdateState(GameState newState)
-    {
-       currentState = newState;
-
-        switch (newState)
+        if (currentState == GameState.MainMenu || currentState == GameState.GameOver || currentState == GameState.Paused)
         {
-            case GameState.MainMenu:
-                OnMainMenu();
-                break;
-             case GameState.Playing:
-                OnPlaying();
-                break;
-            case GameState.Paused:
-                PauseGame();
-                break;
-            case GameState.GameOver:
-                GameOver();
-                break;
-
+            currentState = GameState.Playing;
         }
-        OnStateChanged?.Invoke(newState);
-
+        else if (currentState == default)
+        {
+            currentState = GameState.Playing;
+        }
+        Debug.Log($"GameManager Start: currentState={currentState}");
     }
+
     void Update()
     {
-        if (currentState == GameState.Paused && Input.GetKeyDown(KeyCode.Escape))
+        bool escapePressed = (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame) || Input.GetKeyDown(KeyCode.Escape);
+        bool spacePressed = (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame) || Input.GetKeyDown(KeyCode.Space);
+
+        if (escapePressed)
         {
-            Resume();
+            Debug.Log($"Pause input detected. currentState={currentState}");
+            if (currentState == GameState.Playing)
+                PauseGame();
+            else if (currentState == GameState.Paused)
+                ResumeGame();
         }
-        else if (currentState != GameState.Paused && Input.GetKeyDown(KeyCode.Escape))
+
+        if (spacePressed && currentState != GameState.Playing)
         {
-            PauseGame();
-        }
-        else if (currentState == GameState.GameOver && Input.GetKeyDown(KeyCode.Space))
-        {
+            Debug.Log($"Restart input detected. currentState={currentState}");
             RestartGame();
         }
     }
-
-    private void OnMainMenu()
+    public void StartGame()
     {
+        currentState = GameState.Playing;
         Time.timeScale = 1f;
-        Debug.Log("Back to Main Menu");
     }
-    private void OnPlaying()
-    {
-        Time.timeScale = 1f;
-        Debug.Log("Game Started...");
-    }
+   
     public void PauseGame()
     {
         Time.timeScale = 0f;
-        Debug.Log("Game Paused...");
         currentState = GameState.Paused;
+        Debug.Log("GameManager: Paused");
     }
 
-    public void Resume()
+    public void ResumeGame()
     {
         Time.timeScale = 1f;
-        Debug.Log("Game Resumed...");
         currentState = GameState.Playing;
-    }
-    public void RestartGame()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Debug.Log("Game Restarted...");
-        StartGame();
+        Debug.Log("GameManager: Resumed");
     }
 
     public void GameOver()
     {
-        Time.timeScale = 0f;
-        Debug.Log("Game Over.");
+        Debug.Log("Game Over");
         currentState = GameState.GameOver;
     }
-       public void StartGame() => UpdateState(GameState.Playing);
-       public void OnPause() => UpdateState(GameState.Paused);
-       public void ResumeGame() => UpdateState(GameState.Playing);
-       public void Over() => UpdateState(GameState.GameOver);
+
+    public void RestartGame()
+    {
+        currentState = GameState.Playing;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("GameManager: Restarted");
+    }
 }
