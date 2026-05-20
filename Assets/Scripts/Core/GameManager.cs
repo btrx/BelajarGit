@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Time.timeScale = 0f;
-        UnityEngine.Debug.Log("Game Over");
+        Debug.Log("Game Over");
         currentState = GameState.GameOver;
     }
     public void RestartGame()
