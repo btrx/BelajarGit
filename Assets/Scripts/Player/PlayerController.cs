@@ -97,7 +97,6 @@ public class PlayerController : MonoBehaviour
                 Debug.LogError("Bullet component not found on prefab!");
             }
         }
-
     }
 
     void OnCollisionStay2D(Collision2D collision)
