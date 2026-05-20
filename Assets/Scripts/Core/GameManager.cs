@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        // hanya bisa pause/resume saat sedang bermain, dan hanya bisa restart/back to menu saat game over
         if (currentState == GameState.Playing && Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
@@ -76,10 +77,10 @@ public class GameManager : MonoBehaviour
 
     void ClearConsole()
     {
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
         var LogEntries = System.Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
         var ClearMethod = LogEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
         ClearMethod.Invoke(null, null);
-#endif
+    #endif
     }
 }

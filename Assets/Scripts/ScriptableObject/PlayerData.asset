@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   maxHP: 100
-  moveSpeed: 10
+  moveSpeed: 15
