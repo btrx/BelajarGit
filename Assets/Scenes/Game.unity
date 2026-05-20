@@ -4858,6 +4858,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1719769506}
   m_CullTransparentMesh: 1
+--- !u!1 &1746901971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1746901972}
+  m_Layer: 0
+  m_Name: ObjectPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1746901972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746901971}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.8243256, y: -0.37988302, z: -10.064565}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1775706129
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4941,7 +4972,7 @@ PrefabInstance:
       addedObject: {fileID: 1775706136}
     - targetCorrespondingSourceObject: {fileID: 5681530727943673813, guid: 892f16356eabc704db9583a9fd636a1e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1775706139}
+      addedObject: {fileID: 1775706142}
   m_SourcePrefab: {fileID: 100100000, guid: 892f16356eabc704db9583a9fd636a1e, type: 3}
 --- !u!1 &1775706130 stripped
 GameObject:
@@ -5051,7 +5082,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1775706139
+--- !u!4 &1775706141 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3301942165447617713, guid: 892f16356eabc704db9583a9fd636a1e, type: 3}
+  m_PrefabInstance: {fileID: 1775706129}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1775706142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5063,9 +5099,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6080a0859a571264b9d155ff9b9f6005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
+  currentHP: 100
   speed: 5
-  currentHP: 5
+  bulletPrefab: {fileID: 2730076892635651512, guid: b9627b2b9bd992e44b87d20d7a2bd171, type: 3}
+  bulletSpawnPoint: {fileID: 1775706141}
 --- !u!1 &1787176679
 GameObject:
   m_ObjectHideFlags: 0
@@ -5647,3 +5684,4 @@ SceneRoots:
   - {fileID: 1690201337}
   - {fileID: 1442539959}
   - {fileID: 1613878828}
+  - {fileID: 1746901972}
