@@ -3,37 +3,62 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed = 10f;
+
     private Rigidbody2D rb;
+
     private Vector3 direction;
-    // Referensi ke pool peluru (newly added)
-    private BulletPool pool;
-    // Waktu hidup maksimal peluru dalam detik (newly added)
+
+    // Waktu hidup maksimal peluru dalam detik
     private float lifetime = 5f;
-    // Waktu yang telah berlalu sejak peluru dibuat (newly added)
+
+    // Waktu yang telah berlalu sejak peluru dibuat
     private float elapsedTime = 0f;
+
+    // Penanda apakah bullet sudah selesai dipakai
+    private bool expired = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
         Debug.Log($"Bullet spawned with speed: {speed}, direction: {direction}");
-        // Destroy bullet after 5 seconds if it hasn't been destroyed already
-        Destroy(gameObject, 5f);
+    }
+
+    void OnEnable()
+    {
+        // Reset timer saat peluru aktif
+        elapsedTime = 0f;
+
+        // Reset status expired
+        expired = false;
     }
 
     void Update()
     {
-        // Tambahkan waktu yang telah berlalu (newly added)
+        // Jika bullet sudah expired, hentikan update
+        if (expired) return;
+
+        // Tambahkan waktu yang telah berlalu
         elapsedTime += Time.deltaTime;
 
-        // Jika peluru sudah melampaui lifetime, kembalikan ke pool (newly added)
+        // Jika peluru sudah melampaui lifetime
         if (elapsedTime > lifetime)
         {
-            if (pool != null)
+            // Tandai bullet sudah selesai dipakai
+            expired = true;
+
+            // Hentikan gerakan peluru
+            if (rb != null)
             {
-                pool.ReturnBullet(gameObject);
+                rb.linearVelocity = Vector2.zero;
             }
+
+            // Hilangkan bullet dari scene
+            gameObject.SetActive(false);
+
             return;
         }
+
         if (rb != null)
         {
             // Move using Rigidbody2D
@@ -49,17 +74,7 @@ public class Bullet : MonoBehaviour
     public void SetDirection(Vector3 newDirection)
     {
         direction = newDirection.normalized;
-        Debug.Log($"Bullet SetDirection called with: {newDirection}, normalized: {direction}");
-    }
-        public void SetPool(BulletPool bulletPool)
-    {
-        pool = bulletPool;
-    }
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        // Destroy bullet on collision
-        Debug.Log("Bullet hit: " + collision.gameObject.name);
-        Destroy(gameObject);
+        Debug.Log($"Bullet SetDirection called with: {newDirection}, normalized: {direction}");
     }
 }

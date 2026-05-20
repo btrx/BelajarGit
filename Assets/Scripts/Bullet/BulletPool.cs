@@ -1,20 +1,21 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class BulletPool : MonoBehaviour
 {
     // Instance statis untuk Singleton pattern (pola desain yang memastikan hanya ada satu instance)
     public static BulletPool Instance { get; private set; }
-    
+
     // Prefab peluru yang akan di-clone
     public GameObject bulletPrefab;
+
     // Jumlah peluru yang akan dibuat di awal permainan
     public int initialPoolSize = 20;
-    
-    // Antrian untuk menyimpan peluru yang tersedia untuk digunakan kembali
-    private Queue<GameObject> availableBullets;
-    // Daftar semua peluru yang ada di pool
-    private List<GameObject> allBullets;
+
+    // Array untuk menyimpan semua peluru
+    private GameObject[] bullets;
+
+    // Index peluru saat ini
+    private int currentBulletIndex = 0;
 
     void Awake()
     {
@@ -22,8 +23,10 @@ public class BulletPool : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+
             return;
         }
+
         // Atur instance statis ke objek ini
         Instance = this;
     }
@@ -36,32 +39,23 @@ public class BulletPool : MonoBehaviour
 
     void InitializePool()
     {
-        // Buat antrian dan daftar dengan kapasitas awal
-        availableBullets = new Queue<GameObject>(initialPoolSize);
-        allBullets = new List<GameObject>(initialPoolSize);
+        // Buat array peluru
+        bullets = new GameObject[initialPoolSize];
 
         // Buat peluru sebanyak initialPoolSize
         for (int i = 0; i < initialPoolSize; i++)
         {
             // Clone peluru dari prefab
             GameObject bullet = Instantiate(bulletPrefab);
-            // Nonaktifkan peluru saat dibuat (jangan tampilkan di layar)
-            bullet.SetActive(false);
-            // Berikan nama untuk memudahkan debugging
-            bullet.name = "Bullet_" + i;
-            
-            // Ambil komponen Bullet dari peluru
-            Bullet bulletScript = bullet.GetComponent<Bullet>();
-            if (bulletScript != null)
-            {
-                // Beri tahu peluru siapa poolnya
-                bulletScript.SetPool(this);
-            }
 
-            // Masukkan peluru ke antrian (tersedia untuk digunakan)
-            availableBullets.Enqueue(bullet);
-            // Tambahkan ke daftar semua peluru
-            allBullets.Add(bullet);
+            // Nonaktifkan peluru saat dibuat
+            bullet.SetActive(false);
+
+            // Berikan nama untuk debugging
+            bullet.name = "Bullet_" + i;
+
+            // Simpan ke array
+            bullets[i] = bullet;
         }
 
         Debug.Log($"BulletPool initialized with {initialPoolSize} bullets");
@@ -69,48 +63,31 @@ public class BulletPool : MonoBehaviour
 
     public GameObject GetBullet(Vector3 position)
     {
-        // Deklarasikan variabel untuk menampung peluru
-        GameObject bullet;
+        // Jika semua bullet sudah digunakan
+        if (currentBulletIndex >= bullets.Length)
+        {
+            Debug.Log("No bullets left!");
 
-        // Jika ada peluru yang tersedia di antrian
-        if (availableBullets.Count > 0)
-        {
-            // Ambil peluru dari antrian
-            bullet = availableBullets.Dequeue();
-        }
-        else
-        {
-            // Jika pool kosong, buat peluru baru
-            bullet = Instantiate(bulletPrefab);
-            Bullet bulletScript = bullet.GetComponent<Bullet>();
-            if (bulletScript != null)
-            {
-                // Beri tahu peluru siapa poolnya
-                bulletScript.SetPool(this);
-            }
-            // Tambahkan ke daftar semua peluru
-            allBullets.Add(bullet);
-            Debug.Log("Bullet pool exhausted, creating new bullet");
+            return null;
         }
 
-        // Atur posisi peluru ke lokasi yang diminta
+        // Ambil bullet berdasarkan index
+        GameObject bullet = bullets[currentBulletIndex];
+
+        // Naikkan index
+        currentBulletIndex++;
+
+        // Atur posisi bullet
         bullet.transform.position = position;
-        // Aktifkan peluru (tampilkan di layar)
+
+        // Aktifkan bullet
         bullet.SetActive(true);
+
         return bullet;
     }
 
-    public void ReturnBullet(GameObject bullet)
+    public int GetRemainingBullets()
     {
-        // Nonaktifkan peluru (sembunyikan dari layar)
-        bullet.SetActive(false);
-        // Masukkan kembali ke antrian untuk digunakan lagi
-        availableBullets.Enqueue(bullet);
-    }
-
-    public int GetAvailableBulletsCount()
-    {
-        // Kembalikan jumlah peluru yang tersedia
-        return availableBullets.Count;
+        return bullets.Length - currentBulletIndex;
     }
 }
