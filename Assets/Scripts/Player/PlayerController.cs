@@ -3,26 +3,103 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float currentHP = 100;
-    public float speed = 5f;
+    public PlayerData playerData;
+
+    public float currentHP;
+    public float speed;
+
+    public GameObject bulletPrefab;
+
+    // variabel untuk menentukan posisi spawn peluru
+    public Transform bulletSpawnPoint;
+
     private PlayerInput playerInput;
     private Vector2 moveInput;
+    private float attackInput;
+    private float previousAttackInput;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+
+        currentHP = playerData.maxHP;
+        speed = playerData.moveSpeed;
     }
-    
-    
+
     void Update()
     {
         if (playerInput == null) return;
-        
+
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
+        attackInput = playerInput.actions["Attack"].ReadValue<float>();
+
         float h = moveInput.x;
         float v = moveInput.y;
 
         transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
+
+        if (previousAttackInput == 0 && attackInput > 0)
+        {
+            Shoot();
+        }
+
+        previousAttackInput = attackInput;
+    }
+
+    void Shoot()
+    {
+        Debug.Log("Player is shooting!");
+
+        if (bulletPrefab == null)
+        {
+            Debug.LogWarning("Bullet prefab not assigned!");
+
+            return;
+        }
+
+        // Determine spawn position
+        Vector3 spawnPos = bulletSpawnPoint != null ? bulletSpawnPoint.position : transform.position;
+
+        // Get mouse position in world space for 2D
+        Vector3 mouseScreenPos = Input.mousePosition;
+
+        mouseScreenPos.z = Mathf.Abs(Camera.main.transform.position.z);
+
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+
+        mouseWorldPos.z = 0; // Ensure Z is 0 for 2D
+
+        // Calculate direction from player to mouse
+        Vector3 shootDirection = (mouseWorldPos - spawnPos).normalized;
+
+        Debug.Log($"Spawn Pos: {spawnPos}, Mouse World Pos: {mouseWorldPos}, Direction: {shootDirection}");
+
+        // Ambil bullet dari BulletPool
+        GameObject bulletObj = BulletPool.Instance.GetBullet(spawnPos);
+
+        // Jika bullet habis
+        if (bulletObj == null)
+        {
+            Debug.Log("No bullets left!");
+
+            return;
+        }
+
+        // Set bullet direction
+        Bullet bullet = bulletObj.GetComponent<Bullet>();
+
+        if (bullet != null)
+        {
+            bullet.SetDirection(shootDirection);
+
+            Debug.Log($"Bullet direction set to: {shootDirection}");
+        }
+        else
+        {
+            Debug.LogError("Bullet component not found on prefab!");
+        }
+
+        Debug.Log("Bullet spawned!");
     }
 
     void OnCollisionStay2D(Collision2D collision)
@@ -36,6 +113,7 @@ public class PlayerController : MonoBehaviour
     void TakeDamage(float dmg)
     {
         currentHP -= dmg;
+
         Debug.Log("Player HP: " + currentHP);
 
         if (currentHP <= 0)
