@@ -4438,6 +4438,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6080a0859a571264b9d155ff9b9f6005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHP: 0
+  bulletPrefab: {fileID: 4760331488092596335, guid: 1f49cc60f1db8ac4e88a2eb6accb1747, type: 3}
+  bulletSpawnPoint: {fileID: 1775706138}
   playerData: {fileID: 11400000, guid: e438347c515addb4198bb8e30f323fe1, type: 2}
 --- !u!114 &1775706134
 MonoBehaviour:
@@ -4542,6 +4545,11 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!4 &1775706138 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3301942165447617713, guid: 892f16356eabc704db9583a9fd636a1e, type: 3}
+  m_PrefabInstance: {fileID: 1775706129}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1805123886
 GameObject:
   m_ObjectHideFlags: 0
