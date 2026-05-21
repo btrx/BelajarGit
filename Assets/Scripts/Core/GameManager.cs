@@ -54,16 +54,16 @@ public class GameManager : MonoBehaviour
         {
             PauseGame();
         }
-        else if (currentState == GameState.GameOver && Input.GetKeyDown(KeyCode.Space))
+        else if (currentState == GameState.GameOver && Input.GetKeyDown(KeyCode.R))
         {
             Restart();
         }
     }
-
+    
     private void Menu()
     {
         Time.timeScale = 1f;
-        Debug.Log("Ada di menu");
+        Debug.Log("ada di menu");
     }
     private void Play()
     {
