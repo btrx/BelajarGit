@@ -1,5 +1,4 @@
-using UnityEngine;
-
+using UnityEngine;  
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -8,7 +7,14 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Start()
@@ -18,21 +24,31 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            PauseGame();
-        }
+       
     }
 
     public void PauseGame()
     {
         Time.timeScale = 0f;
         currentState = GameState.Paused;
+        Debug.Log("Game Paused");
+         
+    } 
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        currentState = GameState.Playing;
+        Debug.Log("Resumed");
     }
 
-    public void GameOver()
+public void GameOver()
     {
-        Debug.Log("Game Over");
+        if (currentState == GameState.GameOver) return;
+
         currentState = GameState.GameOver;
+        Time.timeScale = 0f; 
+        Debug.Log("GAME OVER");
     }
-}
+
+}   
