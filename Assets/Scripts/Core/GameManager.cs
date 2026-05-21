@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public GameState currentState { get; private set; }
+    [SerializeField] private UIManager uiManager;
     private UnityEvent<GameState> OnStateChanged;
 
 
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
         }
         else if (currentState == GameState.GameOver && Input.GetKeyDown(KeyCode.Space))
         {
-            RestartGame();
+            uiManager.Restart();
         }
     }
 
@@ -81,13 +82,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         Debug.Log("Game jalan lagi");
         currentState = GameState.Playing;
-    }
-    public void RestartGame()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Debug.Log("Game Diulang");
-        StartGame();
     }
 
     public void GameOver()
