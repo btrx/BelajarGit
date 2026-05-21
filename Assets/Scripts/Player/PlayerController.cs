@@ -3,28 +3,57 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float currentHP = 100;
-    public float speed = 5f;
+    [SerializeField] private PlayerData data;
+
+    private float currentHP;
+    private float speed;
+
     private PlayerInput playerInput;
     private Vector2 moveInput;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+
+        currentHP = data.maxHP;
+        speed = data.moveSpeed;
     }
-    
-    
+
     void Update()
     {
         if (playerInput == null) return;
-        
+
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
+
         float h = moveInput.x;
         float v = moveInput.y;
 
         transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Shoot();
+        }
     }
 
+    void Shoot()
+    {
+        GameObject bullet = BulletPool.Instance.GetBullet();
+        if (bullet != null)
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0f;
+
+        Vector3 direction = (mousePos - transform.position).normalized;
+
+        bullet.transform.position = transform.position + direction * 0.5f;
+        bullet.transform.rotation = Quaternion.identity;
+        bullet.SetActive(true);
+
+        Bullet bulletScript = bullet.GetComponent<Bullet>();
+        bulletScript.SetDirection(direction);
+    }
+    }
     void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
