@@ -73,22 +73,27 @@ public class PlayerController : MonoBehaviour
         
         Debug.Log($"Spawn Pos: {spawnPos}, Mouse World Pos: {mouseWorldPos}, Direction: {shootDirection}");
 
-        // Instantiate bullet
-        GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
-        
-        // Set bullet direction
-        Bullet bullet = bulletObj.GetComponent<Bullet>();
-        if (bullet != null)
+        GameObject bulletObj = BulletPool.Instance.GetPooledObject();
+        if (bulletObj != null)
         {
-            bullet.SetDirection(shootDirection);
-            Debug.Log($"Bullet direction set to: {shootDirection}");
-        }
-        else
-        {
-            Debug.LogError("Bullet component not found on prefab!");
-        }
+            bulletObj.transform.position = spawnPos;
+            bulletObj.transform.rotation = Quaternion.identity;
 
-        Debug.Log("Bullet spawned!");
+            bulletObj.SetActive (true);
+
+            Bullet bullet = bulletObj.GetComponent<Bullet>();
+            if (bullet != null)
+            {
+                bullet.SetDirection(shootDirection);
+                Debug.Log($"Bullet direction set to: {shootDirection}");
+            }
+            else
+            {
+                Debug.LogError("Bullet component not found on prefab!");
+            }
+
+            Debug.Log("Bullet spawned!");
+        }
     }
 
     void OnCollisionStay2D(Collision2D collision)
