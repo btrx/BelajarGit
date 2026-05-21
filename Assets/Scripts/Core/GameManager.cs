@@ -1,9 +1,21 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 public class GameManager : MonoBehaviour
 {
-     public static GameManager Instance;
+    void ClearConsole()
+    {
+        #if UNITY_EDITOR
+        var LogEntries = System.Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
+        var ClearMethod = LogEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+        ClearMethod.Invoke(null, null);
+        #endif
+    }
+    public static GameManager Instance;
+    // disini kuning soalnya kehapus tadi pak
      public GameState currentState;
 
     void Awake()
@@ -25,6 +37,7 @@ public class GameManager : MonoBehaviour
             PauseGame();
         }
         else if (currentState == GameState.Paused && Input.GetKeyDown(KeyCode.Escape))
+        // nambahin fitur pause bisa resume lagi, tadi abis debugging gabisa resume lagi
         {
             ResumeGame();
         }
@@ -64,7 +77,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
-.
+        //3. saya menambahkan core class agar lebih gampang pak.
+        // sekalian nambahin pause restart fix game over.
+        ClearConsole();
+        // console nya ganggu, 
+        // tak buat clear console menggunakan unity editor. diajarin temen
+
     }
 
     public void BackToMenu()
@@ -72,4 +90,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
 
         SceneManager.LoadScene("MainMenu");
+        ClearConsole(); 
     }
+}
