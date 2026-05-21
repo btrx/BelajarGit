@@ -49,10 +49,6 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") || collision.CompareTag("Bullet"))
-        {
-            return;
-        }
         Debug.Log("Bullet hit: " + collision.gameObject.name);
         gameObject.SetActive(false); // NONAKTIFKAN OBJEK
     }
