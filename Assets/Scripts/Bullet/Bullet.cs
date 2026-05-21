@@ -54,5 +54,6 @@ public class Bullet : MonoBehaviour
         // Destroy(gameObject);
         // Nonaktifkan peluru jika mengenai sesuatu, dan kembalikan ke pool
         gameObject.SetActive(false);
+        // Tambahkan log untuk melihat apa yang terkena
     }
 }

@@ -32,7 +32,7 @@ public class PooledObjects : MonoBehaviour
         GameObject obj = Instantiate(objectToPool);
         obj.SetActive(false); 
         pooledObjects.Add(obj); 
-        
+        //Add log untuk melihat berapa banyak peluru yang dibuat
         return obj; 
     }
 }
