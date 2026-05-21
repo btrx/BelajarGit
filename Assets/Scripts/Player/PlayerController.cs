@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public PlayerData playerData; // ← TAMBAH INI
     public float currentHP = 100;
     public float speed = 5f;
     public GameObject bulletPrefab;
@@ -15,6 +16,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+
+        if (playerData != null) // ← TAMBAH INI
+        {
+            currentHP = playerData.maxHP;
+            speed = playerData.moveSpeed;
+        }
     }
     
     void Update()
@@ -35,8 +42,6 @@ public class PlayerController : MonoBehaviour
         }
         
         previousAttackInput = attackInput;
-
-        // HAPUS bagian Pause di sini — sudah dihandle GameManager.Update()
     }
     
     void Shoot()
