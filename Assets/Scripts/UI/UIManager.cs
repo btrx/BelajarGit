@@ -17,4 +17,9 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("Game");
     }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
