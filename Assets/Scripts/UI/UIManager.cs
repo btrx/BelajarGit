@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    // Tambahkan referensi untuk Panel UI sesuai kebutuhan UAS
+    // Mengurus referensi untuk Panel UI sesuai kebutuhan UAS
     [Header("UI Panels")]
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject gameOverPanel;
@@ -34,8 +34,11 @@ public class UIManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        // Memanggil fungsi resume dari GameManager kamu
-        GameManager.Instance.ResumeGame();
+        // Memanggil fungsi resume dari GameManager kamu secara aman
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.ResumeGame();
+        }
         
         // Sembunyikan pause panel setelah game jalan lagi
         if (pausePanel != null) pausePanel.SetActive(false);

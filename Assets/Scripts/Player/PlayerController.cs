@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
         }
         
         previousAttackInput = attackInput;
+
+        // HAPUS bagian Pause di sini — sudah dihandle GameManager.Update()
     }
     
     void Shoot()
@@ -55,13 +57,9 @@ public class PlayerController : MonoBehaviour
         mouseWorldPos.z = 0; 
         
         Vector3 shootDirection = (mouseWorldPos - spawnPos).normalized;
-        
-        Debug.Log($"Spawn Pos: {spawnPos}, Mouse World Pos: {mouseWorldPos}, Direction: {shootDirection}");
 
-       
         GameObject bulletObj = BulletPool.Instance.GetBullet(spawnPos);
-        
-      
+
         if (bulletObj != null)
         {
             bulletObj.transform.position = spawnPos;
@@ -72,15 +70,12 @@ public class PlayerController : MonoBehaviour
             if (bullet != null)
             {
                 bullet.SetDirection(shootDirection);
-                Debug.Log($"Bullet direction set to: {shootDirection}");
             }
             else
             {
                 Debug.LogError("Bullet component not found on prefab!");
             }
         }
-
-        Debug.Log($"Bullet spawned! Pool has {BulletPool.Instance.GetAvailableBulletsCount()} bullets available");
     }
 
     void OnCollisionStay2D(Collision2D collision)

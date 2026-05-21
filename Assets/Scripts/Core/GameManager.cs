@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     public GameState currentState;
     public GameObject gameOverPanel;
+    public GameObject pausePanel;
 
     void Awake()
     {
@@ -17,27 +18,36 @@ public class GameManager : MonoBehaviour
     {
         currentState = GameState.Playing;
         Time.timeScale = 1f;
+
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
+
+        if (pausePanel != null)
+            pausePanel.SetActive(false); // ← FIX: matikan saat start
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)) // ← TAMBAH: deteksi ESC langsung
         {
-           if (currentState == GameState.Playing)
-           {
-            PauseGame();
-           }
-           else if (currentState == GameState.Paused)
-           {
-            ResumeGame();
-           }
+            TogglePause();
         }
+    }
+
+    public void TogglePause()
+    {
+        if (currentState == GameState.Playing)
+            PauseGame();
+        else if (currentState == GameState.Paused)
+            ResumeGame();
     }
 
     public void PauseGame()
     {
         Time.timeScale = 0f;
         currentState = GameState.Paused;
+        if (pausePanel != null)
+            pausePanel.SetActive(true); // ← FIX: S kapital
         Debug.Log("Game Paused");
     }
 
@@ -45,16 +55,20 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         currentState = GameState.Playing;
+        if (pausePanel != null)
+            pausePanel.SetActive(false); // ← FIX: sembunyikan saat resume
         Debug.Log("Game Resumed");
     }
 
     public void GameOver()
     {
         Time.timeScale = 0f;
-        Debug.Log("Game Over");
         currentState = GameState.GameOver;
-
-        gameOverPanel.SetActive(true);
+        if (pausePanel != null)
+            pausePanel.SetActive(false);
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(true);
+        Debug.Log("Game Over");
     }
 
     public void RestartGame()
