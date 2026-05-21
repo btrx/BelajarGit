@@ -7,6 +7,10 @@ public class GameManager : MonoBehaviour
 
     public GameState currentState;
 
+    [Header("UI Panels (UTS)")]
+    [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject gameOverPanel;
+
     void Awake()
     {
         Instance = this;
@@ -37,14 +41,16 @@ public class GameManager : MonoBehaviour
     {
         currentState = GameState.Playing;
         Time.timeScale = 1f;
+        if (pausePanel != null) pausePanel.SetActive(false);
+        if (gameOverPanel != null) gameOverPanel.SetActive(false);
         Debug.Log("Game Start");
     }
 
     public void PauseGame()
     {
-
         currentState = GameState.Paused;
         Time.timeScale = 0f;
+        if (pausePanel != null) pausePanel.SetActive(true);
         Debug.Log("Game Paused");
     }
 
@@ -52,14 +58,15 @@ public class GameManager : MonoBehaviour
     {
         currentState = GameState.Playing;
         Time.timeScale = 1f;
+        if (pausePanel != null) pausePanel.SetActive(false);
         Debug.Log("Game Resume");
     }
 
     public void GameOver()
     {
-
         currentState = GameState.GameOver;
         Time.timeScale = 0f;
+        if (gameOverPanel != null) gameOverPanel.SetActive(true);
         Debug.Log("Game Over");
     }
 
@@ -67,5 +74,9 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
