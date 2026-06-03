@@ -5,6 +5,7 @@ public class UIManager : MonoBehaviour
 {
     public void StartGame()
     {
+        Debug.Log("Start Game Klik");
         SceneManager.LoadScene("Game");
     }
 
@@ -12,9 +13,4 @@ public class UIManager : MonoBehaviour
     {
         Application.Quit();
     }
-
-    public void Restart()
-    {
-        SceneManager.LoadScene("Game");
-    }
-}
+} // uimanager

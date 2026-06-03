@@ -3,6 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Game/Player Data")]
 public class PlayerData : ScriptableObject
 {
-    public float maxHP;
-    public float moveSpeed;
+    [Header("Movement")]
+    public float jumpForce = 5f;
+    public float moveSpeed = 10f;
+
+    [Header("Health")]
+    public float maxHealth = 100;
 }
