@@ -3,44 +3,107 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float currentHP = 100;
-    public float speed = 5f;
-    private PlayerInput playerInput;
-    private Vector2 moveInput;
+[SerializeField] private PlayerData playerData;
 
-    void Start()
+public GameObject bulletPrefab;
+public Transform bulletSpawnPoint;
+
+public float currentHP;
+public float speed;
+
+private PlayerInput playerInput;
+private Vector2 moveInput;
+
+private float attackValue;
+private float lastAttackValue;
+
+void Start()
+{
+    playerInput = GetComponent<PlayerInput>();
+
+    if (playerData == null)
     {
-        playerInput = GetComponent<PlayerInput>();
+        Debug.LogError("PlayerData belum di-assign di Inspector!");
+        return;
     }
-    
-    
-    void Update()
+
+    currentHP = playerData.maxHP;
+    speed = playerData.moveSpeed;
+}
+
+void Update()
+{
+    if (GameManager.Instance != null && GameManager.Instance.currentState != GameState.Playing)
+        return;
+
+    if (playerInput != null)
     {
-        if (playerInput == null) return;
-        
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
-        float h = moveInput.x;
-        float v = moveInput.y;
 
-        transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
+        Vector3 direction = new Vector3(moveInput.x, moveInput.y, 0);
+        transform.Translate(direction * speed * Time.deltaTime);
+
+        HandleShoot();
     }
+}
 
-    void OnCollisionStay2D(Collision2D collision)
+void HandleShoot()
+{
+    attackValue = playerInput.actions["attack"].ReadValue<float>();
+
+    if (attackValue > 0 && lastAttackValue <= 0)
     {
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            TakeDamage(0.1f);
-        }
+        SpawnBullet();
     }
 
-    void TakeDamage(float dmg)
+    lastAttackValue = attackValue;
+}
+
+void SpawnBullet()
+{
+    Vector3 startPos = bulletSpawnPoint != null
+        ? bulletSpawnPoint.position
+        : transform.position;
+
+    Vector3 target =
+        Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+    target.z = 0;
+
+    Vector3 dir = (target - startPos).normalized;
+
+    GameObject bullet = PooledObjects.Instance.GetPooledObject();
+
+    if (bullet == null)
+        return;
+
+    bullet.transform.position = startPos;
+    bullet.transform.rotation = Quaternion.identity;
+    bullet.SetActive(true);
+
+    Bullet bulletScript = bullet.GetComponent<Bullet>();
+
+    if (bulletScript != null)
     {
-        currentHP -= dmg;
-        Debug.Log("Player HP: " + currentHP);
-
-        if (currentHP <= 0)
-        {
-            GameManager.Instance.GameOver();
-        }
+        bulletScript.SetDirection(dir);
     }
+}
+
+void OnCollisionStay2D(Collision2D collision)
+{
+    if (collision.gameObject.CompareTag("Wall"))
+    {
+        TakeDamage(0.1f);
+    }
+}
+
+void TakeDamage(float dmg)
+{
+    currentHP -= dmg;
+
+    if (currentHP <= 0 && GameManager.Instance != null)
+    {
+        GameManager.Instance.GameOver();
+    }
+}
 }
