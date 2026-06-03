@@ -2,27 +2,40 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
+
 {
-    public float currentHP = 100;
-    public float speed = 5f;
+    [SerializeField] private PlayerData playerData;
+    public float currentHP;
+    public float speed;
     private PlayerInput playerInput;
     private Vector2 moveInput;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+
+        if (playerData == null)
+        {
+            Debug.LogError("PlayerData belum di-assign di Inspector!");
+            return;
+        }
+
+        currentHP = playerData.maxHP;
+        speed = playerData.moveSpeed;
     }
     
     
     void Update()
     {
-        if (playerInput == null) return;
+        if (GameManager.Instance != null && GameManager.Instance.currentState != GameState.Playing)
+        return;
         
+        if (playerInput != null)
+        {
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
-        float h = moveInput.x;
-        float v = moveInput.y;
-
-        transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
+        Vector3 direction = new Vector3(moveInput.x, moveInput.y, 0);
+        transform.Translate(direction * speed * Time.deltaTime);
+        }
     }
 
     void OnCollisionStay2D(Collision2D collision)
@@ -36,11 +49,9 @@ public class PlayerController : MonoBehaviour
     void TakeDamage(float dmg)
     {
         currentHP -= dmg;
-        Debug.Log("Player HP: " + currentHP);
-
-        if (currentHP <= 0)
+        if (currentHP <= 0 && GameManager.Instance != null)
         {
             GameManager.Instance.GameOver();
-        }
+        } 
     }
 }
