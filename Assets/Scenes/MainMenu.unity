@@ -508,6 +508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9695cedccef1e47b6b4415235fc3a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverPanel: {fileID: 0}
+  pausedPanel: {fileID: 0}
 --- !u!4 &1066528619
 Transform:
   m_ObjectHideFlags: 0
