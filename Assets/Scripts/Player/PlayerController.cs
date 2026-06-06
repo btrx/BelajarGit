@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
 
         // Instantiate bullet
         // GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+        
         // Command ini
 
         // GameObject bulletObj = PooledObjects.Instance.GetPooledObject();
