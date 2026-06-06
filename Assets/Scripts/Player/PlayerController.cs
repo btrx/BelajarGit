@@ -47,6 +47,37 @@ public class PlayerController : MonoBehaviour
 
     transform.Translate(new Vector3(moveInput.x, moveInput.y, 0) * speed * Time.deltaTime);
 
+    if (previousattackinput == 0 && attackinput > 0)
+        {
+            Shoot();
+        }
+
+        previousattackinput = attackinput;
+    }
+
+    void Shoot()
+    {
+        Debug.Log("Player is shooting!");
+
+        if (bulletPrefab == null)
+        {
+            Debug.LogWarning("Bullet prefab not assigned!");
+            return;
+        }
+
+        // Determine spawn position
+        Vector3 spawnPos = bulletSpawnPoint != null ? bulletSpawnPoint.position : transform.position;
+
+        // Get mouse position in world space for 2D
+        Vector3 mouseScreenPos = Input.mousePosition;
+        mouseScreenPos.z = Mathf.Abs(Camera.main.transform.position.z);
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+        mouseWorldPos.z = 0; // Ensure Z is 0 for 2D
+        
+        // Calculate direction from player to mouse
+        Vector3 shootDirection = (mouseWorldPos - spawnPos).normalized;
+        
+        Debug.Log($"Spawn Pos: {spawnPos}, Mouse World Pos: {mouseWorldPos}, Direction: {shootDirection}");
 
     void OnCollisionStay2D(Collision2D collision)
     {
@@ -66,5 +97,5 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.GameOver(); 
     }
     }
-    }
+}
 }
