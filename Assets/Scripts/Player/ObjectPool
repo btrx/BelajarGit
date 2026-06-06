@@ -1,0 +1,73 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PooledObjects : MonoBehaviour
+{
+    public static PooledObjects Instance; 
+
+    [Header("Pengaturan Pool")]
+    public GameObject objectToPool;
+    public int initialPoolSize = 10; // Menentukan jumlah peluru awal saat game dimulai
+    
+    private List<GameObject> pooledObjects = new List<GameObject>();
+
+    void Awake() 
+    {
+        // 1. Amankan Singleton agar tidak duplikat saat pindah scene
+        if (Instance == null) 
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
+    void Start()
+    {
+        // 2. Spawn peluru awal agar saat player menembak pertama kali tidak lag
+        if (objectToPool != null)
+        {
+            for (int i = 0; i < initialPoolSize; i++)
+            {
+                CreateNewObjectInPool();
+            }
+        }
+        else
+        {
+            Debug.LogError("Object To Pool belum diisi di Inspector!");
+        }
+    }
+
+    public GameObject GetPooledObject()
+    {
+        // Cari objek yang sedang tidak aktif di Hierarchy
+        for (int i = 0; i < pooledObjects.Count; i++)
+        {
+            // Tambahan keamanan: cek apakah objeknya tidak sengaja ter-destroy
+            if (pooledObjects[i] != null && !pooledObjects[i].activeInHierarchy)
+            {
+                return pooledObjects[i]; 
+            }
+        }
+
+        // Jika semua objek aktif, buat objek baru (fungsi cadangan)
+        if (objectToPool != null)
+        {
+            return CreateNewObjectInPool();
+        }
+
+        return null; 
+    }
+
+    // Fungsi bantuan untuk membuat objek baru dan memasukkannya ke dalam list
+    private GameObject CreateNewObjectInPool()
+    {
+        GameObject obj = Instantiate(objectToPool);
+        obj.SetActive(false); 
+        pooledObjects.Add(obj);
+        return obj;
+    }
+}
