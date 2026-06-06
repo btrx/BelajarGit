@@ -8,13 +8,24 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
-    public void QuitGame()
+    public void ResumeGame()
     {
-        Application.Quit();
+        GameManager.Instance.ResumeGame();
+    }
+
+    public void GoToMainMenu()
+    {
+        GameManager.Instance.GoToMainMenu();
     }
 
     public void Restart()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Game");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
