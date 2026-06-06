@@ -36,5 +36,4 @@ public class PooledObjects : MonoBehaviour
         return obj; 
     }
 }
-
-// cek 
+// nambah object pool

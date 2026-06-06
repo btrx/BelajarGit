@@ -53,3 +53,5 @@ public class Bullet : MonoBehaviour
         gameObject.SetActive(false);
     }
 }
+
+// nambah file Bullet.cs

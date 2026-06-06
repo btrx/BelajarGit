@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
         previousAttackInput = attackInput;
     }
 
+// nambah fungsi tembak
     void Shoot()
     {
         Debug.Log("Player is shooting!");
