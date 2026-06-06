@@ -1,3 +1,5 @@
+// Update 2: Selesai Membuat Sistem ObjectPools
+
 using System.Collections.Generic;
 using UnityEngine;
 
