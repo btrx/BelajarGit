@@ -6,3 +6,4 @@ public class PlayerData : ScriptableObject
     public float maxHP;
     public float moveSpeed;
 }
+//semoga ga error
