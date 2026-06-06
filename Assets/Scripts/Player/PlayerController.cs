@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
-        
-        if (data != null) 
+
+        if (data != null)
         {
             currentHP = data.maxHP;
             UpdateHpUI(); // Update tampilan HP saat start
@@ -29,28 +29,17 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // 1. CEK STATE & NULL: Keamanan agar tidak error saat pindah scene
-        if (GameManager.Instance == null || GameManager.Instance.currentState != GameState.Playing) 
+        if (GameManager.Instance == null || GameManager.Instance.currentState != GameState.Playing)
             return;
-            
+
         if (playerInput == null || data == null) return;
 
         // 2. LOGIKA GERAK
-        Vector2 moveInput = Vector2.zero;
-        var moveAction = playerInput.actions["Move"];
-        if (moveAction != null)
-        {
-            moveInput = moveAction.ReadValue<Vector2>();
-        }
+        Vector2 moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
         transform.Translate(new Vector3(moveInput.x, moveInput.y, 0) * data.moveSpeed * Time.deltaTime);
 
         // 3. LOGIKA SERANG
-        var attackAction = playerInput.actions["Attack"];
-        attackInput = 0f;
-        if (attackAction != null)
-        {
-            attackInput = attackAction.ReadValue<float>();
-        }
-
+        attackInput = playerInput.actions["Attack"].ReadValue<float>();
         if (previousAttackInput == 0 && attackInput > 0) // Deteksi transisi dari tidak menekan ke menekan tombol serang
         {
             Shoot();
@@ -68,7 +57,10 @@ public class PlayerController : MonoBehaviour
             : transform.position;
 
         if (Camera.main == null)
+        {
+            Debug.LogError("MainCamera tidak ditemukan di scene.");
             return;
+        }
 
         Vector3 mouseScreenPos = Input.mousePosition;
         mouseScreenPos.z = Mathf.Abs(Camera.main.transform.position.z);
@@ -78,15 +70,30 @@ public class PlayerController : MonoBehaviour
 
         Vector3 shootDirection = (mouseWorldPos - spawnPos).normalized;
 
-        GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+        GameObject bulletObj = null;
+        if (PooledObjects.Instance != null)
+        {
+            bulletObj = PooledObjects.Instance.GetPooledObject(bulletPrefab);
+        }
 
         if (bulletObj == null)
-            return;
-
-        Bullet bullet = bulletObj.GetComponent<Bullet>();
-        if (bullet != null)
         {
-            bullet.SetDirection(shootDirection);
+            bulletObj = Instantiate(bulletPrefab);
+        }
+
+        if (bulletObj != null)
+        {
+            bulletObj.transform.position = spawnPos;
+            bulletObj.transform.rotation = Quaternion.identity;
+
+            Bullet bullet = bulletObj.GetComponent<Bullet>();
+
+            bulletObj.SetActive(true);
+
+            if (bullet != null)
+            {
+                bullet.SetDirection(shootDirection);
+            }
         }
     }
 
@@ -103,7 +110,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float dmg)
     {
         currentHP -= dmg;
-        
+
         // Pastikan HP tidak minus di UI
         currentHP = Mathf.Max(0, currentHP);
 
@@ -117,10 +124,7 @@ public class PlayerController : MonoBehaviour
         if (currentHP <= 0)
         {
             Debug.Log("<color=red>Player Mati!</color>");
-            if (GameManager.Instance != null)
-            {
-                GameManager.Instance.GameOver();
-            }
+            GameManager.Instance.GameOver();
         }
     }
 
