@@ -1,3 +1,4 @@
+// Update 3: Selesai Membuat ObjectPrefab Peluru
 using UnityEngine;
 using System.Collections; // Tambahkan system.collections untuk menggunakan IEnumerator
 
