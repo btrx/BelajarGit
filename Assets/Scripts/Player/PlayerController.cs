@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Tampilkan nilai HP awal di UI.
-       
+        UpdateHPUI();
     }
     
     
@@ -92,10 +92,32 @@ public class PlayerController : MonoBehaviour
         
         Debug.Log($"Spawn Pos: {spawnPos}, Mouse World Pos: {mouseWorldPos}, Direction: {shootDirection}");
 
-      
-        GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+        // Instantiate bullet
+        // GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
         
-        
+        GameObject bulletObj = PooledObjects.Instance.GetPooledObject();
+
+        if (bulletObj != null)
+        {
+            bulletObj.transform.position = spawnPos;
+            bulletObj.transform.rotation = Quaternion.identity;
+            bulletObj.SetActive(true);
+
+            // Set bullet direction
+            Bullet bullet = bulletObj.GetComponent<Bullet>();
+
+            if (bullet != null)
+            {
+                bullet.SetDirection(shootDirection);
+                Debug.Log($"Bullet direction set to: {shootDirection}");
+            }
+            else
+            {
+                Debug.LogError("Bullet component not found on prefab!");
+            }
+            Debug.Log("Bullet spawned!");
+        }
+    }
     void OnCollisionStay2D(Collision2D collision)
     {
         // Jika pemain terus menempel pada objek bertag "Wall", ambil damage.
@@ -135,5 +157,4 @@ public class PlayerController : MonoBehaviour
             hpText.text = $"HP: {currentHP:0}/{playerData.maxHP:0}";
         }
     }
-}
 }
