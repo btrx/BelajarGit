@@ -1,14 +1,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro; // WAJIB untuk menggunakan TextMeshPro
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     public PlayerData data;
     public TextMeshProUGUI hpText; // Tarik objek Text HP kamu ke sini di Inspector
-
     private float currentHP;
     private PlayerInput playerInput;
+
+    public GameObject bulletPrefab; // Prefab peluru
+    public Transform bulletSpawnPoint; // Titik tembak peluru
+    private float attackInput; // Variabel untuk menyimpan input serangan
+    private float previousAttackInput; // Variabel untuk menyimpan input serangan sebelumnya
+
 
     void Start()
     {
@@ -34,6 +39,7 @@ public class PlayerController : MonoBehaviour
         transform.Translate(new Vector3(moveInput.x, moveInput.y, 0) * data.moveSpeed * Time.deltaTime);
     }
 
+ 
     void OnCollisionStay2D(Collision2D collision)
     {
         // 3. DETEKSI DAMAGE (Tembok)
