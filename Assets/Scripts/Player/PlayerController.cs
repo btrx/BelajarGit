@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Tampilkan nilai HP awal di UI.
-        // UpdateHPUI();
+       
     }
     
     
@@ -92,8 +92,10 @@ public class PlayerController : MonoBehaviour
         
         Debug.Log($"Spawn Pos: {spawnPos}, Mouse World Pos: {mouseWorldPos}, Direction: {shootDirection}");
 
-        // Instantiate bullet
-    
+      
+        GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+        
+        
     void OnCollisionStay2D(Collision2D collision)
     {
         // Jika pemain terus menempel pada objek bertag "Wall", ambil damage.
