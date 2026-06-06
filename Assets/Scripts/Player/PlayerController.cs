@@ -10,6 +10,16 @@ public class PlayerController : MonoBehaviour
     private PlayerInput playerInput;
     private Vector2 moveInput;
 
+    // fitur serangan
+    // variabel untuk menyimpan input serangan sebelum nya
+    public GameObject bulletPrefab;
+    // variabel untuk menentukan posisi spawn peluru
+    public Transform bulletSpawnPoint;
+    // variabel untuk melakukan serangan
+    private float attackinput;
+    // variabel untuk menyimpan input serangan sebelumnya agar bisa mendeteksi perubahan
+    private float previousattackinput;
+
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -28,8 +38,15 @@ public class PlayerController : MonoBehaviour
     if (playerInput == null) return;
     
     moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
+
+    // baca input serangan
+    attackinput = playerInput.actions["Attack"].ReadValue<float>();
+
+    float h = moveInput.x;
+    float v = moveInput.y;
+
     transform.Translate(new Vector3(moveInput.x, moveInput.y, 0) * speed * Time.deltaTime);
-    }
+
 
     void OnCollisionStay2D(Collision2D collision)
     {
@@ -47,6 +64,7 @@ public class PlayerController : MonoBehaviour
     if (currentHP <= 0)
     {
         GameManager.Instance.GameOver(); 
+    }
     }
     }
 }
