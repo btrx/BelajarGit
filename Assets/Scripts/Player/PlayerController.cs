@@ -37,9 +37,34 @@ public class PlayerController : MonoBehaviour
         // 2. LOGIKA GERAK
         Vector2 moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
         transform.Translate(new Vector3(moveInput.x, moveInput.y, 0) * data.moveSpeed * Time.deltaTime);
+
+        // 3. LOGIKA SERANG
+        attackInput = playerInput.actions["Attack"].ReadValue<float>();
+        if (previousAttackInput == 0 && attackInput > 0) // Deteksi transisi dari tidak menekan ke menekan tombol serang
+        {
+            Shoot();
+        }
+        previousAttackInput = attackInput;
     }
 
- 
+    void Shoot()
+{
+    if (bulletPrefab == null)
+        return;
+
+    Vector3 spawnPos = bulletSpawnPoint != null
+        ? bulletSpawnPoint.position
+        : transform.position;
+
+    Vector3 mouseScreenPos = Input.mousePosition;
+    mouseScreenPos.z = Mathf.Abs(Camera.main.transform.position.z);
+
+    Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+    mouseWorldPos.z = 0;
+
+    Vector3 shootDirection = (mouseWorldPos - spawnPos).normalized;
+}
+
     void OnCollisionStay2D(Collision2D collision)
     {
         // 3. DETEKSI DAMAGE (Tembok)
