@@ -1,0 +1,32 @@
+[33m0df8eaa[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32muts-fix[m[33m, [m[1;31morigin/uts-fix[m[33m)[m feat: implement playing ui and hp display
+[33m7caa266[m fix: add pause resume restart and menu flow
+[33m39f4d91[m fix : setup main menu buttons and UI flow
+[33m3dd4114[m Perbaikan Scriptable Objec
+[33m4460d5f[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m Merge branch 'btrx:main' into main
+[33ma5d5373[m Add ujicobabaru.txt with initial content
+[33me81d4e3[m Update ujicoba.txt
+[33m28cb743[m Add testing content to ujicoba.txt
+[33m9559130[m Update README title for clarity
+[33m3c5cddd[m Merge pull request #101 from donidump/main
+[33m2fbd757[m final test
+[33m26fda4c[m update add gameplay
+[33m31a2bda[m Merge pull request #100 from donidump/main
+[33mb69fbcd[m remove unnecessary
+[33m89bfca5[m add test:
+[33m10c5831[m Merge branch 'btrx:main' into main
+[33m2eeeddd[m Create update.txt
+[33m61d526b[m Menambahkan nazrul.txt
+[33m98ef352[m Merge pull request #40 from donidump/feature/AddNameScript
+[33mde81c11[m add kegiatan
+[33m6b2f3a6[m Add Git usage guidelines and daily workflow instructions
+[33mcb45b41[m revoke tambah nama
+[33mff8c2f3[m Revert "Menambahkan script untuk print nama"
+[33md80f87c[m menambahkan script nama Doni
+[33m437a4ae[m Merge pull request #5 from Al-Fatih123/feature/menambahkannama
+[33m5aa12fe[m tambah script buat nama revisi
+[33mab03232[m Merge pull request #3 from donidump/feature/MenambahkanNama
+[33m9033930[m tambah script buat nama
+[33md596588[m Menambahkan script untuk print nama
+[33m7c2e362[m Merge pull request #1 from donidump/main
+[33m0f26eb2[m add Script
+[33m4f79469[m init
