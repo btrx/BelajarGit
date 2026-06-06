@@ -12,7 +12,6 @@ public class Bullet : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
     void OnEnable()
     {
         StopAllCoroutines();
