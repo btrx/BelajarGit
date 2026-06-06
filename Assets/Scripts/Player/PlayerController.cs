@@ -72,31 +72,30 @@ public class PlayerController : MonoBehaviour
 
         // Instantiate bullet
         // GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
-        
         // Command ini
 
-        // GameObject bulletObj = PooledObjects.Instance.GetPooledObject();
+        GameObject bulletObj = PooledObjects.Instance.GetPooledObject();
 
-        // if (bulletObj != null)
-        // {
-        //     bulletObj.transform.position = spawnPos;
-        //     bulletObj.transform.rotation = Quaternion.identity;
-        //     bulletObj.SetActive(true);
+        if (bulletObj != null)
+        {
+            bulletObj.transform.position = spawnPos;
+            bulletObj.transform.rotation = Quaternion.identity;
+            bulletObj.SetActive(true);
 
-        //     // Set bullet direction
-        //     Bullet bullet = bulletObj.GetComponent<Bullet>();
+            // Set bullet direction
+            Bullet bullet = bulletObj.GetComponent<Bullet>();
 
-        //     if (bullet != null)
-        //     {
-        //         bullet.SetDirection(shootDirection);
-        //         Debug.Log($"Bullet direction set to: {shootDirection}");
-        //     }
-        //     else
-        //     {
-        //         Debug.LogError("Bullet component not found on prefab!");
-        //     }
-        //     Debug.Log("Bullet spawned!");
-        // }
+            if (bullet != null)
+            {
+                bullet.SetDirection(shootDirection);
+                Debug.Log($"Bullet direction set to: {shootDirection}");
+            }
+            else
+            {
+                Debug.LogError("Bullet component not found on prefab!");
+            }
+            Debug.Log("Bullet spawned!");
+        }
 
     }
 
