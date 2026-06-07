@@ -2,37 +2,69 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager Instance { get; private set; }
 
-    public GameState currentState;
+    [SerializeField] private GameState currentState;
 
     void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Start()
     {
-        currentState = GameState.Playing;
+        ChangeState(GameState.MainMenu);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            if (currentState == GameState.Playing)
+                ChangeState(GameState.Paused);
+            else if (currentState == GameState.Paused)
+                ChangeState(GameState.Playing);
         }
     }
 
-    public void PauseGame()
+    public void ChangeState(GameState newState)
     {
-        Time.timeScale = 0f;
-        currentState = GameState.Paused;
+        currentState = newState;
+
+        switch (currentState)
+        {
+            case GameState.MainMenu:
+                Time.timeScale = 1f;
+                Debug.Log("Main Menu");
+                break;
+            case GameState.Playing:
+                Time.timeScale = 1f;
+                Debug.Log("Playing");
+                Object.FindFirstObjectByType<UIManager>().ShowResumed();
+                break;
+            case GameState.Paused:
+                Time.timeScale = 0f;
+                Debug.Log("Paused");
+                Object.FindFirstObjectByType<UIManager>().ShowPaused();
+                break;
+            case GameState.GameOver:
+                Time.timeScale = 0f;
+                Debug.Log("Game Over");
+                Object.FindFirstObjectByType<UIManager>().ShowGameOver();
+                break;
+        }
     }
 
-    public void GameOver()
-    {
-        Debug.Log("Game Over");
-        currentState = GameState.GameOver;
-    }
+    public void StartGame() => ChangeState(GameState.Playing);
+    public void PauseGame() => ChangeState(GameState.Paused);
+    public void ResumeGame() => ChangeState(GameState.Playing);
+    public void GameOver() => ChangeState(GameState.GameOver);
 }
