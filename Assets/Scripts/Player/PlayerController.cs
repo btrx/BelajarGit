@@ -3,14 +3,21 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float currentHP = 100;
-    public float speed = 5f;
+    public PlayerData playerData;
+    public float currentHP;
+    public float speed;
     private PlayerInput playerInput;
     private Vector2 moveInput;
+    private Rigidbody2D rb;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+        rb = GetComponent<Rigidbody2D>();
+
+        currentHP = playerData.maxHP;
+        speed = playerData.moveSpeed;
+
     }
     
     
@@ -22,7 +29,7 @@ public class PlayerController : MonoBehaviour
         float h = moveInput.x;
         float v = moveInput.y;
 
-        transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
+        rb.linearVelocity = new Vector2(h * speed, v * speed);
     }
 
     void OnCollisionStay2D(Collision2D collision)

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,20 +20,59 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
+    {
+        PauseGame();
+    }
+
+    if (currentState == GameState.MainMenu)
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            PauseGame();
+            Time.timeScale = 1f;
+            currentState = GameState.Playing;
         }
     }
 
-    public void PauseGame()
+    if (Input.GetKeyDown(KeyCode.R))
     {
-        Time.timeScale = 0f;
-        currentState = GameState.Paused;
+        RestartGame();
     }
+    }
+
+  public void PauseGame()
+    {
+        if (currentState == GameState.Playing)
+        {
+            Time.timeScale = 0f;
+            currentState = GameState.Paused;
+        }
+        else if (currentState == GameState.Paused)
+        {
+            Time.timeScale = 1f;
+            currentState = GameState.Playing;
+        }
+    }    
+
+  public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        currentState = GameState.Playing;
+    }    
 
     public void GameOver()
     {
         Debug.Log("Game Over");
+
+        Time.timeScale = 0f;
         currentState = GameState.GameOver;
     }
+
+     public void RestartGame()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(
+        SceneManager.GetActiveScene().buildIndex
+        );
+    }   
 }
