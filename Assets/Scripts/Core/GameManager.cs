@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 
     public GameState currentState;
 
+    public UIManager uiManager;
+
     void Awake()
     {
         Instance = this;
@@ -14,25 +16,31 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currentState = GameState.Playing;
-    }
 
+        Time.timeScale = 1f;
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            if (currentState == GameState.Playing)
+            {
+                uiManager.PauseGame();
+            }
+            else if (currentState == GameState.Paused)
+            {
+                uiManager.ResumeGame();
+            }
         }
     }
-
-    public void PauseGame()
-    {
-        Time.timeScale = 0f;
-        currentState = GameState.Paused;
-    }
-
     public void GameOver()
     {
-        Debug.Log("Game Over");
         currentState = GameState.GameOver;
+
+        Time.timeScale = 0f;
+
+        uiManager.ShowGameOver();
+
+        Debug.Log("Game Over");
     }
 }
