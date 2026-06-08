@@ -3,44 +3,75 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float currentHP = 100;
-    public float speed = 5f;
-    private PlayerInput playerInput;
-    private Vector2 moveInput;
-
+    public PlayerStat playerData;
+    private float currentHP;
+    private float speed;
+    public GameObject bulletPrefab;
+    private Vector2 lastDirection = Vector2.right;
+    public Transform bulletSpawnPoint;
     void Start()
     {
-        playerInput = GetComponent<PlayerInput>();
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+
+            speed = 5f;
+            currentHP = 100f;
     }
-    
-    
+
     void Update()
     {
-        if (playerInput == null) return;
-        
-        moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
-        float h = moveInput.x;
-        float v = moveInput.y;
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
 
-        transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
+        Vector2 moveDir = new Vector2(h, v);
+
+        if (moveDir != Vector2.zero)
+        {
+            lastDirection = moveDir.normalized;
+        }
+
+        Vector3 move = new Vector3(h, v, 0);
+
+        transform.position += move * speed * Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Shoot();
+        }
     }
 
-    void OnCollisionStay2D(Collision2D collision)
+    void Shoot()
+    {
+        GameObject bullet = PooledObjects.Instance.GetPooledObject();
+
+        if (bullet != null)
+        {
+            bullet.transform.position = transform.position + (Vector3)lastDirection;
+
+            bullet.SetActive(true);
+
+            bullet.GetComponent<Bullet>()
+                .SetDirection(lastDirection);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            TakeDamage(0.1f);
+            TakeDamage(1);
         }
     }
 
     void TakeDamage(float dmg)
     {
         currentHP -= dmg;
-        Debug.Log("Player HP: " + currentHP);
 
-        if (currentHP <= 0)
+        if (currentHP < 0)
         {
-            GameManager.Instance.GameOver();
+            currentHP = 0;
         }
+
+        Debug.Log("Player HP: " + currentHP);
     }
 }
