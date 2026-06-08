@@ -1,3 +1,4 @@
+// using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +11,14 @@ public class UIManager : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        // Untuk Keluar dari game
+        Debug.Log("Tombol quit ke klik");
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+        
     }
 
     public void Restart()
