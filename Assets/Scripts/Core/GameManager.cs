@@ -16,6 +16,14 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        // Ensure PlayerGuardian exists to auto-recover the player if unexpectedly deactivated
+        if (FindObjectOfType<PlayerGuardian>() == null)
+        {
+            GameObject guardian = new GameObject("_PlayerGuardian");
+            guardian.AddComponent<PlayerGuardian>();
+            DontDestroyOnLoad(guardian);
+            Debug.Log("GameManager: PlayerGuardian created to monitor player presence.");
+        }
     }
 
     private void Start()
