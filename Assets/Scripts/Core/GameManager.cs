@@ -1,38 +1,81 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
     public GameState currentState;
+    public UIManager uiManager;
 
-    void Awake()
+    private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+        // Ensure PlayerGuardian exists to auto-recover the player if unexpectedly deactivated
+        if (FindObjectOfType<PlayerGuardian>() == null)
+        {
+            GameObject guardian = new GameObject("_PlayerGuardian");
+            guardian.AddComponent<PlayerGuardian>();
+            DontDestroyOnLoad(guardian);
+            Debug.Log("GameManager: PlayerGuardian created to monitor player presence.");
+        }
     }
 
-    void Start()
+    private void Start()
     {
         currentState = GameState.Playing;
+        Time.timeScale = 1f;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            if (currentState == GameState.Playing)
+            {
+                PauseGame();
+            }
+            else if (currentState == GameState.Pause)
+            {
+                ResumeGame();
+            }
         }
+    }
+
+    public void ChangeState(GameState newState)
+    {
+        currentState = newState;
     }
 
     public void PauseGame()
     {
+        currentState = GameState.Pause;
         Time.timeScale = 0f;
-        currentState = GameState.Paused;
+        if (uiManager != null)
+        {
+            uiManager.Pause();
+        }
+    }
+
+    public void ResumeGame()
+    {
+        currentState = GameState.Playing;
+        Time.timeScale = 1f;
+        if (uiManager != null)
+        {
+            uiManager.Resume();
+        }
     }
 
     public void GameOver()
     {
-        Debug.Log("Game Over");
         currentState = GameState.GameOver;
+        Time.timeScale = 0f;
+        Debug.Log("Game Over");
     }
-}
+} 
