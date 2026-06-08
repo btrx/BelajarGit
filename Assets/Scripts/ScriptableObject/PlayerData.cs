@@ -1,8 +1,8 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerData", menuName = "Game/Player Data")]
-public class PlayerData : ScriptableObject
+[CreateAssetMenu(fileName = "PlayerStat", menuName = "Game/Player Stat")]
+public class PlayerStat : ScriptableObject
 {
-    public int hp;
-    public float speed;
+    public int hp = 100;
+    public float speed = 5f;
 }
