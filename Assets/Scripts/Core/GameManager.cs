@@ -7,21 +7,16 @@ public class GameManager : MonoBehaviour
     public UnityEngine.UI.Button resumeButton;
 
     public static GameManager Instance
-    
     {
         get
         {
             if (instance == null)
-            {
                 instance = FindFirstObjectByType<GameManager>();
-            }
-
             return instance;
         }
     }
 
     public GameState currentState;
-
     public GameState CurrentState => currentState;
 
     void OnEnable()
@@ -41,7 +36,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         instance = this;
     }
 
@@ -52,18 +46,15 @@ public class GameManager : MonoBehaviour
         if (resumeButtonObj != null)
         {
             resumeButton = resumeButtonObj.GetComponent<UnityEngine.UI.Button>();
-            resumeButton.gameObject.SetActive(false); 
+            resumeButton.gameObject.SetActive(false);
         }
-        
         SyncStateWithActiveScene(SceneManager.GetActiveScene().name);
     }
 
     void Update()
     {
         if (currentState == GameState.Playing && Input.GetKeyDown(KeyCode.Escape))
-        {
             PauseGame();
-        }
     }
 
     public void StartGame()
@@ -74,23 +65,19 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         if (currentState != GameState.Playing) return;
-
         Time.timeScale = 0f;
         currentState = GameState.Paused;
-        
         if (resumeButton != null)
-            resumeButton.gameObject.SetActive(true); // Tampilkan saat pause
+            resumeButton.gameObject.SetActive(true);
     }
 
     public void ResumeGame()
     {
         if (currentState != GameState.Paused) return;
-
         Time.timeScale = 1f;
         currentState = GameState.Playing;
-        
         if (resumeButton != null)
-            resumeButton.gameObject.SetActive(false); // Sembunyikan saat resume
+            resumeButton.gameObject.SetActive(false);
     }
 
     public void GameOver()
@@ -131,13 +118,11 @@ public class GameManager : MonoBehaviour
             SetState(GameState.Playing);
             return;
         }
-
         if (sceneName == "GameOver")
         {
             SetState(GameState.GameOver);
             return;
         }
-
         SetState(GameState.MainMenu);
     }
 }
