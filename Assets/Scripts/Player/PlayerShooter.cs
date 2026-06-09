@@ -5,7 +5,9 @@ public class PlayerShooter : MonoBehaviour
 {
     [Header("Shooting Settings")]
     public BulletData bulletData;
+    public GameObject bulletPrefab;
     public Transform firePoint;
+    public float fireCooldownTime = 0.3f;
 
     private PlayerInput playerInput;
     private ObjectPoolManager poolManager;
@@ -16,6 +18,9 @@ public class PlayerShooter : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         poolManager = ObjectPoolManager.Instance;
+
+        if (bulletData == null)
+            bulletData = Resources.Load<BulletData>("BulletData");
     }
 
     void Update()
@@ -36,21 +41,33 @@ public class PlayerShooter : MonoBehaviour
 
     private void Shoot()
     {
-        if (poolManager == null || bulletData == null) return;
-
         Vector3 spawnPos = firePoint != null ? firePoint.position : transform.position;
+        GameObject bulletObj = null;
 
-        GameObject bullet = poolManager.GetBullet();
-        bullet.transform.position = spawnPos;
-        bullet.transform.rotation = Quaternion.identity;
-
-        BulletController bc = bullet.GetComponent<BulletController>();
-        if (bc != null)
+        if (poolManager != null && poolManager.bulletPrefab != null)
         {
-            bc.bulletData = bulletData;
-            bc.Launch(lastMoveDirection);
+            bulletObj = poolManager.GetBullet();
+        }
+        else if (bulletPrefab != null)
+        {
+            bulletObj = Instantiate(bulletPrefab);
+        }
+        else
+        {
+            return;
         }
 
-        fireCooldown = 0.3f;
+        bulletObj.transform.position = spawnPos;
+        bulletObj.transform.rotation = Quaternion.identity;
+
+        Bullet bc = bulletObj.GetComponent<Bullet>();
+        if (bc != null)
+        {
+            if (bulletData != null) bc.bulletData = bulletData;
+            bc.shooterTag = gameObject.tag;
+            bc.Fire(lastMoveDirection);
+        }
+
+        fireCooldown = fireCooldownTime;
     }
 }

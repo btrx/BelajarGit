@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
+
+    [Header("UI Settings")]
+    public GameObject pauseMenuUI;
     public UnityEngine.UI.Button resumeButton;
 
     public static GameManager Instance
@@ -42,19 +45,27 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SyncStateWithActiveScene(SceneManager.GetActiveScene().name);
+        
+        if (pauseMenuUI != null)
+            pauseMenuUI.SetActive(false);
+
         GameObject resumeButtonObj = GameObject.FindWithTag("Resume");
         if (resumeButtonObj != null)
         {
             resumeButton = resumeButtonObj.GetComponent<UnityEngine.UI.Button>();
             resumeButton.gameObject.SetActive(false);
         }
-        SyncStateWithActiveScene(SceneManager.GetActiveScene().name);
     }
 
     void Update()
     {
-        if (currentState == GameState.Playing && Input.GetKeyDown(KeyCode.Escape))
-            PauseGame();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (currentState == GameState.Playing)
+                PauseGame();
+            else if (currentState == GameState.Paused)
+                ResumeGame();
+        }
     }
 
     public void StartGame()
@@ -67,6 +78,9 @@ public class GameManager : MonoBehaviour
         if (currentState != GameState.Playing) return;
         Time.timeScale = 0f;
         currentState = GameState.Paused;
+        
+        if (pauseMenuUI != null)
+            pauseMenuUI.SetActive(true);
         if (resumeButton != null)
             resumeButton.gameObject.SetActive(true);
     }
@@ -76,6 +90,9 @@ public class GameManager : MonoBehaviour
         if (currentState != GameState.Paused) return;
         Time.timeScale = 1f;
         currentState = GameState.Playing;
+        
+        if (pauseMenuUI != null)
+            pauseMenuUI.SetActive(false);
         if (resumeButton != null)
             resumeButton.gameObject.SetActive(false);
     }
