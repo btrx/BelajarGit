@@ -15,6 +15,31 @@ public class UIManager : MonoBehaviour
 
     public void Restart()
     {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.RestartGame();
+            return;
+        }
+
         SceneManager.LoadScene("Game");
+    }
+
+    public void Resume()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.ResumeGame();
+        }
+    }
+
+    public void BackToMenu()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.ReturnToMainMenu();
+            return;
+        }
+
+        SceneManager.LoadScene("MainMenu");
     }
 }
